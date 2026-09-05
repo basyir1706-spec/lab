@@ -305,6 +305,7 @@ body {
   cursor: pointer;
   position: relative;
   user-select: none;
+  flex-shrink: 0;
 }
 
 /* Hari Ini (Tema Oren) apabila dipilih / aktif */
