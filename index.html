@@ -202,7 +202,7 @@
               <div class="flex items-center justify-between mb-4">
                 <div>
                   <h3 class="text-sm font-extrabold text-slate-800">Rekod Paparan Penggunaan Laboratorium</h3>
-                  <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Log aktif semasa &amp; keutamaan semakan checkout</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5 font-medium" id="usageTableSubtitle">Log aktif semasa (Hari Ini, 20 Ogos 2026) &amp; keutamaan semakan checkout</p>
                 </div>
                 <button onclick="openCheckinModal()" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3.5 py-1.5 rounded-xl transition-all shadow-sm">
                   <i class="w-3.5 h-3.5" data-lucide="key-round"></i> Check-In
@@ -228,21 +228,21 @@
           <div class="xl:col-span-5 bg-white p-5 lg:p-6 rounded-2xl shadow-soft border border-slate-100 space-y-4">
 
             <!-- DATE PICKER STRIP with clickable calendar icon for picking dates -->
-            <div>
-              <div class="flex items-center justify-between mb-2">
+            <div class="text-center">
+              <div class="flex flex-col items-center justify-center gap-1 mb-2.5">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Date Picker Strip</span>
                 <div class="relative">
-                  <button type="button" onclick="openNativeCalendarPicker()" class="flex items-center gap-1.5 hover:bg-slate-100 px-2 py-1 rounded-lg transition-colors cursor-pointer group" title="Klik untuk pilih tarikh kalendar">
+                  <button type="button" onclick="openNativeCalendarPicker()" class="flex items-center gap-1.5 hover:bg-slate-100 px-3 py-1 rounded-lg transition-colors cursor-pointer group" title="Klik untuk pilih tarikh kalendar">
                     <i class="w-3.5 h-3.5 text-orange-500 group-hover:scale-110 transition-transform" data-lucide="calendar"></i>
-                    <span class="text-xs font-semibold text-slate-700" id="currentMonthYearDisplay">Ogos 2026</span>
+                    <span class="text-xs font-bold text-slate-700" id="currentMonthYearDisplay">Ogos 2026</span>
                   </button>
                   <input type="date" id="nativeCalendarInput" class="absolute opacity-0 pointer-events-none -bottom-1 right-0 w-0 h-0" onchange="onCalendarDateSelected(this.value)" value="2026-08-20" />
                 </div>
               </div>
-              <div class="flex items-center justify-between gap-1 pt-1 pb-1">
-                <button onclick="navigateDateStrip(-1)" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"><i class="w-4 h-4" data-lucide="chevron-left"></i></button>
-                <div class="flex items-center gap-1 overflow-x-auto py-1" id="dateStripContainer"></div>
-                <button onclick="navigateDateStrip(1)" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"><i class="w-4 h-4" data-lucide="chevron-right"></i></button>
+              <div class="flex items-center justify-center gap-1 pt-1 pb-1">
+                <button onclick="navigateDateStrip(-1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" title="Hari Sebelumnya"><i class="w-4 h-4" data-lucide="chevron-left"></i></button>
+                <div class="flex items-center justify-center gap-1 overflow-x-auto py-1" id="dateStripContainer"></div>
+                <button onclick="navigateDateStrip(1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" title="Hari Seterusnya"><i class="w-4 h-4" data-lucide="chevron-right"></i></button>
               </div>
             </div>
 
@@ -284,20 +284,10 @@
 
             <hr class="border-slate-100" />
 
-            <!-- SEARCH -->
-            <div>
-              <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">Search input</label>
-              <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400"><i class="w-3.5 h-3.5" data-lucide="search"></i></span>
-                <input id="labSearchInput" oninput="onSearchLabInput(this.value)" class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 placeholder-slate-400 transition-all" placeholder="Type here..." type="text" />
-              </div>
-            </div>
-
-            <!-- SENARAI MAKMAL (2-col, hover 0.5s to expand the card itself) -->
+            <!-- SENARAI MAKMAL (2-col) -->
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Senarai Makmal</span>
-                <span class="text-[10px] text-slate-400">Hover 0.5s untuk kembang</span>
               </div>
               <div id="labCompactGrid" onmouseleave="onLabGridMouseLeave()" class="lab-grid-compact max-h-80 overflow-y-auto pr-1 pb-1"></div>
             </div>

@@ -288,32 +288,60 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DATE STRIP BUTTONS
+   DATE STRIP BUTTONS (TEMA OREN HARI INI & TEMA HITAM PILIHAN LAIN)
    ═══════════════════════════════════════════════════════════ */
 .date-strip-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 3rem;
+  width: 2.35rem;
+  height: 3.1rem;
   border-radius: 0.75rem;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.7rem;
-  border: none;
+  border: 1.5px solid transparent;
   background: transparent;
   cursor: pointer;
+  position: relative;
+  user-select: none;
 }
 
-.date-strip-btn.active {
-  background: #0f172a;
-  color: #ffffff;
+/* Hari Ini (Tema Oren) apabila dipilih / aktif */
+.date-strip-btn.active-today {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  border-color: #f97316 !important;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+  font-weight: 700;
+  transform: translateY(-1px);
+}
+
+/* Hari Ini apabila pengguna klik hari lain (kekal bertema oren) */
+.date-strip-btn.today-unselected {
+  background: #fff7ed;
+  border-color: #fdba74;
+  color: #ea580c;
+}
+.date-strip-btn.today-unselected:hover {
+  background: #ffedd5;
+  border-color: #f97316;
+}
+
+/* Pilih Hari Lain (Tema Hitam Pekat Elegan) */
+.date-strip-btn.active-other {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
   font-weight: 700;
+  transform: translateY(-1px);
 }
 
-.date-strip-btn:not(.active):hover {
+/* Hari lain biasa tidak dipilih */
+.date-strip-btn.regular-day:hover {
   background: #f1f5f9;
+  color: #0f172a;
 }
 
 /* ═══════════════════════════════════════════════════════════

@@ -16,12 +16,87 @@ let labsData = [
   { id:'PL-01',   code:'PL 1',   name:'Project Lab 1',                  floor:'Aras 1', status:'Tersedia', currentUser:null, startTime:null, endTime:null, isCurrentUser:false, isOverdue:false },
 ];
 
-let usageRecords = [
-  { id:'rec-01', labCode:'ILL 1', labName:'Industrial LED Lab 1', user:'Pn. Rohana', role:'Pensyarah Kanan', statusType:'in-use', startTime:'08:30 AM', endTime:'10:30 AM', isCurrentUser:true, isOverdue:false },
-  { id:'rec-04', labCode:'ADL 2', labName:'Application Development Lab 2', user:'En. Khairul', role:'Jurutera Komputer', statusType:'in-use', startTime:'09:00 AM', endTime:'11:00 AM', isCurrentUser:false, isOverdue:false },
-  { id:'rec-02', labCode:'CSDL 1', labName:'Computer System & Digital Lab 1', user:'En. Khairul', role:'Jurutera', statusType:'completed', startTime:'08:00 AM', endTime:'09:30 AM', isCurrentUser:false, isOverdue:false },
-  { id:'rec-03', labCode:'CNL', labName:'Computer Network Lab', user:'Pelajar Sem 4', role:'Amali Rangkaian', statusType:'completed', startTime:'08:00 AM', endTime:'10:00 AM', isCurrentUser:false, isOverdue:false },
-];
+const TODAY_DAY = 20;
+let currentCalendarDay = 20;
+
+let dailyUsageRecords = {
+  19: [ // Ahad, 19 Ogos 2026 (Rekod Penggunaan Lepas / Selesai)
+    { id:'rec-19-01', labCode:'ADL 1', labName:'Application Development Lab 1', user:'Ts. Dr. Hafiz', role:'Pensyarah Kanan (Web Dev)', statusType:'completed', startTime:'08:30 AM', endTime:'10:30 AM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-19-02', labCode:'CSDL 2', labName:'Computer System & Digital Lab 2', user:'En. Saiful Bahri', role:'Pegawai Latihan Vokasional', statusType:'completed', startTime:'10:00 AM', endTime:'12:30 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-19-03', labCode:'ILL 2', labName:'Industrial LED Lab 2', user:'Pn. Norazlin', role:'Pensyarah Elektronik', statusType:'completed', startTime:'02:00 PM', endTime:'04:30 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-19-04', labCode:'CNL', labName:'Computer Network Lab', user:'En. Azwan', role:'Jurutera Sistem Komputer', statusType:'completed', startTime:'08:00 AM', endTime:'11:00 AM', isCurrentUser:false, isOverdue:false }
+  ],
+  20: [ // Isnin, 20 Ogos 2026 (Hari Ini - Log Aktif Semasa)
+    { id:'rec-01', labCode:'ILL 1', labName:'Industrial LED Lab 1', user:'Pn. Rohana', role:'Pensyarah Kanan', statusType:'in-use', startTime:'08:30 AM', endTime:'10:30 AM', isCurrentUser:true, isOverdue:false },
+    { id:'rec-04', labCode:'ADL 2', labName:'Application Development Lab 2', user:'En. Khairul', role:'Jurutera Komputer', statusType:'in-use', startTime:'09:00 AM', endTime:'11:00 AM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-02', labCode:'CSDL 1', labName:'Computer System & Digital Lab 1', user:'En. Khairul', role:'Jurutera', statusType:'completed', startTime:'08:00 AM', endTime:'09:30 AM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-03', labCode:'CNL', labName:'Computer Network Lab', user:'Pelajar Sem 4', role:'Amali Rangkaian', statusType:'completed', startTime:'08:00 AM', endTime:'10:00 AM', isCurrentUser:false, isOverdue:false }
+  ],
+  21: [ // Selasa, 21 Ogos 2026 (Esok - Tempahan Berjadual)
+    { id:'rec-21-01', labCode:'ILL 1', labName:'Industrial LED Lab 1', user:'Pn. Rohana', role:'Bengkel Rekabentuk PCB', statusType:'upcoming', startTime:'08:30 AM', endTime:'11:30 AM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-21-02', labCode:'ADL 3', labName:'Application Development Lab 3', user:'Dr. Mohd Faiz', role:'Kuliah Aplikasi Mudah Alih', statusType:'upcoming', startTime:'10:00 AM', endTime:'12:00 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-21-03', labCode:'CNL', labName:'Computer Network Lab', user:'En. Syukri', role:'Ujian Praktikal Routing', statusType:'upcoming', startTime:'02:00 PM', endTime:'05:00 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-21-04', labCode:'PL 1', labName:'Project Lab 1', user:'Ts. Noraini', role:'Sesi Bimbingan FYP', statusType:'upcoming', startTime:'02:30 PM', endTime:'04:30 PM', isCurrentUser:false, isOverdue:false }
+  ],
+  22: [ // Rabu, 22 Ogos 2026
+    { id:'rec-22-01', labCode:'CSDL 1', labName:'Computer System & Digital Lab 1', user:'Ts. Dr. Zulkifli', role:'Seni Bina Komputer', statusType:'upcoming', startTime:'09:00 AM', endTime:'12:00 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-22-02', labCode:'ADL 4', labName:'Application Development Lab 4', user:'Pn. Farah Hani', role:'Pembangunan Sistem Web II', statusType:'upcoming', startTime:'02:30 PM', endTime:'04:30 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-22-03', labCode:'ILL 2', labName:'Industrial LED Lab 2', user:'En. Razak', role:'Ujian Litar Bersepadu', statusType:'upcoming', startTime:'08:30 AM', endTime:'10:30 AM', isCurrentUser:false, isOverdue:false }
+  ],
+  23: [ // Khamis, 23 Ogos 2026
+    { id:'rec-23-01', labCode:'CNL', labName:'Computer Network Lab', user:'Bengkel CCNA Cisco', role:'Persijilan Profesional', statusType:'upcoming', startTime:'08:30 AM', endTime:'01:00 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-23-02', labCode:'PL 1', labName:'Project Lab 1', user:'Kumpulan Projek Akhir', role:'Ujian Fabrikasi Projek', statusType:'upcoming', startTime:'02:00 PM', endTime:'05:00 PM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-23-03', labCode:'ADL 1', labName:'Application Development Lab 1', user:'En. Saiful', role:'Amali Pangkalan Data', statusType:'upcoming', startTime:'10:00 AM', endTime:'12:30 PM', isCurrentUser:false, isOverdue:false }
+  ],
+  24: [ // Jumaat, 24 Ogos 2026
+    { id:'rec-24-01', labCode:'ADL 2', labName:'Application Development Lab 2', user:'Dr. Azman', role:'Pengaturcaraan Python', statusType:'upcoming', startTime:'08:30 AM', endTime:'11:30 AM', isCurrentUser:false, isOverdue:false },
+    { id:'rec-24-02', labCode:'ILL 2', labName:'Industrial LED Lab 2', user:'Kelab Robotik & IoT', role:'Aktiviti Ko-Kurikulum', statusType:'upcoming', startTime:'02:30 PM', endTime:'05:00 PM', isCurrentUser:false, isOverdue:false }
+  ],
+  25: [ // Sabtu, 25 Ogos 2026
+    { id:'rec-25-01', labCode:'CSDL 2', labName:'Computer System & Digital Lab 2', user:'Pasukan Teknikal IT', role:'Penyelenggaraan Berjadual OS & Lab', statusType:'upcoming', startTime:'09:00 AM', endTime:'01:00 PM', isCurrentUser:false, isOverdue:false }
+  ]
+};
+
+// Aliasing usageRecords for backward compatibility with today's records (Day 20)
+let usageRecords = dailyUsageRecords[20];
+
+function getRecordsForDay(day) {
+  if (dailyUsageRecords[day]) {
+    return dailyUsageRecords[day];
+  }
+  const labCodes = ['ADL 1', 'ILL 1', 'CNL', 'CSDL 1', 'PL 1'];
+  const users = ['Pn. Rohana', 'Dr. Mohd Faiz', 'En. Khairul', 'Ts. Dr. Hafiz', 'Pn. Farah Hani'];
+  const roles = ['Pensyarah Kanan', 'Penyelaras Makmal', 'Jurutera Sistem', 'Amali Pengaturcaraan', 'Projek Tahun Akhir'];
+  const st = (day < TODAY_DAY) ? 'completed' : 'upcoming';
+
+  dailyUsageRecords[day] = [
+    {
+      id: `rec-${day}-01`,
+      labCode: labCodes[(day % labCodes.length)],
+      labName: 'Makmal ' + labCodes[(day % labCodes.length)],
+      user: users[(day % users.length)],
+      role: roles[(day % roles.length)],
+      statusType: st,
+      startTime: '08:30 AM',
+      endTime: '11:00 AM',
+      isCurrentUser: false,
+      isOverdue: false
+    },
+    {
+      id: `rec-${day}-02`,
+      labCode: labCodes[((day + 2) % labCodes.length)],
+      labName: 'Makmal ' + labCodes[((day + 2) % labCodes.length)],
+      user: users[((day + 1) % users.length)],
+      role: roles[((day + 1) % roles.length)],
+      statusType: st,
+      startTime: '02:00 PM',
+      endTime: '04:30 PM',
+      isCurrentUser: false,
+      isOverdue: false
+    }
+  ];
+  return dailyUsageRecords[day];
+}
 
 let damageReports = [
   { id:'TK-101', lab:'ILL 1', item:'Oscilloscope Ch-2 Rosak', reporter:'Pn. Rohana', severity:'Sederhana', details:'Channel 2 noise tinggi.', status:'Sedang Dibaiki', date:'04 Ogos 2026' },
@@ -30,7 +105,6 @@ let damageReports = [
 
 let expandedLabId = null; // currently expanded lab in right panel
 let selectedCheckinLabId = 'CNL-01';
-let currentCalendarDay = 20;
 
 // ─── CUSTOM SOFT-SELECT COMPONENT ────────────────────────
 function toggleCustomSelect(wrapperId) {
@@ -174,12 +248,38 @@ function animateMetricNumber(elId, newVal, animate) {
   }, 250);
 }
 
-// ─── 5. USAGE TABLE (CURRENT USER PINNED TOP, CLEAN) ────
+// ─── 5. USAGE TABLE (CURRENT USER PINNED TOP, CLEAN & DYNAMIC BY DAY) ────
 function renderUsageTable() {
   const tbody = document.getElementById('usageTableBody');
   if (!tbody) return;
 
-  const sorted = [...usageRecords].sort((a, b) => {
+  const currentRecords = getRecordsForDay(currentCalendarDay);
+
+  // Update table subtitle according to selected date
+  const sub = document.getElementById('usageTableSubtitle');
+  if (sub) {
+    if (currentCalendarDay === TODAY_DAY) {
+      sub.innerHTML = 'Log aktif semasa (Hari Ini, 20 Ogos 2026) &amp; keutamaan semakan checkout';
+    } else if (currentCalendarDay < TODAY_DAY) {
+      sub.innerHTML = `Rekod penggunaan lepas (Hari Selesai, ${currentCalendarDay} Ogos 2026)`;
+    } else {
+      sub.innerHTML = `Jadual &amp; tempahan penggunaan makmal (${currentCalendarDay} Ogos 2026)`;
+    }
+  }
+
+  if (!currentRecords || currentRecords.length === 0) {
+    tbody.innerHTML = `<tr>
+      <td colspan="4" class="py-12 text-center text-slate-400">
+        <i class="w-8 h-8 text-slate-300 mx-auto mb-2" data-lucide="calendar-x"></i>
+        <p class="font-bold text-slate-600 text-xs">Tiada Rekod Penggunaan</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Tiada aktiviti makmal direkodkan bagi tarikh ${currentCalendarDay} Ogos 2026.</p>
+      </td>
+    </tr>`;
+    if (window.lucide) window.lucide.createIcons();
+    return;
+  }
+
+  const sorted = [...currentRecords].sort((a, b) => {
     if (a.isCurrentUser && !b.isCurrentUser) return -1;
     if (!a.isCurrentUser && b.isCurrentUser) return 1;
     if (a.statusType === 'in-use' && b.statusType !== 'in-use') return -1;
@@ -191,7 +291,7 @@ function renderUsageTable() {
     const isPinned = rec.isCurrentUser && rec.statusType === 'in-use';
     const isOverdue = rec.isOverdue;
 
-    // STATUS — clean, no big colored boxes
+    // STATUS — in-use, upcoming, or completed
     let statusHTML = '';
     if (rec.statusType === 'in-use') {
       if (isOverdue) {
@@ -212,8 +312,16 @@ function renderUsageTable() {
           <span class="block text-[10px] text-slate-400 mt-0.5 font-medium pl-5">Hingga ${rec.endTime}</span>
         </div>`;
       }
+    } else if (rec.statusType === 'upcoming') {
+      statusHTML = `<div>
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-blue-600">
+          <i class="w-3.5 h-3.5 text-blue-500" data-lucide="calendar"></i>
+          <span>Tempahan ${rec.startTime}</span>
+        </span>
+        <span class="block text-[10px] text-slate-400 mt-0.5 font-medium pl-5">Hingga ${rec.endTime}</span>
+      </div>`;
     } else {
-      statusHTML = `<span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500"><i class="w-3.5 h-3.5 text-slate-400" data-lucide="log-out"></i> Keluar ${rec.endTime}</span>`;
+      statusHTML = `<span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500"><i class="w-3.5 h-3.5 text-slate-400" data-lucide="log-out"></i> Selesai (Keluar ${rec.endTime})</span>`;
     }
 
     // ACTION
@@ -222,8 +330,10 @@ function renderUsageTable() {
       actionHTML = `<button onclick="checkoutActiveLab('${rec.labCode}')" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3 py-1 rounded-lg shadow-sm transition-all"><i class="w-3.5 h-3.5 text-white" data-lucide="key-round"></i> Pulang Kunci</button>`;
     } else if (rec.statusType === 'in-use') {
       actionHTML = `<button onclick="openTimetableModal('${rec.labCode}')" class="text-[11px] font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded-lg transition-colors">Jadual</button>`;
+    } else if (rec.statusType === 'upcoming') {
+      actionHTML = `<button onclick="openTimetableModal('${rec.labCode}')" class="text-[11px] font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition-colors">Jadual</button>`;
     } else {
-      actionHTML = `<span class="text-[10px] text-slate-400">Selesai</span>`;
+      actionHTML = `<span class="text-[10px] font-bold text-slate-400">Selesai</span>`;
     }
 
     return `<tr class="${isPinned ? 'row-pinned-active' : 'hover:bg-slate-50/70 transition-colors'}">
@@ -241,22 +351,75 @@ function renderUsageTable() {
   if (window.lucide) window.lucide.createIcons();
 }
 
-// ─── 6. DATE STRIP ──────────────────────────────────────
+// ─── 6. DATE STRIP (TEMA OREN HARI INI & TEMA HITAM PILIHAN LAIN) ────────
 function renderDateStrip() {
   const c = document.getElementById('dateStripContainer');
   if (!c) return;
-  const days = [{d:'SUN',n:19},{d:'MON',n:20},{d:'TUE',n:21},{d:'WED',n:22},{d:'THU',n:23},{d:'FRI',n:24},{d:'SAT',n:25}];
+  const days = [
+    { d:'SUN', n:19 },
+    { d:'MON', n:20 },
+    { d:'TUE', n:21 },
+    { d:'WED', n:22 },
+    { d:'THU', n:23 },
+    { d:'FRI', n:24 },
+    { d:'SAT', n:25 }
+  ];
+
   c.innerHTML = days.map(x => {
-    const act = x.n === currentCalendarDay;
-    return `<button onclick="selectCalendarDay(${x.n})" class="date-strip-btn ${act?'active':''}">
-      <span class="text-[9px] uppercase ${act?'text-slate-300':'text-slate-400'} font-semibold">${x.d}</span>
-      <span class="text-sm font-extrabold mt-0.5">${x.n}</span>
+    const isSelected = x.n === currentCalendarDay;
+    const isToday = x.n === TODAY_DAY;
+
+    let btnClass = 'date-strip-btn';
+    let dayTextClass = 'text-[9px] uppercase font-bold';
+    let numTextClass = 'text-sm font-extrabold mt-0.5';
+    let indicatorHtml = '';
+
+    if (isToday && isSelected) {
+      // Harini & Sedang Dipilih: Warna tema oren penuh
+      btnClass += ' active-today';
+      dayTextClass += ' text-orange-100';
+      numTextClass += ' text-white';
+    } else if (isToday && !isSelected) {
+      // Harini tetapi hari lain dipilih: Indikator oren khas supaya kekal tema oren
+      btnClass += ' today-unselected';
+      dayTextClass += ' text-orange-500';
+      numTextClass += ' text-orange-600';
+      indicatorHtml = `<span class="w-1 h-1 rounded-full bg-orange-500 mt-0.5"></span>`;
+    } else if (isSelected) {
+      // Select hari lain: Warna hitam!
+      btnClass += ' active-other';
+      dayTextClass += ' text-slate-300';
+      numTextClass += ' text-white';
+    } else {
+      // Hari biasa tidak dipilih
+      btnClass += ' regular-day';
+      dayTextClass += ' text-slate-400';
+      numTextClass += ' text-slate-700';
+    }
+
+    return `<button onclick="selectCalendarDay(${x.n})" class="${btnClass}" title="${isToday ? 'Hari Ini (20 Ogos 2026)' : x.n + ' Ogos 2026'}">
+      <span class="${dayTextClass}">${x.d}</span>
+      <span class="${numTextClass}">${x.n}</span>
+      ${indicatorHtml}
     </button>`;
   }).join('');
 }
 
-function selectCalendarDay(n) { currentCalendarDay = n; renderDateStrip(); showToast('Tarikh dipilih: ' + n + ' Ogos 2026'); }
-function navigateDateStrip(dir) { currentCalendarDay += dir; if (currentCalendarDay < 1) currentCalendarDay = 31; if (currentCalendarDay > 31) currentCalendarDay = 1; renderDateStrip(); }
+function selectCalendarDay(n) {
+  currentCalendarDay = n;
+  renderDateStrip();
+  renderUsageTable();
+  const label = (n === TODAY_DAY) ? 'Hari Ini (20 Ogos 2026)' : n + ' Ogos 2026';
+  showToast('Tarikh dipilih: ' + label);
+}
+
+function navigateDateStrip(dir) {
+  currentCalendarDay += dir;
+  if (currentCalendarDay < 1) currentCalendarDay = 31;
+  if (currentCalendarDay > 31) currentCalendarDay = 1;
+  renderDateStrip();
+  renderUsageTable();
+}
 
 // ─── 7. PROGRESS BARS (ANIMATED) ────────────────────────
 function renderProgressBars() {
@@ -344,14 +507,13 @@ function renderLabCardHtml(lab) {
         </div>
       `;
     } else {
-      // ─── COMPACT RECTANGLE TERSEDIA / SESI KITA (Hover 0.5s kembang) ───
+      // ─── COMPACT RECTANGLE TERSEDIA / SESI KITA (Klik untuk kembang) ───
       return `
         <div 
           class="lab-rect-item" 
           id="rect-${lab.id}"
-          onmouseenter="handleLabHoverEnter('${lab.id}')"
-          onmouseleave="handleLabHoverLeave('${lab.id}')"
           onclick="toggleLabExpandClick('${lab.id}')"
+          title="Klik untuk lihat butiran"
         >
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-800">${lab.code}</span>
@@ -383,8 +545,8 @@ function renderLabCardHtml(lab) {
       <div 
         class="lab-rect-item is-expanded" 
         id="rect-${lab.id}"
-        onmouseenter="handleLabHoverEnter('${lab.id}')"
-        onmouseleave="handleLabHoverLeave('${lab.id}')"
+        onclick="toggleLabExpandClick('${lab.id}')"
+        title="Klik untuk tutup"
       >
         <!-- Top Row: Code & Pill -->
         <div class="flex items-center justify-between">
@@ -470,71 +632,12 @@ function renderCompactLabList(filteredList) {
   if (window.lucide) window.lucide.createIcons();
 }
 
-// 0.5s Hover Detection (Sentuh selama 0.5 saat untuk membesar)
-function handleLabHoverEnter(labId) {
-  // Clear any pending collapse timer
-  if (collapseTimer) {
-    clearTimeout(collapseTimer);
-    collapseTimer = null;
-  }
-
-  if (expandedLabId === labId) return;
-  currentHoveredLabId = labId;
-
-  if (hoverExpandTimer) clearTimeout(hoverExpandTimer);
-
-  hoverExpandTimer = setTimeout(() => {
-    if (currentHoveredLabId === labId) {
-      expandedLabId = labId;
-      renderCompactLabList();
-    }
-  }, 500); // 0.5 saat
-}
-
-// Hover Leave: Bila kursor keluar dari komponen, kembali kepada bentuk asal!
-function handleLabHoverLeave(labId) {
-  if (currentHoveredLabId === labId) {
-    if (hoverExpandTimer) {
-      clearTimeout(hoverExpandTimer);
-      hoverExpandTimer = null;
-    }
-    currentHoveredLabId = null;
-  }
-
-  // Jika kursor keluar dari kad yang sedang kembang, kembalikan ke bentuk asal
-  if (expandedLabId === labId) {
-    if (collapseTimer) clearTimeout(collapseTimer);
-    collapseTimer = setTimeout(() => {
-      expandedLabId = null;
-      renderCompactLabList();
-    }, 250);
-  }
-}
-
-function onLabGridMouseLeave() {
-  if (hoverExpandTimer) {
-    clearTimeout(hoverExpandTimer);
-    hoverExpandTimer = null;
-  }
-  currentHoveredLabId = null;
-  if (expandedLabId) {
-    if (collapseTimer) clearTimeout(collapseTimer);
-    collapseTimer = setTimeout(() => {
-      expandedLabId = null;
-      renderCompactLabList();
-    }, 250);
-  }
-}
+// Lab Expansion on Click (Ciri hover 0.5s auto-expand telah dibuang atas permintaan pengguna)
+function handleLabHoverEnter(labId) {}
+function handleLabHoverLeave(labId) {}
+function onLabGridMouseLeave() {}
 
 function toggleLabExpandClick(labId) {
-  if (hoverExpandTimer) {
-    clearTimeout(hoverExpandTimer);
-    hoverExpandTimer = null;
-  }
-  if (collapseTimer) {
-    clearTimeout(collapseTimer);
-    collapseTimer = null;
-  }
   expandedLabId = (expandedLabId === labId) ? null : labId;
   renderCompactLabList();
 }
@@ -564,6 +667,7 @@ function onCalendarDateSelected(val) {
   const disp = document.getElementById('currentMonthYearDisplay');
   if (disp) disp.textContent = `${mName} ${yr}`;
   renderDateStrip();
+  renderUsageTable();
   showToast(`Tarikh dipilih: ${dayNum} ${mName} ${yr}`);
 }
 
@@ -1061,7 +1165,8 @@ function deleteLab(id) {
   }
 
   // 3. Bersihkan rekod penggunaan aktif bagi makmal ini
-  usageRecords = usageRecords.filter(r => r.labCode !== deletedLab.code);
+  dailyUsageRecords[20] = dailyUsageRecords[20].filter(r => r.labCode !== deletedLab.code);
+  usageRecords = dailyUsageRecords[20];
 
   // 4. Tutup modal suntingan sekiranya sedang dibuka
   closeLabFormModal();

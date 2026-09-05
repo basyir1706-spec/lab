@@ -106,6 +106,18 @@ Sistem menggunakan gabungan harmoni antara warna korporat pekat, oren ceria poli
 - Avatar profil diletakkan di sudut bawah kiri bar sisi navigasi.
 - Menekan avatar akan memicu popup menu terapung ke atas (`dropup`) dengan animasi `dropupScaleUp`.
 
+#### E. Komponen Jalur Pemilih Tarikh (Date Picker Strip) & Penapisan Rekod Dinamik
+- **Penjajaran Berpusat**: Pengepala `"Date Picker Strip"`, pemilih bulan `"Ogos 2026"`, dan barisan butang hari dijajarkan di tengah-tengah paksi horizontal (*centered flex*).
+- **Sistem Dwi-Tema Butang Tarikh**:
+  - **Hari Ini (20 Ogos)**: Menggunakan kelas `.date-strip-btn.active-today` dengan kecerunan oren terang (`background: linear-gradient(135deg, #f97316 0%, #ea580c 100%)`, teks putih tebal, dan bayang oren). Sekiranya pengguna memilih tarikh lain, hari ini kekal bertema oren lembut menerusi kelas `.today-unselected` dengan sempadan oren dan titik penunjuk oren.
+  - **Hari Lain yang Dipilih**: Menggunakan kelas `.date-strip-btn.active-other` dengan latar belakang hitam pekat korporat (`#0f172a`, teks putih, dan bayang gelap).
+- **Logik Penapisan Penggunaan Makmal Dinamik**:
+  - Model data `dailyUsageRecords` mengasingkan rekod mengikut hari kalendar (cth: 19 = sesi semalam selesai, 20 = log aktif semasa, 21–25 = tempahan masa hadapan).
+  - Memilih tarikh akan memicu fungsi `renderUsageTable()` serta-merta tanpa muat semula halaman, mengemas kini teks tajuk kecil `#usageTableSubtitle`, dan menyusun sesi pengguna aktif di baris teratas.
+- **Pembersihan Antaramuka**:
+  - Membuang pemasa `hoverExpandTimer` 0.5 saat; kad makmal kini hanya berkembang apabila diklik secara fizikal oleh pengguna (`onclick="toggleLabExpandClick()"`).
+  - Membuang input carian `#labSearchInput` bagi memastikan panel kanan kekal kemas dan tidak berselerak.
+
 ---
 
 ## 3. RANCANGAN SISTEM NOTIFIKASI TIKTOK-STYLE (UNTUK ADMIN)
@@ -165,3 +177,5 @@ Semua permintaan dan perubahan yang telah dilaksanakan direkodkan secara terperi
 | **#11** | Kembalikan badge status, buang aksara '+' teks pendua pada butang Buka Borang Aduan dan Tambah Makmal Baharu | Mengembalikan badge status, membuang teks `+` yang bertindih dengan ikon bulat Lucide `plus-circle` | ✅ Selesai |
 | **#12** | Buang teks "2 Laporan", tambah butang/lampu hijau kelip-kelip untuk Tersedia/Digunakan, dan ikon tick pada status Selesai | Memadam teks `2 Laporan`, menambah animasi `live-led-blink` + `animate-ping` untuk status Tersedia, menambah ikon check | ✅ Selesai |
 | **#13** | Badge status berbentuk rounded tumpul tanpa bulatan hitam, butang Selesai di Tindakan berbentuk rectangle boleh klik, tukar nama butang kepada "Aduan" | Menukar badge status kepada `rounded-full` bersih tanpa dot, mereka butang `Selesai` di Tindakan dengan `btn-mesh-gradient rounded-xl`, menukar teks butang kepada `Aduan` | ✅ Selesai |
+| **#14** | Buang lajur TIKET daripada jadual aduan teknikal | Membuang `<th>TIKET</th>` dalam `index.html` dan `<td>${t.id}</td>` dalam `renderDamageTable()` `script.js` | ✅ Selesai |
+| **#15** | Buang teks "Hover 0.5s untuk kembang", buang Search input, letak Date Picker Strip dan Ogos 2026 ke tengah, tema warna tarikh harian (oren untuk hari ini, hitam untuk hari lain yang dipilih), dan penapisan rekod penggunaan makmal dinamik mengikut hari | Mengemaskini `index.html`, `style.css`, `script.js`, `PRD.md`, dan `SOFTWARE_DESIGN.md` | ✅ Selesai |

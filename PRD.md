@@ -104,25 +104,37 @@ Bagi memastikan Ketua Jabatan (Admin) sentiasa maklum tentang sebarang isu perka
 
 ### 4.1 Modul Dashboard & Pemantauan Langsung
 - **FR-01 (Metric Cards Pantas)**: Memaparkan 4 kad ringkasan utama (Keseluruhan: 10, Tersedia, Digunakan, Tidak Tersedia) dengan tajuk berkejelasan tinggi hitam tebal (`text-slate-900 font-black`).
-- **FR-02 (Live Green LED Pulse)**: Kad *Tersedia* dan item senarai makmal tersedia mesti mempunyai penunjuk lampu hijau yang menyala dan berkelip (*live pulsing LED indicator*).
-- **FR-03 (Penunjuk Aras)**: Memaparkan 3 blok aras (Ground Floor, Aras 1, Aras 2) dengan bar nisbah penggunaan makmal.
-- **FR-04 (Grid Makmal Kompak & Hover Expand)**:
-  - Paparan lalai kompak dengan kod makmal dan status lencana bulat tumpul.
-  - Hover selama 0.5 saat akan mengembangkan kad makmal secara vertikal untuk mendedahkan nama pengguna semasa, slot masa, butang *Jadual*, dan butang *Check-In / Pulang Kunci*.
-- **FR-05 (Carian Makmal Segera)**: Kotak carian yang menapis senarai makmal mengikut nama, kod, atau aras secara dinamik.
+- **FR-02 (Live Green LED Pulse)**: Item senarai makmal tersedia mempunyai penunjuk lampu hijau yang menyala dan berkelip (*live pulsing LED indicator*). Kad metrik kekal bersih dan minimalis tanpa kelip-kelip.
+- **FR-03 (Penunjuk Aras)**: Memaparkan 3 blok aras (Aras 1, Aras 2, Aras 3) dengan bar nisbah penggunaan makmal.
+- **FR-04 (Grid Makmal Kompak & Klik untuk Kembang)**:
+  - Paparan lalai 2 lajur kompak dengan kod makmal dan status lencana bulat tumpul.
+  - Teks penyemak `"Hover 0.5s untuk kembang"` dan pemasa auto-kembang 0.5 saat telah dibuang sepenuhnya atas maklum balas pengguna.
+  - Kad makmal kini hanya berkembang apabila diklik secara sengaja (*click to expand/collapse*), mendedahkan maklumat pengguna, slot masa, dan butang tindakan.
+- **FR-05 (Date Picker Strip Berpusat & Pemilih Tarikh Interaktif)**:
+  - Pengepala `"Date Picker Strip"` dan butang pemilihan bulan `"Ogos 2026"` diletakkan di bahagian tengah (*center-aligned*) bersama anak panah navigasi kiri/kanan.
+  - **Skema Dwi-Tema Warna Tarikh**:
+    - **Hari Ini (20 Ogos)**: Menggunakan warna tema **Oren Politeras** (`#f97316` / gradient oren) apabila dipilih. Sekiranya hari lain dipilih, hari ini kekal ditandakan dengan aksen oren lembut dan titik oren.
+    - **Hari Lain (19, 21, 22, dsb.)**: Menggunakan warna tema **Hitam Pekat Elegan** (`#0f172a` dengan teks putih dan bayang kedalaman) apabila diklik/dipilih oleh pengguna.
+- **FR-06 (Penapisan Rekod Penggunaan Makmal Dinamik Mengikut Hari)**:
+  - Apabila pengguna menekan mana-mana butang hari (cth: 19, 20, 21, 22 Ogos dsb.) atau memilih tarikh melalui kalendar, jadual *Rekod Paparan Penggunaan Laboratorium* akan mengemas kini datanya secara masa nyata:
+    - **Hari Ini (20 Ogos)**: Memaparkan sesi aktif semasa (dengan penanda sesi sendiri *pinned* teratas dan butang *Pulang Kunci*).
+    - **Hari Lepas (cth: 19 Ogos)**: Memaparkan rekod sesi amali yang telah selesai (*status completed* / log keluar).
+    - **Hari Hadapan (cth: 21–25 Ogos)**: Memaparkan jadual tempahan makmal masa hadapan (*status upcoming* / bengkel, kuliah, pensijilan).
+  - Tajuk kecil jadual dikemas kini secara automatik mengikut konteks tarikh yang dipilih.
+- **FR-07 (Pembuangan Kotak Input Carian Makmal)**: Kotak carian `Search input` telah dibuang daripada panel kanan bagi mengurangkan kesesakan antara muka, memberikan ruang visual yang lebih luas kepada 10 jubin makmal.
 
 ### 4.2 Modul Pendaftaran Masuk (Check-In) & Pemulangan Kunci
-- **FR-06 (Pemilihan Makmal Pantas)**: Jubin interaktif untuk memilih makmal yang berstatus *Tersedia*.
-- **FR-07 (Laras Masa Fleksibel)**: Kotak tempoh masa dengan format `JJ:MM`, butang pelaras `+30 Minit` / `-30 Minit`, dan auto-format jika pengguna menaip digit tunggal 1–9.
-- **FR-08 (Tujuan Penggunaan Lembut)**: Dropdown kustom (*Soft-Select*) untuk memilih tujuan (Kuliah, FYP, Bengkel, Ujian, Penggunaan Sendiri).
-- **FR-09 (Check-Out dengan Pengesahan)**: Dialog pengesahan moden (*Custom Confirm Dialog*) sebelum mematikan sesi dan mengembalikan status makmal kepada *Tersedia*.
+- **FR-08 (Pemilihan Makmal Pantas)**: Jubin interaktif untuk memilih makmal yang berstatus *Tersedia*.
+- **FR-09 (Laras Masa Fleksibel)**: Kotak tempoh masa dengan format `JJ:MM`, butang pelaras `+30 Minit` / `-30 Minit`, dan auto-format jika pengguna menaip digit tunggal 1–9.
+- **FR-10 (Tujuan Penggunaan Lembut)**: Dropdown kustom (*Soft-Select*) untuk memilih tujuan (Kuliah, FYP, Bengkel, Ujian, Penggunaan Sendiri).
+- **FR-11 (Check-Out dengan Pengesahan)**: Dialog pengesahan moden (*Custom Confirm Dialog*) sebelum mematikan sesi dan mengembalikan status makmal kepada *Tersedia*.
 
 ### 4.3 Modul Teknikal (Aduan & Pembaikan)
-- **FR-10 (Borang Aduan Segera)**: Butang utama `Aduan` membuka modal satu langkah tanpa tab berserabut.
-- **FR-11 (Dropdown Pilihan Makmal & Keutamaan Lembut)**: Dropdown kustom berpenjuru bulat `rounded-2xl` dengan pilihan Biasa, Sederhana, dan Kritikal berserta titik warna.
-- **FR-12 (Jadual Aduan Minimalis)**:
-  - Menghapuskan teks penyemak `2 Laporan`.
-  - Kolum *Tahap* memaparkan teks tebal bersih tanpa bekas tebal.
+- **FR-12 (Borang Aduan Segera)**: Butang utama `Aduan` membuka modal satu langkah tanpa tab berserabut.
+- **FR-13 (Dropdown Pilihan Makmal & Keutamaan Lembut)**: Dropdown kustom berpenjuru bulat `rounded-2xl` dengan pilihan Biasa, Sederhana, dan Kritikal berserta titik warna.
+- **FR-14 (Jadual Aduan Minimalis Tanpa Lajur TIKET)**:
+  - Lajur TIKET dibuang daripada jadual teknikal untuk paparan yang lebih padat dan tertumpu kepada isu.
+  - Susunan lajur rasmi: `MAKMAL` | `MASALAH & BUTIRAN` | `TAHAP` | `STATUS` | `TINDAKAN`.
   - Kolum *Status* memaparkan lencana bulat tumpul (*rounded-full pill*) tanpa sebarang bulatan hitam/titik dalaman.
   - Kolum *Tindakan* memaparkan butang hitam segi empat tepat boleh klik (`btn-mesh-gradient rounded-xl`) berikon tanda semak (*tick mark*) hijau zamrud cerah.
 
