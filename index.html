@@ -226,13 +226,14 @@
            VIEW 1: DASHBOARD
       ═══════════════════════════════════════════════ -->
       <div id="viewDashboard" class="space-y-6">
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        <div class="flex flex-col xl:grid xl:grid-cols-12 gap-6 items-start">
 
-          <!-- MIDDLE: 4 METRIC CARDS + TABLE (7 cols) -->
-          <div class="xl:col-span-7 space-y-6">
+          <!-- WRAPPER: Pada desktop kekal di lajur kiri (7 cols); pada mobile guna 'contents' supaya 4 kad & table boleh disusun mengikut urutan fleksibel -->
+          <div class="contents xl:block xl:col-span-7 xl:space-y-6">
 
-            <!-- 4 METRIC CARDS -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-purpose="4-metric-cards">
+            <!-- 4 METRIC CARDS (Order 1 pada mobile) -->
+            <div class="order-1 w-full" data-purpose="4-metric-cards-wrapper">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-purpose="4-metric-cards">
               <!-- Card 1: Keseluruhan (Tema Warna Biru) -->
               <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
                 <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-blue-500/15"></div>
@@ -295,39 +296,20 @@
               </div>
             </div>
 
-            <!-- TABLE: REKOD PENGGUNAAN -->
-            <div class="bg-white rounded-2xl shadow-soft p-5 lg:p-6 border border-slate-100 space-y-4">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-100">
+            </div>
+            <!-- End 4 Metric Cards wrapper -->
+
+            <!-- TABLE: REKOD PENGGUNAAN (Order 3 pada mobile: duduk di bawah panel tarikh & senarai makmal; Pada desktop kekal di bawah 4 kad) -->
+            <div class="order-3 w-full bg-white rounded-2xl shadow-soft p-5 lg:p-6 border border-slate-100">
+              <div class="flex items-center justify-between mb-4">
                 <div>
                   <h3 class="text-sm font-extrabold text-slate-800">Rekod Paparan Penggunaan Laboratorium</h3>
                   <p class="text-[11px] text-slate-400 mt-0.5 font-medium" id="usageTableSubtitle">Log aktif semasa (Hari Ini, 20 Ogos 2026) &amp; keutamaan semakan checkout</p>
                 </div>
-                <button onclick="openCheckinModal()" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3.5 py-1.5 rounded-xl transition-all shadow-sm self-start sm:self-auto">
+                <button onclick="openCheckinModal()" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3.5 py-1.5 rounded-xl transition-all shadow-sm">
                   <i class="w-3.5 h-3.5" data-lucide="key-round"></i> Check-In
                 </button>
               </div>
-
-              <!-- JALUR TARIKH (DATE PICKER STRIP) DI ATAS JADUAL LAB -->
-              <div class="flex flex-col sm:flex-row items-center justify-between gap-3 p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-100/90">
-                <!-- Pemilih Bulan/Tahun Interaktif -->
-                <div class="relative shrink-0">
-                  <button type="button" onclick="openNativeCalendarPicker()" class="flex items-center gap-1.5 bg-white hover:bg-slate-100/80 px-3.5 py-1.5 rounded-xl border border-slate-200/80 transition-all cursor-pointer group shadow-2xs" title="Klik untuk pilih tarikh kalendar">
-                    <i class="w-3.5 h-3.5 text-orange-500 group-hover:scale-110 transition-transform" data-lucide="calendar"></i>
-                    <span class="text-xs font-extrabold text-slate-800 tracking-tight" id="currentMonthYearDisplay">Ogos 2026</span>
-                    <i class="w-3.5 h-3.5 text-slate-400" data-lucide="chevron-down"></i>
-                  </button>
-                  <input type="date" id="nativeCalendarInput" class="absolute opacity-0 pointer-events-none -bottom-1 right-0 w-0 h-0" onchange="onCalendarDateSelected(this.value)" value="2026-08-20" />
-                </div>
-
-                <!-- Jalur Hari (Navigasi Kiri/Kanan & Barisan Tarikh) -->
-                <div class="flex items-center justify-center gap-1 overflow-hidden max-w-full">
-                  <button onclick="navigateDateStrip(-1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-white transition-colors shrink-0 shadow-2xs" title="Hari Sebelumnya"><i class="w-4 h-4" data-lucide="chevron-left"></i></button>
-                  <div class="flex items-center justify-center gap-1 overflow-x-auto py-0.5 max-w-full" id="dateStripContainer"></div>
-                  <button onclick="navigateDateStrip(1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-white transition-colors shrink-0 shadow-2xs" title="Hari Seterusnya"><i class="w-4 h-4" data-lucide="chevron-right"></i></button>
-                </div>
-              </div>
-
-              <!-- JADUAL REKOD PENGGUNAAN -->
               <div class="overflow-x-auto">
                 <table class="w-full text-left min-w-[500px]" id="usageRecordsTable">
                   <thead>
@@ -343,9 +325,30 @@
               </div>
             </div>
           </div>
+          <!-- End Left Column contents wrapper -->
 
-          <!-- RIGHT PANEL -->
-          <div class="xl:col-span-5 bg-white p-5 lg:p-6 rounded-2xl shadow-soft border border-slate-100 space-y-5">
+          <!-- RIGHT PANEL (Order 2 pada mobile: duduk DI ATAS table pada mobile!; Pada desktop kekal di lajur kanan xl:col-span-5) -->
+          <div class="order-2 w-full xl:col-span-5 bg-white p-5 lg:p-6 rounded-2xl shadow-soft border border-slate-100 space-y-4">
+
+            <!-- DATE PICKER STRIP (Bahagian Tarikh) -->
+            <div class="text-center">
+              <div class="flex items-center justify-center mb-2">
+                <div class="relative">
+                  <button type="button" onclick="openNativeCalendarPicker()" class="flex items-center gap-1.5 hover:bg-slate-100 px-3 py-1.5 rounded-xl transition-colors cursor-pointer group" title="Klik untuk pilih tarikh kalendar">
+                    <i class="w-3.5 h-3.5 text-orange-500 group-hover:scale-110 transition-transform" data-lucide="calendar"></i>
+                    <span class="text-xs font-bold text-slate-800" id="currentMonthYearDisplay">Ogos 2026</span>
+                  </button>
+                  <input type="date" id="nativeCalendarInput" class="absolute opacity-0 pointer-events-none -bottom-1 right-0 w-0 h-0" onchange="onCalendarDateSelected(this.value)" value="2026-08-20" />
+                </div>
+              </div>
+              <div class="flex items-center justify-center gap-1 pt-0.5 pb-1">
+                <button onclick="navigateDateStrip(-1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0" title="Hari Sebelumnya"><i class="w-4 h-4" data-lucide="chevron-left"></i></button>
+                <div class="flex items-center justify-center gap-1 overflow-x-auto py-1 max-w-full" id="dateStripContainer"></div>
+                <button onclick="navigateDateStrip(1)" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0" title="Hari Seterusnya"><i class="w-4 h-4" data-lucide="chevron-right"></i></button>
+              </div>
+            </div>
+
+            <hr class="border-slate-100" />
 
             <!-- MAKLUMAT PENGGUNAAN SETIAP ARAS (HORIZONTAL 3 COLUMNS) -->
             <div>
