@@ -827,7 +827,6 @@ function renderDamageTable() {
     const stBadgeHtml = `<span class="inline-block px-3 py-0.5 rounded-full text-[11px] font-bold border ${stBadge}">${t.status}</span>`;
 
     return `<tr class="hover:bg-slate-50/70 transition-colors">
-      <td class="py-3 font-extrabold text-slate-800">${t.id}</td>
       <td class="py-3 font-extrabold text-slate-800">${t.lab}</td>
       <td class="py-3"><span class="font-bold text-slate-800">${t.item}</span><br><span class="text-[10px] text-slate-400">${t.details || '-'}</span></td>
       <td class="py-3">
