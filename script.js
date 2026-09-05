@@ -32,6 +32,75 @@ let expandedLabId = null; // currently expanded lab in right panel
 let selectedCheckinLabId = 'CNL-01';
 let currentCalendarDay = 20;
 
+// ─── CUSTOM SOFT-SELECT COMPONENT ────────────────────────
+function toggleCustomSelect(wrapperId) {
+  const wrapper = document.getElementById(wrapperId);
+  if (!wrapper) return;
+  const optionsEl = wrapper.querySelector('.custom-select-options');
+  const chevron = wrapper.querySelector('.chevron-icon');
+  const isHidden = optionsEl?.classList.contains('hidden');
+
+  document.querySelectorAll('.custom-select-options').forEach(el => {
+    if (el !== optionsEl) el.classList.add('hidden');
+  });
+  document.querySelectorAll('.custom-select-wrapper .chevron-icon').forEach(icon => {
+    if (icon !== chevron) icon.classList.remove('rotate-180');
+  });
+
+  if (isHidden) {
+    optionsEl?.classList.remove('hidden');
+    if (chevron) chevron.classList.add('rotate-180');
+  } else {
+    optionsEl?.classList.add('hidden');
+    if (chevron) chevron.classList.remove('rotate-180');
+  }
+}
+
+function selectCustomOption(wrapperId, value, label, onchangeFn) {
+  const wrapper = document.getElementById(wrapperId);
+  if (!wrapper) return;
+  const input = wrapper.querySelector('input[type="hidden"]');
+  const labelEl = wrapper.querySelector('.custom-select-value');
+  const optionsEl = wrapper.querySelector('.custom-select-options');
+  const chevron = wrapper.querySelector('.chevron-icon');
+
+  if (input) {
+    input.value = value;
+    input.dispatchEvent(new Event('change'));
+  }
+  if (labelEl) {
+    labelEl.textContent = label;
+    labelEl.classList.remove('text-slate-400');
+    labelEl.classList.add('text-slate-800');
+  }
+  if (optionsEl) optionsEl.classList.add('hidden');
+  if (chevron) chevron.classList.remove('rotate-180');
+
+  if (typeof onchangeFn === 'function') {
+    onchangeFn(value);
+  }
+}
+
+function setCustomSelectValue(wrapperId, value, label) {
+  const wrapper = document.getElementById(wrapperId);
+  if (!wrapper) return;
+  const input = wrapper.querySelector('input[type="hidden"]');
+  const labelEl = wrapper.querySelector('.custom-select-value');
+  if (input) input.value = value;
+  if (labelEl) {
+    labelEl.textContent = label;
+    labelEl.classList.remove('text-slate-400');
+    labelEl.classList.add('text-slate-800');
+  }
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.custom-select-wrapper')) {
+    document.querySelectorAll('.custom-select-options').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.custom-select-wrapper .chevron-icon').forEach(icon => icon.classList.remove('rotate-180'));
+  }
+});
+
 // ─── 2. INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderDateStrip();
@@ -227,20 +296,36 @@ function renderLabCardHtml(lab) {
   const isMaintenance = (lab.status === 'Penyelenggaraan');
   const isUnselectable = isUsedByOther || isMaintenance;
 
-  // Status pill text
+  // Status pill text (Small button with glowing live-blinking green LED for Tersedia)
   let pillHTML = '';
   if (lab.status === 'Tersedia') {
-    pillHTML = `<span class="flex items-center gap-1 text-[9px] font-bold text-emerald-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Tersedia</span>`;
+    pillHTML = `
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 live-led-blink"></span>
+        </span>
+        <span>Tersedia</span>
+      </span>
+    `;
   } else if (lab.status === 'Digunakan') {
     if (lab.isOverdue) {
-      pillHTML = `<span class="badge-overdue px-1.5 py-0.5 rounded text-[9px]">(Tamat Tempoh)</span>`;
-    } else if (isUsedByOther) {
-      pillHTML = `<span class="flex items-center gap-1 text-[9px] font-semibold text-yellow-800/80"><span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>Digunakan</span>`;
+      pillHTML = `<span class="badge-overdue px-1.5 py-0.5 rounded text-[9px] font-bold">(Tamat Tempoh)</span>`;
     } else {
-      pillHTML = `<span class="flex items-center gap-1 text-[9px] font-bold text-yellow-800"><span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>Digunakan</span>`;
+      pillHTML = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-bold bg-yellow-50 text-yellow-800 border border-yellow-200/80 shadow-2xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+          <span>Digunakan</span>
+        </span>
+      `;
     }
   } else {
-    pillHTML = `<span class="flex items-center gap-1 text-[9px] font-semibold text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Servis</span>`;
+    pillHTML = `
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-semibold bg-slate-100 text-slate-500 border border-slate-200/80">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+        <span>Servis</span>
+      </span>
+    `;
   }
 
   if (!isExp) {
@@ -632,13 +717,9 @@ function checkoutActiveLab(code) {
   });
 }
 
-// ─── 12. TEKNIKAL (MODAL TAB SISTEM & SENARAI ADUAN) ────
-let currentTeknikalTab = 'form';
-
-function openTeknikalModal(tab = 'form') {
+// ─── 12. TEKNIKAL (BORANG ADUAN & SENARAI ADUAN) ─────────
+function openTeknikalModal() {
   populateTeknikalModalLabs();
-  renderModalDamageTable();
-  switchTeknikalTab(tab);
   document.getElementById('teknikalModal')?.classList.remove('hidden');
   if (window.lucide) window.lucide.createIcons();
 }
@@ -647,36 +728,54 @@ function closeTeknikalModal() {
   document.getElementById('teknikalModal')?.classList.add('hidden');
 }
 
-function switchTeknikalTab(tabName) {
-  currentTeknikalTab = tabName;
-  const isForm = (tabName === 'form');
-  document.getElementById('btnTabLaporKerosakan')?.classList.toggle('active', isForm);
-  document.getElementById('btnTabSenaraiAduan')?.classList.toggle('active', !isForm);
-  document.getElementById('teknikalTabForm')?.classList.toggle('hidden', !isForm);
-  document.getElementById('teknikalTabList')?.classList.toggle('hidden', isForm);
-  if (window.lucide) window.lucide.createIcons();
+function populateTeknikalModalLabs() {
+  const container = document.getElementById('wrapperReportLabOptions');
+  if (!container) return;
+  container.innerHTML = labsData.map(l => {
+    return `<div class="custom-option px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-orange-50 hover:text-orange-600 rounded-xl cursor-pointer transition-colors" onclick="selectCustomOption('wrapperReportLab', '${l.code}', '${l.code} — ${l.name}')">${l.code} — ${l.name}</div>`;
+  }).join('');
 }
 
-function populateTeknikalModalLabs() {
-  const select = document.getElementById('modalReportLabSelect');
-  if (!select) return;
-  const currentVal = select.value;
-  select.innerHTML = '<option value="">-- Pilih Makmal --</option>' + 
-    labsData.map(l => `<option value="${l.code}">${l.code} — ${l.name}</option>`).join('');
-  if (currentVal) select.value = currentVal;
+function resetDamageReportForm() {
+  const form = document.getElementById('damageReportModalForm');
+  if (form) form.reset();
+
+  // Reset custom select makmal
+  const labInput = document.getElementById('modalReportLabSelect');
+  if (labInput) labInput.value = '';
+  const labWrapper = document.getElementById('wrapperReportLab');
+  if (labWrapper) {
+    const valEl = labWrapper.querySelector('.custom-select-value');
+    if (valEl) {
+      valEl.className = 'custom-select-value text-xs font-semibold text-slate-400';
+      valEl.textContent = '-- Pilih Makmal --';
+    }
+  }
+
+  // Reset custom select tahap keutamaan
+  const sevInput = document.getElementById('modalReportSeverity');
+  if (sevInput) sevInput.value = 'Biasa';
+  const sevWrapper = document.getElementById('wrapperReportSeverity');
+  if (sevWrapper) {
+    const valEl = sevWrapper.querySelector('.custom-select-value');
+    if (valEl) {
+      valEl.className = 'custom-select-value text-xs font-bold text-slate-800 flex items-center gap-1.5';
+      valEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-blue-500"></span><span>Biasa (Rendah)</span>';
+    }
+  }
 }
 
 function submitDamageReport(e) {
   e.preventDefault();
   const lab = document.getElementById('modalReportLabSelect')?.value;
   const item = document.getElementById('modalReportItemName')?.value?.trim();
-  const sev = document.getElementById('modalReportSeverity')?.value;
+  const sev = document.getElementById('modalReportSeverity')?.value || 'Biasa';
   const det = document.getElementById('modalReportDetails')?.value?.trim();
 
   if (!lab || !item) {
     showConfirmDialog({
       title: 'Maklumat Tidak Lengkap',
-      message: 'Sila lengkapkan pilihan makmal dan peralatan yang rosak.',
+      message: 'Sila pilih makmal dan nyatakan peralatan/aset yang rosak.',
       type: 'alert',
       icon: 'alert-triangle'
     });
@@ -689,58 +788,71 @@ function submitDamageReport(e) {
     item,
     reporter: 'Pn. Rohana',
     severity: sev,
-    details: det,
+    details: det || '-',
     status: 'Baru',
     date: 'Hari ini'
   };
 
   damageReports.unshift(newTicket);
-  document.getElementById('damageReportModalForm')?.reset();
+  resetDamageReportForm();
+  closeTeknikalModal();
   renderDamageTable();
-  renderModalDamageTable();
   renderTeknikalStats();
-  switchTeknikalTab('list');
-  showToast('Laporan aduan ' + item + ' (' + lab + ') dihantar!');
+  showToast('Laporan aduan ' + item + ' (' + lab + ') berjaya dihantar!');
 }
 
 function renderDamageTable() {
   const tbody = document.getElementById('damageTableBody');
   if (!tbody) return;
   tbody.innerHTML = damageReports.map(t => {
-    const sevPill = t.severity === 'Kritikal' ? 'bg-rose-100 text-rose-700 border-rose-200' : t.severity === 'Sederhana' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'bg-blue-100 text-blue-700 border-blue-200';
-    const stPill = t.status === 'Selesai' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : t.status === 'Baru' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-amber-100 text-amber-700 border-amber-200';
+    let sevTextColor = 'text-blue-600';
+    if (t.severity === 'Kritikal') {
+      sevTextColor = 'text-rose-600';
+    } else if (t.severity === 'Sederhana') {
+      sevTextColor = 'text-amber-600';
+    }
+
+    // Badge status rounded tumpul (tanpa bulatan hitam / dot)
+    let stBadge = 'bg-amber-100 text-amber-800 border-amber-200';
+    if (t.status === 'Selesai') {
+      stBadge = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+    } else if (t.status === 'Baru') {
+      stBadge = 'bg-purple-100 text-purple-800 border-purple-200';
+    } else if (t.status === 'Menunggu Alat Ganti') {
+      stBadge = 'bg-rose-100 text-rose-800 border-rose-200';
+    } else if (t.status === 'Sedang Dibaiki') {
+      stBadge = 'bg-amber-100 text-amber-800 border-amber-200';
+    }
+
+    const stBadgeHtml = `<span class="inline-block px-3 py-0.5 rounded-full text-[11px] font-bold border ${stBadge}">${t.status}</span>`;
+
     return `<tr class="hover:bg-slate-50/70 transition-colors">
       <td class="py-3 font-extrabold text-slate-800">${t.id}</td>
       <td class="py-3 font-extrabold text-slate-800">${t.lab}</td>
-      <td class="py-3"><span class="font-bold text-slate-800">${t.item}</span><br><span class="text-[10px] text-slate-400">${t.details}</span></td>
-      <td class="py-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${sevPill}">${t.severity}</span></td>
-      <td class="py-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${stPill}">${t.status}</span></td>
+      <td class="py-3"><span class="font-bold text-slate-800">${t.item}</span><br><span class="text-[10px] text-slate-400">${t.details || '-'}</span></td>
+      <td class="py-3">
+        <span class="font-bold text-xs ${sevTextColor}">${t.severity}</span>
+      </td>
+      <td class="py-3">
+        ${stBadgeHtml}
+      </td>
       <td class="py-3 text-right">
-        ${t.status !== 'Selesai' ? `<button onclick="resolveTicket('${t.id}')" class="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg transition-colors">Selesai</button>` : '<span class="text-[10px] font-semibold text-slate-400">Ditutup</span>'}
+        ${t.status !== 'Selesai' ? `
+          <button onclick="resolveTicket('${t.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-white btn-mesh-gradient px-3.5 py-1.5 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all active:scale-95" title="Tandakan Selesai">
+            <i class="w-3.5 h-3.5 text-emerald-400 shrink-0 stroke-[2.5]" data-lucide="check"></i>
+            <span>Selesai</span>
+          </button>
+        ` : `
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl">
+            <i class="w-3.5 h-3.5 text-slate-400 shrink-0 stroke-[2.5]" data-lucide="check"></i>
+            <span>Ditutup</span>
+          </span>
+        `}
       </td>
     </tr>`;
   }).join('');
   renderTeknikalStats();
   if (window.lucide) window.lucide.createIcons();
-}
-
-function renderModalDamageTable() {
-  const tbody = document.getElementById('modalDamageTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = damageReports.map(t => {
-    const sevPill = t.severity === 'Kritikal' ? 'bg-rose-100 text-rose-700' : t.severity === 'Sederhana' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700';
-    const stPill = t.status === 'Selesai' ? 'bg-emerald-100 text-emerald-700' : t.status === 'Baru' ? 'bg-purple-100 text-purple-700' : 'bg-amber-100 text-amber-700';
-    return `<tr class="hover:bg-slate-50/70 transition-colors">
-      <td class="py-2.5 font-bold text-slate-800">${t.id}</td>
-      <td class="py-2.5 font-bold text-slate-800">${t.lab}</td>
-      <td class="py-2.5"><span class="font-bold text-slate-800">${t.item}</span><br><span class="text-[10px] text-slate-400">${t.details}</span></td>
-      <td class="py-2.5"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${sevPill}">${t.severity}</span></td>
-      <td class="py-2.5"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${stPill}">${t.status}</span></td>
-      <td class="py-2.5 text-right">
-        ${t.status !== 'Selesai' ? `<button onclick="resolveTicket('${t.id}')" class="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg transition-colors">Selesai</button>` : '<span class="text-[10px] font-semibold text-slate-400">Ditutup</span>'}
-      </td>
-    </tr>`;
-  }).join('');
 }
 
 function renderTeknikalStats() {
@@ -751,8 +863,6 @@ function renderTeknikalStats() {
   setText('statsTeknikalTotal', total);
   setText('statsTeknikalPending', pending);
   setText('statsTeknikalResolved', resolved);
-  setText('ticketCountBadge', total + ' Laporan');
-  setText('tabListBadgeCount', total);
 }
 
 function resolveTicket(id) {
@@ -760,7 +870,7 @@ function resolveTicket(id) {
   if (t) {
     t.status = 'Selesai';
     renderDamageTable();
-    renderModalDamageTable();
+    renderTeknikalStats();
     showToast('Tiket aduan ' + id + ' telah ditandakan selesai.');
   }
 }
@@ -846,7 +956,9 @@ function openAddLabModal() {
   document.getElementById('labFormCode').value = '';
   document.getElementById('labFormName').value = '';
   document.getElementById('labFormFloor').value = 'Ground Floor';
+  setCustomSelectValue('wrapperLabFormFloor', 'Ground Floor', 'Ground Floor');
   document.getElementById('labFormStatus').value = 'Tersedia';
+  setCustomSelectValue('wrapperLabFormStatus', 'Tersedia', 'Tersedia (Sedia Digunakan)');
 
   const ttSection = document.getElementById('labFormTimetableSection');
   if (ttSection) ttSection.classList.add('hidden');
@@ -867,8 +979,15 @@ function openEditLabModal(id) {
   document.getElementById('labFormEditId').value = lab.id;
   document.getElementById('labFormCode').value = lab.code;
   document.getElementById('labFormName').value = lab.name;
-  document.getElementById('labFormFloor').value = lab.floor;
-  document.getElementById('labFormStatus').value = (lab.status === 'Penyelenggaraan') ? 'Penyelenggaraan' : 'Tersedia';
+
+  const floorVal = lab.floor || 'Ground Floor';
+  document.getElementById('labFormFloor').value = floorVal;
+  setCustomSelectValue('wrapperLabFormFloor', floorVal, floorVal);
+
+  const statusVal = (lab.status === 'Penyelenggaraan') ? 'Penyelenggaraan' : 'Tersedia';
+  const statusLabel = (statusVal === 'Penyelenggaraan') ? 'Diselenggara (Tidak Tersedia)' : 'Tersedia (Sedia Digunakan)';
+  document.getElementById('labFormStatus').value = statusVal;
+  setCustomSelectValue('wrapperLabFormStatus', statusVal, statusLabel);
 
   const ttSection = document.getElementById('labFormTimetableSection');
   if (ttSection) {
