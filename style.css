@@ -1,0 +1,479 @@
+/* ═══════════════════════════════════════════════════════════
+   SISTRAK LAB 3 — FIXED & CLEAN STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --shadow-soft: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  --shadow-soft-lg: 0 8px 26px -4px rgba(20, 20, 20, 0.15), 0 8px 9px -5px rgba(20, 20, 20, 0.06);
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #334155;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR NAV LINKS — CONSISTENT LAYOUT (NO SHIFTING!)
+   ═══════════════════════════════════════════════════════════ */
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  color: #475569;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.sidebar-nav-link:hover {
+  background-color: rgba(241, 245, 249, 0.8);
+  color: #0f172a;
+}
+
+.sidebar-nav-link.active {
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: 700;
+  border-color: rgba(226, 232, 240, 0.8);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.nav-icon-box {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: #fff7ed;
+  color: #f97316;
+  border: 1px solid #fed7aa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.sidebar-nav-link:hover .nav-icon-box {
+  background: #ffedd5;
+  color: #ea580c;
+  border-color: #fdba74;
+}
+
+.sidebar-nav-link.active .nav-icon-box,
+.nav-icon-box.active-icon {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   METRIC CARDS — CORNER BUBBLES & ANIMATED NUMBERS
+   ═══════════════════════════════════════════════════════════ */
+.metric-corner-bubble {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.metric-card-box:hover .metric-corner-bubble {
+  transform: scale(1.15);
+}
+
+/* Animated number slide-up */
+.metric-num-wrapper {
+  overflow: hidden;
+  position: relative;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.metric-number {
+  display: inline-block;
+  transition: none;
+}
+
+.metric-number.animating-out {
+  animation: slideNumOut 0.25s ease-in forwards;
+}
+
+.metric-number.animating-in {
+  animation: slideNumIn 0.3s ease-out forwards;
+}
+
+@keyframes slideNumOut {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes slideNumIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS BAR ANIMATION
+   ═══════════════════════════════════════════════════════════ */
+.progress-bar-animated {
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2-COL LAB LIST & 0.5s HOVER INLINE SELF-EXPANDING CARD
+   ═══════════════════════════════════════════════════════════ */
+.lab-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  align-items: start;
+}
+
+.lab-col-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+/* Compact Lab Rectangle (Default 2 in a row) */
+.lab-rect-item {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lab-rect-item:hover:not(.is-expanded):not(.lab-rect-disabled) {
+  border-color: #f97316;
+  background-color: #fff7ed;
+  box-shadow: 0 2px 10px rgba(249, 115, 22, 0.12);
+}
+
+/* Lab used by another user or unavailable: reduced opacity (kapasiti berkurang) & unselectable */
+.lab-rect-item.lab-rect-disabled {
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  filter: grayscale(0.2);
+}
+
+.lab-rect-item.lab-rect-disabled:hover {
+  border-color: #cbd5e1 !important;
+  background-color: #f8fafc !important;
+  box-shadow: none !important;
+}
+
+/* The SAME card when expanded: KEKALKAN BENTUK YANG SAMA, HANYA MEMANJANG KE BAWAH (tidak tolak yang sebelah) */
+.lab-rect-item.is-expanded {
+  /* Kekal di lajurnya sendiri (tidak guna grid-column: 1 / -1) */
+  border-color: #f97316;
+  background: #ffffff;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 20px -3px rgba(249, 115, 22, 0.2), 0 2px 6px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  animation: expandDownSlowSmooth 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.lab-rect-item.is-expanded::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+}
+
+/* Graceful vertical expansion keyframes (hanya memanjang ke bawah) */
+@keyframes expandDownSlowSmooth {
+  0% {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Content sliding gently downward */
+.expanded-content-slide {
+  animation: slideDownSlow 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownSlow {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Overdue badge pulse */
+.badge-overdue {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  animation: pulseOverdue 2s infinite ease-in-out;
+}
+
+@keyframes pulseOverdue {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.3); }
+  50%      { box-shadow: 0 0 0 5px rgba(220, 38, 38, 0); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   USAGE TABLE & PINNED ROW STYLING
+   ═══════════════════════════════════════════════════════════ */
+#usageRecordsTable {
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
+#usageRecordsTable thead th {
+  letter-spacing: 0.06em;
+}
+
+#usageRecordsTable tbody tr:not(.row-pinned-active) td {
+  border-bottom: 1px solid #f8fafc;
+}
+
+/* Pinned active row: modern rounded highlight card with soft border & zero-cramping padding */
+.row-pinned-active {
+  background: linear-gradient(90deg, #fff7ed 0%, #fffbeb 100%) !important;
+  box-shadow: 0 2px 10px rgba(249, 115, 22, 0.06);
+}
+
+.row-pinned-active td {
+  background-color: transparent !important;
+  border-top: 1px solid #fed7aa;
+  border-bottom: 1px solid #fed7aa;
+}
+
+.row-pinned-active td:first-child {
+  border-left: 1px solid #fed7aa;
+  border-top-left-radius: 0.85rem;
+  border-bottom-left-radius: 0.85rem;
+  padding-left: 1.25rem !important; /* Ruang bernafas di sebelah kiri LAB */
+}
+
+.row-pinned-active td:last-child {
+  border-right: 1px solid #fed7aa;
+  border-top-right-radius: 0.85rem;
+  border-bottom-right-radius: 0.85rem;
+  padding-right: 1.25rem !important; /* Ruang bernafas di sebelah kanan TINDAKAN */
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DATE STRIP BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+.date-strip-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  font-size: 0.7rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.date-strip-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
+  font-weight: 700;
+}
+
+.date-strip-btn:not(.active):hover {
+  background: #f1f5f9;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CHECK-IN MODAL TILES
+   ═══════════════════════════════════════════════════════════ */
+.modal-lab-tile {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-lab-tile:hover:not(.disabled) {
+  border-color: #f97316;
+  background-color: #fff7ed;
+}
+
+.modal-lab-tile.selected {
+  border: 2px solid #f97316 !important;
+  background-color: #fff7ed !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.18) !important;
+}
+
+.modal-lab-tile.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f8fafc;
+}
+
+/* Time Stepper */
+.time-stepper-btn {
+  width: 2.75rem; height: 2.75rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc; color: #475569;
+  font-weight: 700; font-size: 1.25rem;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.time-stepper-btn:hover { background: #e2e8f0; color: #0f172a; }
+.time-stepper-btn:active { transform: scale(0.95); }
+
+.time-stepper-display {
+  width: 6.5rem; height: 2.75rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem; font-weight: 800;
+  color: #4f46e5;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.time-stepper-display:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+/* Modal backdrop with soft blur */
+.modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL HIERARCHY & Z-INDEX STACKING
+   ═══════════════════════════════════════════════════════════ */
+.modal-level-base {
+  z-index: 50 !important;
+}
+
+.modal-level-sub {
+  z-index: 60 !important;
+}
+
+.modal-level-confirm {
+  z-index: 70 !important;
+}
+
+.toast-level {
+  z-index: 90 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MESH GRADIENT HELPERS & MODAL TABS
+   ═══════════════════════════════════════════════════════════ */
+.bg-mesh-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f59e0b 100%);
+}
+
+.btn-mesh-gradient {
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid #1e293b;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-mesh-gradient:hover {
+  background: #1e293b;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.32);
+  transform: translateY(-1px);
+}
+
+.btn-mesh-gradient:active {
+  background: #020617;
+  transform: translateY(0);
+}
+
+/* Teknikal Modal Tabs */
+.teknikal-tab-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  color: #64748b;
+  background: transparent;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.teknikal-tab-btn:hover {
+  color: #1e293b;
+  background: #f1f5f9;
+}
+
+.teknikal-tab-btn.active {
+  color: #ffffff;
+  background: #0f172a;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.25);
+  border-color: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CHATGPT-STYLE PROFILE DROPUP POPUP
+   ═══════════════════════════════════════════════════════════ */
+.dropup-animated {
+  transform-origin: bottom center;
+  animation: dropupScaleUp 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dropupScaleUp {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
