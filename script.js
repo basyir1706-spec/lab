@@ -189,14 +189,41 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) window.lucide.createIcons();
 });
 
-// ─── 3. NAV SWITCHING (NO LAYOUT SHIFT) ──────────────────
+// ─── 3. NAV SWITCHING & MOBILE SIDEBAR DRAWER ────────────
+function toggleMobileSidebar(forceState) {
+  const drawer = document.getElementById('mobileSidebarDrawer');
+  const backdrop = document.getElementById('mobileSidebarDrawerBackdrop');
+  if (!drawer || !backdrop) return;
+
+  const isClosed = drawer.classList.contains('-translate-x-full');
+  const shouldOpen = (typeof forceState === 'boolean') ? forceState : isClosed;
+
+  if (shouldOpen) {
+    drawer.classList.remove('-translate-x-full');
+    drawer.classList.add('translate-x-0');
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100', 'pointer-events-auto');
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.remove('translate-x-0');
+    drawer.classList.add('-translate-x-full');
+    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+    document.body.style.overflow = '';
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+
 function switchNavView(viewName) {
+  // Auto-close mobile drawer on view switch
+  toggleMobileSidebar(false);
+
   ['dashboard','management','teknikal','profile'].forEach(v => {
     const el = document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1));
     if (el) el.classList.toggle('hidden', v !== viewName);
   });
 
-  // Update active nav link — all keep same class structure, just toggle .active
+  // Update desktop active nav link — keep clean consistent structure
   document.querySelectorAll('.sidebar-nav-link').forEach(link => {
     link.classList.remove('active');
     const iconBox = link.querySelector('.nav-icon-box');
@@ -209,9 +236,39 @@ function switchNavView(viewName) {
     if (iconBox) iconBox.classList.add('active-icon');
   }
 
+  // Update mobile active nav link
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.classList.remove('active', 'bg-orange-50', 'text-orange-600', 'font-bold');
+    link.classList.add('text-slate-600', 'font-semibold');
+    const iconBox = link.querySelector('.mobile-nav-icon-box');
+    if (iconBox) {
+      iconBox.classList.remove('bg-gradient-to-tr', 'from-orange-500', 'to-amber-500', 'text-white', 'shadow-xs');
+      iconBox.classList.add('bg-slate-100', 'text-slate-500');
+    }
+  });
+  const activeMobileLink = document.getElementById('mobileNav' + viewName.charAt(0).toUpperCase() + viewName.slice(1));
+  if (activeMobileLink) {
+    activeMobileLink.classList.add('active', 'bg-orange-50', 'text-orange-600', 'font-bold');
+    activeMobileLink.classList.remove('text-slate-600', 'font-semibold');
+    const iconBox = activeMobileLink.querySelector('.mobile-nav-icon-box');
+    if (iconBox) {
+      iconBox.classList.remove('bg-slate-100', 'text-slate-500');
+      iconBox.classList.add('bg-gradient-to-tr', 'from-orange-500', 'to-amber-500', 'text-white', 'shadow-xs');
+    }
+  }
+
+  const titles = { 
+    dashboard:['Dashboard','Dashboard Pengurusan Lab'], 
+    management:['Pengurusan Lab','Direktori & Pengurusan Makmal'], 
+    teknikal:['Teknikal','Aduan & Laporan Kerosakan'], 
+    profile:['Profil','Profil Pengguna'] 
+  };
+
+  const mobileLabel = document.getElementById('mobileCurrentViewLabel');
+  if (mobileLabel) mobileLabel.textContent = titles[viewName]?.[0] || viewName;
+
   const bc = document.getElementById('breadcrumbCurrent');
   const pt = document.getElementById('pageTitleHeading');
-  const titles = { dashboard:['Dashboard','Dashboard Pengurusan Lab'], management:['Pengurusan Lab','Direktori & Pengurusan Makmal'], teknikal:['Teknikal','Aduan & Laporan Kerosakan'], profile:['Profile','Profil Pengguna'] };
   if (bc) bc.textContent = titles[viewName]?.[0] || viewName;
   if (pt) pt.textContent = titles[viewName]?.[1] || viewName;
   if (window.lucide) window.lucide.createIcons();

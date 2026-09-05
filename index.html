@@ -29,12 +29,110 @@
 </head>
 <body class="text-slate-700 antialiased min-h-screen p-3 md:p-5 lg:p-6 bg-[#f8f9fa]">
 
-  <div class="flex flex-col lg:flex-row max-w-[1680px] mx-auto gap-6 items-start">
+  <div class="flex flex-col lg:flex-row max-w-[1680px] mx-auto gap-4 lg:gap-6 items-start">
 
     <!-- ═══════════════════════════════════════════════
-         SIDEBAR
+         MOBILE TOP BAR (Sticky, Non-Intrusive Header for < lg)
     ═══════════════════════════════════════════════ -->
-    <aside class="w-full lg:w-60 shrink-0 bg-white rounded-2xl shadow-soft p-4 flex flex-col justify-between lg:min-h-[calc(100vh-3rem)] lg:sticky lg:top-6 border border-slate-100/80">
+    <header class="lg:hidden w-full bg-white rounded-2xl shadow-soft border border-slate-100/80 px-4 py-3 mb-2 flex items-center justify-between sticky top-2 z-30">
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuToggleBtn" type="button" onclick="toggleMobileSidebar()" class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 text-slate-700 flex items-center justify-center transition-colors shadow-xs" aria-label="Buka Menu Navigasi">
+          <i class="w-5 h-5" data-lucide="menu"></i>
+        </button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center text-white shadow-sm shadow-orange-500/20">
+            <i class="w-4 h-4 text-white" data-lucide="layers"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-black text-slate-800 tracking-tight">SisTrak</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-orange-100 text-orange-700 uppercase">Lab 3</span>
+            </div>
+            <p id="mobileCurrentViewLabel" class="text-[10px] font-semibold text-slate-400 leading-none mt-0.5">Dashboard</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="switchNavView('profile')" class="flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 transition-colors" title="Profil Pengguna">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-bold text-[10px] shadow-xs">PR</div>
+          <span class="text-[11px] font-bold text-slate-700 hidden sm:inline">Pn. Rohana</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         MOBILE OFF-CANVAS DRAWER & BACKDROP
+    ═══════════════════════════════════════════════ -->
+    <div id="mobileSidebarDrawerBackdrop" onclick="toggleMobileSidebar(false)" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none lg:hidden"></div>
+
+    <div id="mobileSidebarDrawer" class="fixed top-0 bottom-0 left-0 w-[280px] max-w-[85vw] bg-white z-50 shadow-2xl transition-transform duration-300 -translate-x-full flex flex-col justify-between p-5 lg:hidden overflow-y-auto">
+      <div>
+        <!-- Drawer Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/25">
+              <i class="w-5 h-5 text-white" data-lucide="layers"></i>
+            </div>
+            <div>
+              <h1 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">SisTrak</h1>
+              <span class="text-sm font-extrabold text-slate-800 tracking-tight">Soft UI Lab 3</span>
+            </div>
+          </div>
+          <button onclick="toggleMobileSidebar(false)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors" aria-label="Tutup Menu">
+            <i class="w-4 h-4" data-lucide="x"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Links -->
+        <nav class="mt-5 space-y-1.5" aria-label="Menu Mudah Alih">
+          <a href="#" id="mobileNavDashboard" onclick="switchNavView('dashboard'); return false;" class="mobile-nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 bg-orange-50 text-orange-600 shadow-xs">
+            <div class="mobile-nav-icon-box w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-tr from-orange-500 to-amber-500 text-white shadow-xs">
+              <i class="w-4 h-4" data-lucide="layout-dashboard"></i>
+            </div>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" id="mobileNavManagement" onclick="switchNavView('management'); return false;" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all duration-200">
+            <div class="mobile-nav-icon-box w-8 h-8 rounded-lg flex items-center justify-center bg-slate-100 text-slate-500">
+              <i class="w-4 h-4" data-lucide="monitor"></i>
+            </div>
+            <span>Pengurusan lab</span>
+          </a>
+          <a href="#" id="mobileNavTeknikal" onclick="switchNavView('teknikal'); return false;" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all duration-200">
+            <div class="mobile-nav-icon-box w-8 h-8 rounded-lg flex items-center justify-center bg-slate-100 text-slate-500">
+              <i class="w-4 h-4" data-lucide="wrench"></i>
+            </div>
+            <span>Teknikal</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Mobile Profile Footer in Drawer -->
+      <div class="pt-4 border-t border-slate-100 mt-6">
+        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100 mb-3">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-extrabold text-xs shadow-xs">PR</div>
+          <div class="min-w-0 flex-1">
+            <h5 class="text-xs font-bold text-slate-800 truncate">Pn. Rohana</h5>
+            <p class="text-[10px] text-slate-400 truncate">Pensyarah Kanan</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" onclick="openProfileFromDropup(); toggleMobileSidebar(false);" class="w-full flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors">
+            <i class="w-3.5 h-3.5 text-orange-500" data-lucide="user"></i>
+            <span>Profil</span>
+          </button>
+          <button type="button" onclick="handleLogoutConfirm(); toggleMobileSidebar(false);" class="w-full flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold text-xs transition-colors">
+            <i class="w-3.5 h-3.5 text-rose-500" data-lucide="log-out"></i>
+            <span>Keluar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SIDEBAR (Visible only on lg screens and up)
+    ═══════════════════════════════════════════════ -->
+    <aside class="hidden lg:flex lg:w-60 shrink-0 bg-white rounded-2xl shadow-soft p-4 flex-col justify-between lg:min-h-[calc(100vh-3rem)] lg:sticky lg:top-6 border border-slate-100/80">
       <div>
         <!-- Brand -->
         <div class="flex items-center gap-3 px-2 py-3 border-b border-gray-100">
@@ -209,7 +307,7 @@
                 </button>
               </div>
               <div class="overflow-x-auto">
-                <table class="w-full text-left" id="usageRecordsTable">
+                <table class="w-full text-left min-w-[500px]" id="usageRecordsTable">
                   <thead>
                     <tr class="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
                       <th class="pb-2.5 pl-5 pr-3 w-28 sm:w-32">LAB</th>
@@ -343,7 +441,7 @@
               <h4 class="text-sm font-bold text-slate-800">Senarai Aduan Semasa</h4>
             </div>
             <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
+              <table class="w-full text-left border-collapse min-w-[500px]">
                 <thead>
                   <tr class="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
                     <th class="pb-2.5">MAKMAL</th>
@@ -446,7 +544,7 @@
        MODAL: CHECK-IN
   ═══════════════════════════════════════════════ -->
   <div id="checkinModal" onclick="if(event.target === this) closeCheckinModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
         <div>
@@ -505,7 +603,7 @@
        MODAL TAB: TEKNIKAL (LAPOR KEROSAKAN & SENARAI ADUAN)
   ═══════════════════════════════════════════════ -->
   <div id="teknikalModal" onclick="if(event.target === this) closeTeknikalModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <!-- Gradient header accent bar -->
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
 
@@ -595,7 +693,7 @@
        MODAL: TAMBAH & SUNTING MAKMAL
   ═══════════════════════════════════════════════ -->
   <div id="labFormModal" onclick="if(event.target === this) closeLabFormModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
 
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
@@ -700,7 +798,7 @@
        MODAL: JADUAL (SUB-MODAL LEVEL 60: ALWAYS IN FRONT OF LAB FORM MODAL)
   ═══════════════════════════════════════════════ -->
   <div id="timetableModal" onclick="if(event.target === this) closeTimetableModal()" class="fixed inset-0 z-[60] modal-level-sub flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
         <div class="flex items-center gap-2.5">
@@ -725,7 +823,7 @@
        MODAL: KEMASKINI JADUAL WAKTU MAKMAL
   ═══════════════════════════════════════════════ -->
   <div id="updateTimetableModal" onclick="if(event.target === this) closeUpdateTimetableModal()" class="fixed inset-0 z-[60] modal-level-sub flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
 
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
@@ -775,7 +873,7 @@
        MODAL: DIALOG PENGESAHAN KUSTOM (REPLACES NATIVE ALERT / CONFIRM)
   ═══════════════════════════════════════════════ -->
   <div id="customConfirmModal" class="fixed inset-0 z-[70] modal-level-confirm flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 relative overflow-hidden text-center">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh] text-center">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
 
       <div class="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-sm bg-orange-50 text-orange-600" id="confirmModalIconWrapper">
@@ -798,7 +896,7 @@
 
   <!-- MODAL: TETAPAN & PROFIL PENGGUNA (User Settings Modal) -->
   <div id="userSettingsModal" onclick="if(event.target === this) closeUserSettingsModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 border border-slate-100 relative overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
       <!-- Accent top bar -->
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
 
