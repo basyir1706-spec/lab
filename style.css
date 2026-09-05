@@ -155,28 +155,27 @@ body {
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lab-rect-item:hover:not(.is-expanded):not(.lab-rect-disabled) {
-  border-color: #f97316;
-  background-color: #fff7ed;
-  box-shadow: 0 2px 10px rgba(249, 115, 22, 0.12);
+.lab-rect-item:hover:not(.is-expanded) {
+  border-color: #f97316 !important;
+  background-color: #fff7ed !important;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.18) !important;
+  transform: translateY(-2px);
 }
 
-/* Lab used by another user or unavailable: reduced opacity (kapasiti berkurang) & unselectable */
-.lab-rect-item.lab-rect-disabled {
-  opacity: 0.45;
-  cursor: not-allowed !important;
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
-  filter: grayscale(0.2);
+/* Lab used by another user or in maintenance: subtle dim but fully responsive on hover */
+.lab-rect-item.lab-rect-dimmed {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
 }
 
-.lab-rect-item.lab-rect-disabled:hover {
-  border-color: #cbd5e1 !important;
-  background-color: #f8fafc !important;
-  box-shadow: none !important;
+.lab-rect-item.lab-rect-dimmed:hover:not(.is-expanded) {
+  border-color: #f97316 !important;
+  background-color: #fff7ed !important;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.18) !important;
+  transform: translateY(-2px);
 }
 
 /* The SAME card when expanded: KEKALKAN BENTUK YANG SAMA, HANYA MEMANJANG KE BAWAH (tidak tolak yang sebelah) */

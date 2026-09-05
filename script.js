@@ -549,36 +549,22 @@ function renderLabCardHtml(lab) {
   }
 
   if (!isExp) {
-    if (isUnselectable) {
-      // ─── MAKMAL DIGUNAKAN OLEH USER LAIN / SERVIS: DIMMED & UNSELECTABLE ───
-      return `
-        <div 
-          class="lab-rect-item lab-rect-disabled" 
-          id="rect-${lab.id}"
-          title="${isUsedByOther ? 'Makmal sedang digunakan oleh pengguna lain' : 'Makmal dalam penyelenggaraan'}"
-        >
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-500">${lab.code}</span>
-            ${pillHTML}
-          </div>
+    const extraClass = (isUsedByOther || isMaintenance) ? ' lab-rect-dimmed' : '';
+    return `
+      <div 
+        class="lab-rect-item${extraClass}" 
+        id="rect-${lab.id}"
+        onmouseenter="handleLabHoverEnter('${lab.id}')"
+        onmouseleave="handleLabHoverLeave('${lab.id}')"
+        onclick="toggleLabExpandClick('${lab.id}')"
+        title="Klik atau hover untuk butiran ${lab.code}"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-slate-800">${lab.code}</span>
+          ${pillHTML}
         </div>
-      `;
-    } else {
-      // ─── COMPACT RECTANGLE TERSEDIA / SESI KITA (Klik untuk kembang) ───
-      return `
-        <div 
-          class="lab-rect-item" 
-          id="rect-${lab.id}"
-          onclick="toggleLabExpandClick('${lab.id}')"
-          title="Klik untuk lihat butiran"
-        >
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-slate-800">${lab.code}</span>
-            ${pillHTML}
-          </div>
-        </div>
-      `;
-    }
+      </div>
+    `;
   } else {
     // ─── THE SAME CARD EXPANDED (HANYA MEMANJANG KE BAWAH, KEKAL BENTUK LAJUR) ───
     let actionBtn = '';
@@ -602,8 +588,10 @@ function renderLabCardHtml(lab) {
       <div 
         class="lab-rect-item is-expanded" 
         id="rect-${lab.id}"
+        onmouseenter="handleLabHoverEnter('${lab.id}')"
+        onmouseleave="handleLabHoverLeave('${lab.id}')"
         onclick="toggleLabExpandClick('${lab.id}')"
-        title="Klik untuk tutup"
+        title="Klik untuk tutup butiran"
       >
         <!-- Top Row: Code & Pill -->
         <div class="flex items-center justify-between">
@@ -689,12 +677,54 @@ function renderCompactLabList(filteredList) {
   if (window.lucide) window.lucide.createIcons();
 }
 
-// Lab Expansion on Click (Ciri hover 0.5s auto-expand telah dibuang atas permintaan pengguna)
-function handleLabHoverEnter(labId) {}
-function handleLabHoverLeave(labId) {}
-function onLabGridMouseLeave() {}
+// ─── LAB HOVER & CLICK EXPANSION ─────────────────────────
+function handleLabHoverEnter(labId) {
+  if (collapseTimer) {
+    clearTimeout(collapseTimer);
+    collapseTimer = null;
+  }
+  currentHoveredLabId = labId;
+  if (expandedLabId === labId) return;
+
+  if (hoverExpandTimer) clearTimeout(hoverExpandTimer);
+  hoverExpandTimer = setTimeout(() => {
+    if (currentHoveredLabId === labId) {
+      expandedLabId = labId;
+      renderCompactLabList();
+    }
+  }, 220); // 220ms responsif & lancar
+}
+
+function handleLabHoverLeave(labId) {
+  if (currentHoveredLabId === labId) {
+    currentHoveredLabId = null;
+  }
+  if (hoverExpandTimer) {
+    clearTimeout(hoverExpandTimer);
+    hoverExpandTimer = null;
+  }
+}
+
+function onLabGridMouseLeave() {
+  if (hoverExpandTimer) {
+    clearTimeout(hoverExpandTimer);
+    hoverExpandTimer = null;
+  }
+  currentHoveredLabId = null;
+  if (collapseTimer) clearTimeout(collapseTimer);
+  collapseTimer = setTimeout(() => {
+    if (expandedLabId !== null) {
+      expandedLabId = null;
+      renderCompactLabList();
+    }
+  }, 300);
+}
 
 function toggleLabExpandClick(labId) {
+  if (hoverExpandTimer) {
+    clearTimeout(hoverExpandTimer);
+    hoverExpandTimer = null;
+  }
   expandedLabId = (expandedLabId === labId) ? null : labId;
   renderCompactLabList();
 }
