@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>SisTrak Lab 3 — Soft UI Dashboard Makmal Pintar</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'soft': '0 20px 27px 0 rgba(0, 0, 0, 0.05)',
+            'soft-lg': '0 8px 26px -4px rgba(20, 20, 20, 0.15), 0 8px 9px -5px rgba(20, 20, 20, 0.06)',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="text-slate-700 antialiased min-h-screen p-3 md:p-5 lg:p-6 bg-[#f8f9fa]">
+
+  <div class="flex flex-col lg:flex-row max-w-[1680px] mx-auto gap-6 items-start">
+
+    <!-- ═══════════════════════════════════════════════
+         SIDEBAR
+    ═══════════════════════════════════════════════ -->
+    <aside class="w-full lg:w-60 shrink-0 bg-white rounded-2xl shadow-soft p-4 flex flex-col justify-between lg:min-h-[calc(100vh-3rem)] lg:sticky lg:top-6 border border-slate-100/80">
+      <div>
+        <!-- Brand -->
+        <div class="flex items-center gap-3 px-2 py-3 border-b border-gray-100">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/25">
+            <i class="w-5 h-5 text-white" data-lucide="layers"></i>
+          </div>
+          <div>
+            <h1 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">SisTrak</h1>
+            <span class="text-sm font-extrabold text-slate-800 tracking-tight">Soft UI Lab 3</span>
+          </div>
+        </div>
+
+        <!-- Nav Links — ALL use same consistent layout (no shifting) -->
+        <nav aria-label="Main menu" class="mt-5 space-y-1">
+          <a href="#" id="navDashboard" onclick="switchNavView('dashboard'); return false;" class="sidebar-nav-link active">
+            <div class="nav-icon-box active-icon"><i class="w-4 h-4" data-lucide="layout-dashboard"></i></div>
+            <span class="text-sm">Dashboard</span>
+          </a>
+          <a href="#" id="navManagement" onclick="switchNavView('management'); return false;" class="sidebar-nav-link">
+            <div class="nav-icon-box"><i class="w-4 h-4" data-lucide="monitor"></i></div>
+            <span class="text-sm">Pengurusan lab</span>
+          </a>
+          <a href="#" id="navTeknikal" onclick="switchNavView('teknikal'); return false;" class="sidebar-nav-link">
+            <div class="nav-icon-box"><i class="w-4 h-4" data-lucide="wrench"></i></div>
+            <span class="text-sm">Teknikal</span>
+          </a>
+
+        </nav>
+      </div>
+
+      <!-- Profile Pengguna (Dropup Menu ke atas seperti ChatGPT) -->
+      <div class="relative mt-auto pt-3 border-t border-slate-100/80" id="sidebarProfileContainer">
+        
+        <!-- Dropup Popover (Muncul ke atas) -->
+        <div id="sidebarProfileDropup" class="hidden absolute bottom-full left-0 right-0 mb-2 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 z-50 dropup-animated">
+          <!-- Profile Card Header -->
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 border border-slate-100 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-extrabold text-[11px] shadow-sm shrink-0">PR</div>
+            <div class="min-w-0">
+              <h5 class="text-xs font-bold text-slate-800 truncate">Pn. Rohana</h5>
+              <p class="text-[10px] text-slate-400 truncate">rohana@polibesut.edu.my</p>
+            </div>
+          </div>
+
+          <!-- Menu items -->
+          <div class="space-y-0.5 text-xs font-semibold text-slate-700">
+            <button type="button" onclick="openProfileFromDropup()" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-slate-50 hover:text-orange-600 transition-colors text-left">
+              <i class="w-4 h-4 text-orange-500" data-lucide="user"></i>
+              <span>Lihat Profil Penuh</span>
+            </button>
+            <button type="button" onclick="openSettingsFromDropup()" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-slate-50 hover:text-orange-600 transition-colors text-left">
+              <i class="w-4 h-4 text-orange-500" data-lucide="settings"></i>
+              <span>Tetapan Akaun</span>
+            </button>
+            <button type="button" onclick="showToast('Tiada pemberitahuan baharu'); toggleProfileDropup(false);" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-slate-50 hover:text-orange-600 transition-colors text-left">
+              <i class="w-4 h-4 text-orange-500" data-lucide="bell"></i>
+              <span>Pemberitahuan</span>
+            </button>
+          </div>
+
+          <div class="h-px bg-slate-100 my-1.5"></div>
+
+          <button type="button" onclick="handleLogoutConfirm()" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-rose-50 text-rose-600 font-semibold transition-colors text-left text-xs">
+            <i class="w-4 h-4 text-rose-500" data-lucide="log-out"></i>
+            <span>Log Keluar</span>
+          </button>
+        </div>
+
+        <!-- Trigger Button di bucu bawah kiri -->
+        <button id="sidebarProfileTriggerBtn" type="button" onclick="toggleProfileDropup()" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-100/80 transition-colors text-left group" title="Menu Profil Pengguna">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-bold text-[11px] shadow-sm group-hover:scale-105 transition-transform shrink-0">PR</div>
+            <div class="min-w-0">
+              <h4 class="text-xs font-bold text-slate-800 leading-tight truncate" id="currentUserDisplay">Pn. Rohana</h4>
+              <p class="text-[10px] text-slate-400 leading-none mt-0.5 truncate">Pensyarah Kanan</p>
+            </div>
+          </div>
+          <i class="w-4 h-4 text-orange-500 group-hover:text-orange-600 transition-colors shrink-0" data-lucide="more-horizontal"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════════════════════════════════
+         MAIN CONTENT
+    ═══════════════════════════════════════════════ -->
+    <div class="flex-1 w-full space-y-6">
+
+
+
+      <!-- ═══════════════════════════════════════════════
+           VIEW 1: DASHBOARD
+      ═══════════════════════════════════════════════ -->
+      <div id="viewDashboard" class="space-y-6">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+
+          <!-- MIDDLE: 4 METRIC CARDS + TABLE (7 cols) -->
+          <div class="xl:col-span-7 space-y-6">
+
+            <!-- 4 METRIC CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-purpose="4-metric-cards">
+              <!-- Card 1: Keseluruhan (Tema Warna Biru) -->
+              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
+                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-blue-500/15"></div>
+                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-blue-500/10"></div>
+                <div class="flex items-center gap-3.5 relative z-10">
+                  <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/25"><i class="w-5 h-5" data-lucide="layout-grid"></i></div>
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Keseluruhan</span>
+                    <span class="text-[11px] text-slate-400">Kapasiti Makmal</span>
+                  </div>
+                </div>
+                <div class="text-right relative z-10">
+                  <div class="metric-num-wrapper"><span id="metricTotal" class="metric-number text-2xl font-extrabold text-slate-800">10</span></div>
+                </div>
+              </div>
+              <!-- Card 2: Tersedia (Tema Warna Hijau) -->
+              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
+                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-emerald-500/15"></div>
+                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-emerald-500/10"></div>
+                <div class="flex items-center gap-3.5 relative z-10">
+                  <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/25"><i class="w-5 h-5" data-lucide="check-circle-2"></i></div>
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Tersedia</span>
+                    <span class="text-[11px] text-slate-400">Sedia Digunakan</span>
+                  </div>
+                </div>
+                <div class="text-right relative z-10">
+                  <div class="metric-num-wrapper"><span id="metricAvailable" class="metric-number text-2xl font-extrabold text-slate-800">8</span></div>
+                </div>
+              </div>
+              <!-- Card 3: Digunakan -->
+              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
+                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-yellow-400/20"></div>
+                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-yellow-400/10"></div>
+                <div class="flex items-center gap-3.5 relative z-10">
+                  <div class="w-11 h-11 rounded-xl bg-yellow-400 text-yellow-950 flex items-center justify-center shadow-md shadow-yellow-400/25"><i class="w-5 h-5" data-lucide="clock"></i></div>
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Digunakan</span>
+                    <span class="text-[11px] text-slate-400">Sesi Berlangsung</span>
+                  </div>
+                </div>
+                <div class="text-right relative z-10">
+                  <div class="metric-num-wrapper"><span id="metricInUse" class="metric-number text-2xl font-extrabold text-slate-800">1</span></div>
+                </div>
+              </div>
+              <!-- Card 4: Tidak tersedia -->
+              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
+                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-rose-500/15"></div>
+                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-rose-500/10"></div>
+                <div class="flex items-center gap-3.5 relative z-10">
+                  <div class="w-11 h-11 rounded-xl bg-rose-500 text-white flex items-center justify-center shadow-md shadow-rose-500/25"><i class="w-5 h-5" data-lucide="ban"></i></div>
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Tidak tersedia</span>
+                    <span class="text-[11px] text-slate-400">Servis / Baiki</span>
+                  </div>
+                </div>
+                <div class="text-right relative z-10">
+                  <div class="metric-num-wrapper"><span id="metricUnavailable" class="metric-number text-2xl font-extrabold text-slate-800">1</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TABLE: REKOD PENGGUNAAN -->
+            <div class="bg-white rounded-2xl shadow-soft p-5 lg:p-6 border border-slate-100">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-extrabold text-slate-800">Rekod Paparan Penggunaan Laboratorium</h3>
+                  <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Log aktif semasa &amp; keutamaan semakan checkout</p>
+                </div>
+                <button onclick="openCheckinModal()" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3.5 py-1.5 rounded-xl transition-all shadow-sm">
+                  <i class="w-3.5 h-3.5" data-lucide="key-round"></i> Check-In
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left" id="usageRecordsTable">
+                  <thead>
+                    <tr class="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
+                      <th class="pb-2.5 pl-5 pr-3 w-28 sm:w-32">LAB</th>
+                      <th class="pb-2.5 px-3">PENGGUNA</th>
+                      <th class="pb-2.5 px-3">STATUS</th>
+                      <th class="pb-2.5 pl-3 pr-5 text-right">TINDAKAN</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usageTableBody" class="text-xs"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL -->
+          <div class="xl:col-span-5 bg-white p-5 lg:p-6 rounded-2xl shadow-soft border border-slate-100 space-y-4">
+
+            <!-- DATE PICKER STRIP with clickable calendar icon for picking dates -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Date Picker Strip</span>
+                <div class="relative">
+                  <button type="button" onclick="openNativeCalendarPicker()" class="flex items-center gap-1.5 hover:bg-slate-100 px-2 py-1 rounded-lg transition-colors cursor-pointer group" title="Klik untuk pilih tarikh kalendar">
+                    <i class="w-3.5 h-3.5 text-orange-500 group-hover:scale-110 transition-transform" data-lucide="calendar"></i>
+                    <span class="text-xs font-semibold text-slate-700" id="currentMonthYearDisplay">Ogos 2026</span>
+                  </button>
+                  <input type="date" id="nativeCalendarInput" class="absolute opacity-0 pointer-events-none -bottom-1 right-0 w-0 h-0" onchange="onCalendarDateSelected(this.value)" value="2026-08-20" />
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1 pt-1 pb-1">
+                <button onclick="navigateDateStrip(-1)" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"><i class="w-4 h-4" data-lucide="chevron-left"></i></button>
+                <div class="flex items-center gap-1 overflow-x-auto py-1" id="dateStripContainer"></div>
+                <button onclick="navigateDateStrip(1)" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"><i class="w-4 h-4" data-lucide="chevron-right"></i></button>
+              </div>
+            </div>
+
+            <hr class="border-slate-100" />
+
+            <!-- MAKLUMAT PENGGUNAAN SETIAP ARAS (HORIZONTAL 3 COLUMNS) -->
+            <div>
+              <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">Maklumat Penggunaan Setiap Aras</h4>
+              <div class="grid grid-cols-3 gap-3 pt-0.5">
+                <div>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 1</span>
+                  <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
+                    <div id="barArasBawah" class="progress-bar-animated bg-gradient-to-r from-orange-500 to-amber-500 h-1.5 rounded-full" style="width: 0%"></div>
+                  </div>
+                  <div class="text-xs font-bold text-slate-800" id="statsArasBawahRatio">
+                    0 <span class="font-normal text-slate-400 text-[10px]">/ 5 Lab</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 2</span>
+                  <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
+                    <div id="barAras1" class="progress-bar-animated bg-gradient-to-r from-amber-400 to-yellow-400 h-1.5 rounded-full" style="width: 0%"></div>
+                  </div>
+                  <div class="text-xs font-bold text-slate-800" id="statsAras1Ratio">
+                    0 <span class="font-normal text-slate-400 text-[10px]">/ 5 Lab</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 3</span>
+                  <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
+                    <div id="barAras2" class="progress-bar-animated bg-slate-300 h-1.5 rounded-full" style="width: 0%"></div>
+                  </div>
+                  <div class="text-xs font-bold text-slate-800" id="statsAras2Ratio">
+                    0 <span class="font-normal text-slate-400 text-[10px]">/ 0 Lab</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="border-slate-100" />
+
+            <!-- SEARCH -->
+            <div>
+              <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">Search input</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400"><i class="w-3.5 h-3.5" data-lucide="search"></i></span>
+                <input id="labSearchInput" oninput="onSearchLabInput(this.value)" class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 placeholder-slate-400 transition-all" placeholder="Type here..." type="text" />
+              </div>
+            </div>
+
+            <!-- SENARAI MAKMAL (2-col, hover 0.5s to expand the card itself) -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Senarai Makmal</span>
+                <span class="text-[10px] text-slate-400">Hover 0.5s untuk kembang</span>
+              </div>
+              <div id="labCompactGrid" onmouseleave="onLabGridMouseLeave()" class="lab-grid-compact max-h-80 overflow-y-auto pr-1 pb-1"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           VIEW 2: TEKNIKAL
+      ═══════════════════════════════════════════════ -->
+      <div id="viewTeknikal" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl shadow-soft p-6 border border-slate-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 mb-6">
+            <div>
+              <h3 class="text-base font-extrabold text-slate-800">Modul Teknikal: Aduan &amp; Laporan Kerosakan</h3>
+              <p class="text-xs text-slate-500 mt-1">Urus aduan kerosakan makmal, selia tiket pembaikan dan tindakan penyelenggaraan.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openTeknikalModal('form')" class="inline-flex items-center gap-2 text-xs font-bold text-white btn-mesh-gradient px-4 py-2.5 rounded-xl shadow-md">
+                <i class="w-4 h-4" data-lucide="plus-circle"></i> + Buka Borang Aduan
+              </button>
+              <button onclick="openTeknikalModal('list')" class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-xl transition-colors">
+                <i class="w-4 h-4" data-lucide="layers"></i> Senarai Bertab
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats / Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Jumlah Aduan</span>
+                <div class="text-xl font-black text-slate-800 mt-0.5" id="statsTeknikalTotal">2</div>
+              </div>
+              <div class="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold"><i class="w-4 h-4" data-lucide="clipboard-list"></i></div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Dalam Tindakan</span>
+                <div class="text-xl font-black text-amber-600 mt-0.5" id="statsTeknikalPending">2</div>
+              </div>
+              <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold"><i class="w-4 h-4" data-lucide="clock"></i></div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Selesai Dibaikpulih</span>
+                <div class="text-xl font-black text-emerald-600 mt-0.5" id="statsTeknikalResolved">0</div>
+              </div>
+              <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold"><i class="w-4 h-4" data-lucide="check-circle-2"></i></div>
+            </div>
+          </div>
+
+          <!-- Overview Table -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-sm font-bold text-slate-800">Senarai Aduan Semasa</h4>
+              <span id="ticketCountBadge" class="text-xs font-semibold text-slate-500">2 Laporan</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
+                    <th class="pb-2.5">TIKET</th>
+                    <th class="pb-2.5">MAKMAL</th>
+                    <th class="pb-2.5">MASALAH &amp; BUTIRAN</th>
+                    <th class="pb-2.5">TAHAP</th>
+                    <th class="pb-2.5">STATUS</th>
+                    <th class="pb-2.5 text-right">TINDAKAN</th>
+                  </tr>
+                </thead>
+                <tbody id="damageTableBody" class="divide-y divide-slate-100/80 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           VIEW 3: PENGURUSAN LAB
+      ═══════════════════════════════════════════════ -->
+      <div id="viewManagement" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl shadow-soft p-6 border border-slate-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 mb-6">
+            <div>
+              <h3 class="text-base font-extrabold text-slate-800">Direktori &amp; Tetapan Makmal</h3>
+              <p class="text-xs text-slate-500 mt-1">Urus status ketersediaan, kemaskini gambar jadual waktu, edit maklumat dan daftar makmal baharu.</p>
+            </div>
+            <button onclick="openAddLabModal()" class="inline-flex items-center gap-2 text-xs font-bold text-white btn-mesh-gradient px-4 py-2.5 rounded-xl shadow-md">
+              <i class="w-4 h-4" data-lucide="plus-circle"></i> + Tambah Makmal Baharu
+            </button>
+          </div>
+
+          <!-- Filter / Search bar for Management -->
+          <div class="flex flex-wrap items-center gap-2.5 mb-5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+            <!-- Filter Aras (Bebas Pertindihan Chevron) -->
+            <div class="relative inline-flex items-center">
+              <select id="mgmtFloorFilter" onchange="renderManagementLabs()" class="appearance-none bg-white border border-slate-200 hover:border-slate-300 rounded-xl pl-3.5 pr-8 py-2 text-xs font-bold text-slate-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                <option value="ALL">Semua Aras</option>
+                <option value="Ground Floor">Ground Floor</option>
+                <option value="Aras 1">Aras 1</option>
+                <option value="Aras 2">Aras 2</option>
+              </select>
+              <i class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 pointer-events-none" data-lucide="chevron-down"></i>
+            </div>
+
+            <!-- Filter Status (Bebas Pertindihan Chevron) -->
+            <div class="relative inline-flex items-center">
+              <select id="mgmtStatusFilter" onchange="renderManagementLabs()" class="appearance-none bg-white border border-slate-200 hover:border-slate-300 rounded-xl pl-3.5 pr-8 py-2 text-xs font-bold text-slate-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                <option value="ALL">Semua Makmal</option>
+                <option value="Penyelenggaraan">Hanya Diselenggara</option>
+              </select>
+              <i class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 pointer-events-none" data-lucide="chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="managementLabsGrid"></div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           VIEW 4: PROFILE
+      ═══════════════════════════════════════════════ -->
+      <div id="viewProfile" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl shadow-soft p-6 border border-slate-100">
+          <div class="flex items-center gap-4 pb-5 border-b border-slate-100">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-extrabold text-lg shadow-md">PR</div>
+            <div>
+              <h3 class="text-base font-extrabold text-slate-800">Pn. Rohana binti Ismail</h3>
+              <p class="text-xs text-slate-500">Pensyarah Kanan • Jabatan Teknologi Maklumat</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Sesi Semasa</span>
+              <div id="profileActiveSessionBox"><p class="text-xs text-slate-500 italic">Tiada sesi aktif.</p></div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Statistik</span>
+              <p class="text-xs text-slate-600">Bulan ini: <span class="font-bold text-slate-800">18 Jam</span></p>
+              <p class="text-xs text-slate-600 mt-1">Makmal kerap: <span class="font-bold text-slate-800">ILL 1, ADL 2</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: CHECK-IN
+  ═══════════════════════════════════════════════ -->
+  <div id="checkinModal" onclick="if(event.target === this) closeCheckinModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div>
+          <h3 class="text-sm font-extrabold text-slate-800">Check-in / Penggunaan Makmal</h3>
+          <p class="text-[11px] text-slate-500">Pilih makmal tersedia dan tetapkan tempoh.</p>
+        </div>
+        <button onclick="closeCheckinModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"><i class="w-4 h-4" data-lucide="x"></i></button>
+      </div>
+      <div class="mb-5">
+        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Pilih Makmal</label>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5" id="modalLabTilesGrid"></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Pengguna / Pensyarah</label>
+          <div class="relative">
+            <input id="inputCheckinUserName" type="text" value="Pn. Rohana" placeholder="Pensyarah / Pelajar" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-3 pr-9 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800" />
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400"><i class="w-4 h-4" data-lucide="user"></i></span>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Tujuan Penggunaan</label>
+          <select id="selectCheckinPurpose" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-3 pr-8 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800 appearance-none">
+            <option>Kuliah & Sesi Amali Pelajar</option>
+            <option>Penyelidikan / FYP</option>
+            <option>Bengkel / Latihan</option>
+            <option>Ujian Praktikal</option>
+            <option>Penggunaan Sendiri</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col items-center justify-center p-4 bg-slate-50/80 rounded-2xl border border-slate-100 mb-5">
+        <label class="text-xs font-bold text-slate-700 mb-2">Tempoh Penggunaan</label>
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="stepDurationMinutes(-30)" class="time-stepper-btn"><i class="w-4 h-4" data-lucide="minus"></i></button>
+          <input id="inputDurationFormatted" type="text" value="02:00" oninput="handleDurationTextInput(this)" onblur="formatDurationOnBlur(this)" class="time-stepper-display" />
+          <button type="button" onclick="stepDurationMinutes(30)" class="time-stepper-btn"><i class="w-4 h-4" data-lucide="plus"></i></button>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-2 font-medium">Taip <span class="font-bold text-orange-600">1–9</span> = auto jam. Butang +/- laras 30 minit.</p>
+      </div>
+      <div class="flex items-center justify-end gap-3">
+        <button type="button" onclick="closeCheckinModal()" class="text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-xl">Batal</button>
+        <button type="button" onclick="submitCheckinModal()" class="inline-flex items-center gap-2 text-xs font-bold text-white btn-mesh-gradient px-6 py-2.5 rounded-xl shadow-md"><i class="w-4 h-4" data-lucide="check"></i> Sahkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL TAB: TEKNIKAL (LAPOR KEROSAKAN & SENARAI ADUAN)
+  ═══════════════════════════════════════════════ -->
+  <div id="teknikalModal" onclick="if(event.target === this) closeTeknikalModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 sm:p-7 border border-slate-100 relative overflow-hidden">
+      <!-- Gradient header accent bar -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-mesh-gradient text-white flex items-center justify-center shadow-sm">
+            <i class="w-5 h-5" data-lucide="wrench"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-800">Pusat Laporan &amp; Aduan Teknikal</h3>
+            <p class="text-[11px] text-slate-500">Sistem aduan kerosakan dan penjejakan pembaikan aset makmal.</p>
+          </div>
+        </div>
+        <button onclick="closeTeknikalModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+          <i class="w-4 h-4" data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Tab Buttons Navigation -->
+      <div class="flex items-center gap-2 p-1.5 bg-slate-100/80 rounded-2xl mb-5">
+        <button id="btnTabLaporKerosakan" type="button" onclick="switchTeknikalTab('form')" class="teknikal-tab-btn active flex-1 justify-center">
+          <i class="w-4 h-4" data-lucide="plus-circle"></i>
+          <span>Borang Lapor Kerosakan</span>
+        </button>
+        <button id="btnTabSenaraiAduan" type="button" onclick="switchTeknikalTab('list')" class="teknikal-tab-btn flex-1 justify-center">
+          <i class="w-4 h-4" data-lucide="clipboard-list"></i>
+          <span>Senarai Aduan &amp; Penyelenggaraan</span>
+          <span id="tabListBadgeCount" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 text-slate-700">2</span>
+        </button>
+      </div>
+
+      <!-- Tab 1: Borang Lapor Kerosakan -->
+      <div id="teknikalTabForm" class="space-y-4">
+        <form id="damageReportModalForm" onsubmit="submitDamageReport(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Makmal *</label>
+              <select id="modalReportLabSelect" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-semibold text-slate-800">
+                <option value="">-- Pilih Makmal --</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Peralatan / Aset *</label>
+              <input id="modalReportItemName" required placeholder="Contoh: PC-05, Projektor, LAN" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-semibold text-slate-800" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Tahap Keutamaan *</label>
+              <select id="modalReportSeverity" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-semibold text-slate-800">
+                <option value="Biasa">Biasa (Rendah)</option>
+                <option value="Sederhana">Sederhana</option>
+                <option value="Kritikal">Kritikal (Segera)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Butiran Simptom / Catatan Kerosakan *</label>
+            <textarea id="modalReportDetails" rows="3" required placeholder="Jelaskan simptom kerosakan, nombor PC atau lokasi perkakasan secara terperinci..." class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-medium text-slate-800"></textarea>
+          </div>
+          <div class="flex items-center justify-end gap-2.5 pt-2">
+            <button type="button" onclick="closeTeknikalModal()" class="text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-xl transition-colors">Batal</button>
+            <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold text-white btn-mesh-gradient px-6 py-2.5 rounded-xl shadow-md">
+              <i class="w-4 h-4" data-lucide="send"></i> Hantar Laporan Aduan
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tab 2: Senarai Aduan & Penyelenggaraan -->
+      <div id="teknikalTabList" class="hidden space-y-3">
+        <div class="overflow-x-auto max-h-[350px]">
+          <table class="w-full text-left border-collapse">
+            <thead class="sticky top-0 bg-white">
+              <tr class="border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
+                <th class="pb-2.5">TIKET</th>
+                <th class="pb-2.5">MAKMAL</th>
+                <th class="pb-2.5">MASALAH</th>
+                <th class="pb-2.5">TAHAP</th>
+                <th class="pb-2.5">STATUS</th>
+                <th class="pb-2.5 text-right">TINDAKAN</th>
+              </tr>
+            </thead>
+            <tbody id="modalDamageTableBody" class="divide-y divide-slate-100/80 text-xs"></tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+          <p class="text-[11px] text-slate-400">Tekan butang status untuk mengemaskini tiket aduan.</p>
+          <button type="button" onclick="closeTeknikalModal()" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition-colors">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: TAMBAH & SUNTING MAKMAL
+  ═══════════════════════════════════════════════ -->
+  <div id="labFormModal" onclick="if(event.target === this) closeLabFormModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            <i class="w-4 h-4" data-lucide="pencil"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-800" id="labFormModalTitle">Sunting Maklumat Makmal</h3>
+            <p class="text-[11px] text-slate-400" id="labFormModalSubtitle">Masukkan butiran makmal untuk pendaftaran atau suntingan</p>
+          </div>
+        </div>
+        <button onclick="closeLabFormModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+          <i class="w-4 h-4" data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form id="labDataForm" onsubmit="handleSaveLabForm(event)" class="space-y-4">
+        <input type="hidden" id="labFormEditId" value="" />
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Kod Makmal (Ringkas) *</label>
+          <input id="labFormCode" required placeholder="Contoh: CSDL 3, NWL 1" class="w-full text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Penuh Makmal *</label>
+          <input id="labFormName" required placeholder="Contoh: Computer System & Digital Lab 3" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Lokasi / Aras *</label>
+            <select id="labFormFloor" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800">
+              <option value="Ground Floor">Ground Floor</option>
+              <option value="Aras 1">Aras 1</option>
+              <option value="Aras 2">Aras 2</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Ketersediaan *</label>
+            <select id="labFormStatus" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl py-2.5 px-3 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800">
+              <option value="Tersedia">Tersedia (Sedia Digunakan)</option>
+              <option value="Penyelenggaraan">Diselenggara (Tidak Tersedia)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Pilihan Jadual Waktu di dalam Modal Pensel -->
+        <div id="labFormTimetableSection" class="hidden pt-2 border-t border-slate-100">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+                <i class="w-4 h-4" data-lucide="calendar"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-800 block">Jadual Waktu Makmal</span>
+                <span class="text-[10px] text-slate-400" id="labFormTimetableLabCode">Jadual rasmi makmal</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="handleViewTimetableFromForm()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
+                Lihat Jadual
+              </button>
+              <button type="button" onclick="handleUpdateTimetableFromForm()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 transition-colors">
+                Ubah Fail
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-3">
+          <button type="button" id="labFormDeleteBtn" onclick="handleDeleteFromEditModal()" class="hidden text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3.5 py-2.5 rounded-xl transition-colors inline-flex items-center gap-1.5" title="Padam makmal ini">
+            <i class="w-4 h-4 text-rose-600" data-lucide="trash-2"></i> Padam Makmal
+          </button>
+          <div class="flex items-center gap-2.5 ml-auto">
+            <button type="button" onclick="closeLabFormModal()" class="text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-xl transition-colors">Batal</button>
+            <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold text-white btn-mesh-gradient px-5 py-2.5 rounded-xl shadow-md">
+              <i class="w-4 h-4" data-lucide="check"></i> Simpan Maklumat
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: JADUAL (SUB-MODAL LEVEL 60: ALWAYS IN FRONT OF LAB FORM MODAL)
+  ═══════════════════════════════════════════════ -->
+  <div id="timetableModal" onclick="if(event.target === this) closeTimetableModal()" class="fixed inset-0 z-[60] modal-level-sub flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 border border-slate-100 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center"><i class="w-4 h-4" data-lucide="calendar"></i></div>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-800" id="timetableModalTitle">Jadual Makmal</h3>
+            <p class="text-[11px] text-slate-500" id="timetableModalSubtitle">Jadual rasmi</p>
+          </div>
+        </div>
+        <button onclick="closeTimetableModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"><i class="w-4 h-4" data-lucide="x"></i></button>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center min-h-[280px]">
+        <img id="timetableImageDisplay" src="jadual(default).png" alt="Jadual Waktu" class="w-full h-auto max-h-[450px] object-contain" />
+      </div>
+      <div class="flex items-center justify-end mt-4">
+        <button onclick="closeTimetableModal()" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-5 py-2 rounded-xl transition-colors">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: KEMASKINI JADUAL WAKTU MAKMAL
+  ═══════════════════════════════════════════════ -->
+  <div id="updateTimetableModal" onclick="if(event.target === this) closeUpdateTimetableModal()" class="fixed inset-0 z-[60] modal-level-sub flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            <i class="w-4 h-4" data-lucide="calendar"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-800" id="updateTimetableModalTitle">Kemaskini Jadual Makmal</h3>
+            <p class="text-[11px] text-slate-400">Muat naik fail gambar jadual waktu rasmi terkini</p>
+          </div>
+        </div>
+        <button onclick="closeUpdateTimetableModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+          <i class="w-4 h-4" data-lucide="x"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="updateTimetableLabCode" value="" />
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Pratonton Jadual Semasa / Baharu</label>
+          <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-2 flex items-center justify-center min-h-[160px] max-h-[220px]">
+            <img id="updateTimetablePreview" src="jadual(default).png" alt="Preview Jadual" class="max-h-[190px] w-auto object-contain rounded-lg" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Pilih Gambar Jadual (PNG / JPG)</label>
+          <input type="file" id="timetableFileInput" accept="image/*" onchange="handleTimetableFileSelect(event)" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-600 hover:file:bg-orange-100 cursor-pointer" />
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button type="button" onclick="resetToDefaultTimetable()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 underline">Guna Jadual Default</button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeUpdateTimetableModal()" class="text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition-colors">Batal</button>
+            <button type="button" onclick="saveTimetableUpdate()" class="inline-flex items-center gap-1.5 text-xs font-bold text-white btn-mesh-gradient px-4 py-2 rounded-xl shadow-md">
+              <i class="w-4 h-4" data-lucide="upload"></i> Kemaskini Jadual
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: DIALOG PENGESAHAN KUSTOM (REPLACES NATIVE ALERT / CONFIRM)
+  ═══════════════════════════════════════════════ -->
+  <div id="customConfirmModal" class="fixed inset-0 z-[70] modal-level-confirm flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 relative overflow-hidden text-center">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+
+      <div class="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-sm bg-orange-50 text-orange-600" id="confirmModalIconWrapper">
+        <i class="w-6 h-6" id="confirmModalIcon" data-lucide="help-circle"></i>
+      </div>
+
+      <h3 class="text-sm font-black text-slate-900 mb-1" id="confirmModalTitle">Pengesahan Diperlukan</h3>
+      <p class="text-xs text-slate-500 font-medium mb-5" id="confirmModalMessage">Adakah anda pasti untuk meneruskan tindakan ini?</p>
+
+      <div class="flex items-center justify-center gap-2.5">
+        <button type="button" id="confirmModalCancelBtn" onclick="handleConfirmModalAction(false)" class="flex-1 py-2.5 px-4 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+          Batal
+        </button>
+        <button type="button" id="confirmModalOkBtn" onclick="handleConfirmModalAction(true)" class="flex-1 py-2.5 px-4 text-xs font-bold text-white btn-mesh-gradient rounded-xl shadow-md transition-all">
+          Sahkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TETAPAN & PROFIL PENGGUNA (User Settings Modal) -->
+  <div id="userSettingsModal" onclick="if(event.target === this) closeUserSettingsModal()" class="fixed inset-0 z-50 modal-level-base flex items-center justify-center p-3 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 border border-slate-100 relative overflow-hidden">
+      <!-- Accent top bar -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+            <i class="w-4 h-4" data-lucide="settings"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-800">Tetapan & Profil Akaun</h3>
+            <p class="text-[11px] text-slate-400">Pengurusan akaun pengguna</p>
+          </div>
+        </div>
+        <button onclick="closeUserSettingsModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+          <i class="w-4 h-4" data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- User Card Info -->
+      <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 text-white font-extrabold text-base flex items-center justify-center shadow-sm">
+          PR
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-slate-800">Pn. Rohana binti Ismail</h4>
+          <p class="text-[11px] text-slate-500 mt-0.5">Pensyarah Kanan • JTMK</p>
+          <span class="inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-700 mt-1">Akaun Aktif</span>
+        </div>
+      </div>
+
+      <!-- Settings Menu Items -->
+      <div class="space-y-1.5 mb-5 text-xs">
+        <button onclick="showToast('Modul profil dibuka'); closeUserSettingsModal(); switchNavView('profile');" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 text-slate-700 font-semibold transition-colors">
+          <span class="flex items-center gap-2.5"><i class="w-4 h-4 text-orange-500" data-lucide="user"></i> Lihat Profil Penuh</span>
+          <i class="w-3.5 h-3.5 text-slate-400" data-lucide="chevron-right"></i>
+        </button>
+        <button onclick="showToast('Pemberitahuan telah dikemaskini'); closeUserSettingsModal();" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 text-slate-700 font-semibold transition-colors">
+          <span class="flex items-center gap-2.5"><i class="w-4 h-4 text-orange-500" data-lucide="bell"></i> Tetapan Pemberitahuan</span>
+          <i class="w-3.5 h-3.5 text-slate-400" data-lucide="chevron-right"></i>
+        </button>
+        <button onclick="showToast('Sistem SisTrak Lab v3.0 terkini'); closeUserSettingsModal();" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 text-slate-700 font-semibold transition-colors">
+          <span class="flex items-center gap-2.5"><i class="w-4 h-4 text-orange-500" data-lucide="sliders"></i> Konfigurasi Sistem</span>
+          <i class="w-3.5 h-3.5 text-slate-400" data-lucide="chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-end">
+        <button onclick="closeUserSettingsModal()" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition-colors">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-[90] toast-level bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 translate-y-16 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="w-4 h-4 text-emerald-400" data-lucide="check-circle"></i>
+    <span id="toastMessage">Operasi berjaya</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
