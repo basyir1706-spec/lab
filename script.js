@@ -384,7 +384,7 @@ function renderUsageTable() {
     // ACTION
     let actionHTML = '';
     if (isPinned) {
-      actionHTML = `<button onclick="checkoutActiveLab('${rec.labCode}')" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-white btn-mesh-gradient px-3 py-1 rounded-lg shadow-sm transition-all"><i class="w-3.5 h-3.5 text-white" data-lucide="key-round"></i> Pulang Kunci</button>`;
+      actionHTML = `<button onclick="checkoutActiveLab('${rec.labCode}')" class="inline-flex items-center gap-1 text-[11px] font-bold text-white btn-mesh-gradient px-2.5 py-1 rounded-lg shadow-sm transition-all"><i class="w-3 h-3 text-white" data-lucide="key-round"></i> Pulang</button>`;
     } else if (rec.statusType === 'in-use') {
       actionHTML = `<button onclick="openTimetableModal('${rec.labCode}')" class="text-[11px] font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded-lg transition-colors">Jadual</button>`;
     } else if (rec.statusType === 'upcoming') {
@@ -482,8 +482,10 @@ function navigateDateStrip(dir) {
 function renderProgressBars() {
   const gf = labsData.filter(l => l.floor === 'Ground Floor');
   const a1 = labsData.filter(l => l.floor === 'Aras 1');
+  const a2 = labsData.filter(l => l.floor === 'Aras 2');
   const gfUse = gf.filter(l => l.status === 'Digunakan').length;
   const a1Use = a1.filter(l => l.status === 'Digunakan').length;
+  const a2Use = a2.filter(l => l.status === 'Digunakan').length;
 
   const elGf = document.getElementById('statsArasBawahRatio');
   const elA1 = document.getElementById('statsAras1Ratio');
@@ -491,13 +493,13 @@ function renderProgressBars() {
 
   if (elGf) elGf.innerHTML = `${gfUse} <span class="font-normal text-slate-400 text-[10px]">/ ${gf.length} Lab</span>`;
   if (elA1) elA1.innerHTML = `${a1Use} <span class="font-normal text-slate-400 text-[10px]">/ ${a1.length} Lab</span>`;
-  if (elA2) elA2.innerHTML = `0 <span class="font-normal text-slate-400 text-[10px]">/ 0 Lab</span>`;
+  if (elA2) elA2.innerHTML = `${a2Use} <span class="font-normal text-slate-400 text-[10px]">/ ${a2.length} Lab</span>`;
 
   // Animate bar width
   setTimeout(() => {
-    setBarWidth('barArasBawah', (gfUse / (gf.length || 1)) * 100);
-    setBarWidth('barAras1', (a1Use / (a1.length || 1)) * 100);
-    setBarWidth('barAras2', 0);
+    setBarWidth('barArasBawah', gf.length ? (gfUse / gf.length) * 100 : 0);
+    setBarWidth('barAras1', a1.length ? (a1Use / a1.length) * 100 : 0);
+    setBarWidth('barAras2', a2.length ? (a2Use / a2.length) * 100 : 0);
   }, 50);
 }
 
@@ -514,9 +516,8 @@ function renderLabCardHtml(lab) {
   const isExp = (expandedLabId === lab.id);
   const isUsedByOther = (lab.status === 'Digunakan' && !lab.isCurrentUser);
   const isMaintenance = (lab.status === 'Penyelenggaraan');
-  const isUnselectable = isUsedByOther || isMaintenance;
 
-  // Status pill text (Small button with glowing live-blinking green LED for Tersedia)
+  // Status pill text (Blinking green for Tersedia, Blinking orange for Sesi Anda, Yellow for Digunakan, Gray for Servis)
   let pillHTML = '';
   if (lab.status === 'Tersedia') {
     pillHTML = `
@@ -529,7 +530,18 @@ function renderLabCardHtml(lab) {
       </span>
     `;
   } else if (lab.status === 'Digunakan') {
-    if (lab.isOverdue) {
+    if (lab.isCurrentUser) {
+      // Sesi pengguna semasa: badge 'Sesi Anda' dengan bulatan oren menyala-nyala
+      pillHTML = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-bold bg-orange-50 text-orange-700 border border-orange-200/80 shadow-2xs">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500 live-led-blink-orange"></span>
+          </span>
+          <span>Sesi Anda</span>
+        </span>
+      `;
+    } else if (lab.isOverdue) {
       pillHTML = `<span class="badge-overdue px-1.5 py-0.5 rounded text-[9px] font-bold">(Tamat Tempoh)</span>`;
     } else {
       pillHTML = `
@@ -540,16 +552,33 @@ function renderLabCardHtml(lab) {
       `;
     }
   } else {
+    // Penyelenggaraan / Servis
     pillHTML = `
-      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-semibold bg-slate-100 text-slate-500 border border-slate-200/80">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-semibold bg-slate-100 text-slate-400 border border-slate-200">
         <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
         <span>Servis</span>
       </span>
     `;
   }
 
+  // MAKMAL PENYELENGGARAAN / SERVIS: Keras & Unselectable (tidak boleh ditekan atau dikembangkan)
+  if (isMaintenance) {
+    return `
+      <div 
+        class="lab-rect-item lab-rect-disabled" 
+        id="rect-${lab.id}"
+        title="${lab.code} dalam penyelenggaraan (Tidak boleh dipilih)"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-400">${lab.code}</span>
+          ${pillHTML}
+        </div>
+      </div>
+    `;
+  }
+
   if (!isExp) {
-    const extraClass = (isUsedByOther || isMaintenance) ? ' lab-rect-dimmed' : '';
+    const extraClass = isUsedByOther ? ' lab-rect-dimmed' : '';
     return `
       <div 
         class="lab-rect-item${extraClass}" 
@@ -566,13 +595,13 @@ function renderLabCardHtml(lab) {
       </div>
     `;
   } else {
-    // ─── THE SAME CARD EXPANDED (HANYA MEMANJANG KE BAWAH, KEKAL BENTUK LAJUR) ───
+    // ─── THE SAME CARD EXPANDED ───
     let actionBtn = '';
     if (lab.status === 'Digunakan' && lab.isCurrentUser) {
       actionBtn = `
         <button onclick="event.stopPropagation(); checkoutActiveLab('${lab.code}')" class="flex-1 py-1.5 px-2 text-[10px] font-bold text-white btn-mesh-gradient rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm">
           <i class="w-3 h-3 text-white" data-lucide="key-round"></i>
-          <span>Pulang Kunci</span>
+          <span>Pulang</span>
         </button>
       `;
     } else if (lab.status === 'Tersedia') {
@@ -602,31 +631,27 @@ function renderLabCardHtml(lab) {
         <!-- Floor / Kod ringkas -->
         <p class="text-[10px] text-slate-400 mt-0.5">${lab.floor}</p>
 
-        <!-- Detail Sesi / Status (Simple & kemas) -->
+        <!-- Detail Sesi / Status -->
         <div class="expanded-content-slide mt-2 pt-1.5 border-t border-slate-100">
           ${lab.status === 'Digunakan' ? `
             <div class="bg-yellow-50/90 border border-yellow-200/80 rounded-lg p-2 mb-2">
               <div class="flex items-center gap-1.5 mb-1">
-                <div class="w-5 h-5 rounded-full bg-yellow-400 text-yellow-950 font-black text-[8px] flex items-center justify-center shrink-0">
+                <div class="w-5 h-5 rounded-full ${lab.isCurrentUser ? 'bg-orange-500 text-white' : 'bg-yellow-400 text-yellow-950'} font-black text-[8px] flex items-center justify-center shrink-0">
                   ${lab.currentUser ? lab.currentUser.substring(0, 2).toUpperCase() : 'PR'}
                 </div>
                 <span class="text-[11px] font-bold text-slate-800 truncate">${lab.currentUser}</span>
               </div>
               <span class="text-[9px] text-slate-500 block leading-none pl-6">${lab.startTime} – ${lab.endTime}</span>
             </div>
-          ` : lab.status === 'Tersedia' ? `
+          ` : `
             <div class="bg-emerald-50/80 border border-emerald-200/60 rounded-lg p-2 mb-2 flex items-center gap-1.5 text-emerald-700">
               <i class="w-3.5 h-3.5 text-emerald-600 shrink-0" data-lucide="check-circle-2"></i>
               <span class="text-[10px] font-bold">Sedia Digunakan</span>
             </div>
-          ` : `
-            <div class="bg-slate-50 border border-slate-200 rounded-lg p-2 mb-2 text-slate-500 text-[10px]">
-              Dalam Penyelenggaraan
-            </div>
           `}
         </div>
 
-        <!-- Action Buttons (Simple, clean, side-by-side) -->
+        <!-- Action Buttons -->
         <div class="expanded-content-slide flex items-center gap-1.5 pt-1 border-t border-slate-100">
           <button onclick="event.stopPropagation(); openTimetableModal('${lab.code}')" class="flex-1 py-1.5 px-2 text-[10px] font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors text-center">
             Jadual
@@ -638,17 +663,25 @@ function renderLabCardHtml(lab) {
   }
 }
 
+let currentLabStatusFilter = 'ALL';
+let currentLabFloorFilter = 'ALL';
+
 function renderCompactLabList(filteredList) {
   const grid = document.getElementById('labCompactGrid');
   if (!grid) return;
 
   let list = filteredList;
   if (!list) {
+    list = labsData;
+    if (currentLabStatusFilter !== 'ALL') {
+      list = list.filter(l => l.status === currentLabStatusFilter);
+    }
+    if (currentLabFloorFilter !== 'ALL') {
+      list = list.filter(l => l.floor.toLowerCase().includes(currentLabFloorFilter.toLowerCase()));
+    }
     if (currentLabSearchQuery) {
       const q = currentLabSearchQuery;
-      list = labsData.filter(l => l.code.toLowerCase().includes(q) || l.name.toLowerCase().includes(q) || l.floor.toLowerCase().includes(q));
-    } else {
-      list = labsData;
+      list = list.filter(l => l.code.toLowerCase().includes(q) || l.name.toLowerCase().includes(q) || l.floor.toLowerCase().includes(q));
     }
   }
 
@@ -679,6 +712,9 @@ function renderCompactLabList(filteredList) {
 
 // ─── LAB HOVER & CLICK EXPANSION ─────────────────────────
 function handleLabHoverEnter(labId) {
+  const lab = labsData.find(l => l.id === labId);
+  if (lab && lab.status === 'Penyelenggaraan') return; // Makmal penyelenggaraan tidak aktif / keras
+
   if (collapseTimer) {
     clearTimeout(collapseTimer);
     collapseTimer = null;
@@ -721,6 +757,9 @@ function onLabGridMouseLeave() {
 }
 
 function toggleLabExpandClick(labId) {
+  const lab = labsData.find(l => l.id === labId);
+  if (lab && lab.status === 'Penyelenggaraan') return; // Makmal penyelenggaraan tidak boleh diklik
+
   if (hoverExpandTimer) {
     clearTimeout(hoverExpandTimer);
     hoverExpandTimer = null;
@@ -1375,6 +1414,8 @@ function saveTimetableUpdate() {
 }
 
 // ─── 14. TIMETABLE VIEWER MODAL ─────────────────────────
+let isTimetableFullscreen = false;
+
 function openTimetableModal(code) {
   const lab = labsData.find(l => l.code === code);
   setText('timetableModalTitle', 'Jadual — ' + code);
@@ -1388,7 +1429,54 @@ function openTimetableModal(code) {
   document.getElementById('timetableModal')?.classList.remove('hidden');
   if (window.lucide) window.lucide.createIcons();
 }
+
+function toggleTimetableFullscreen() {
+  const container = document.getElementById('timetableModalContainer');
+  const imgEl = document.getElementById('timetableImageDisplay');
+  const icons = document.querySelectorAll('.timetable-expand-icon');
+  const texts = document.querySelectorAll('.timetable-expand-text');
+  if (!container) return;
+
+  isTimetableFullscreen = !isTimetableFullscreen;
+  if (isTimetableFullscreen) {
+    container.classList.remove('max-w-3xl');
+    container.classList.add('max-w-[96vw]', 'w-[96vw]', 'h-[92vh]', 'max-h-[92vh]');
+    if (imgEl) {
+      imgEl.classList.remove('max-h-[450px]');
+      imgEl.classList.add('max-h-[72vh]');
+    }
+    icons.forEach(ic => ic.setAttribute('data-lucide', 'minimize-2'));
+    texts.forEach(tx => tx.textContent = 'Kecilkan Semula');
+  } else {
+    container.classList.add('max-w-3xl');
+    container.classList.remove('max-w-[96vw]', 'w-[96vw]', 'h-[92vh]', 'max-h-[92vh]');
+    if (imgEl) {
+      imgEl.classList.add('max-h-[450px]');
+      imgEl.classList.remove('max-h-[72vh]');
+    }
+    icons.forEach(ic => ic.setAttribute('data-lucide', 'maximize-2'));
+    texts.forEach(tx => tx.textContent = 'Besarkan Paparan');
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+
 function closeTimetableModal() {
+  const container = document.getElementById('timetableModalContainer');
+  const imgEl = document.getElementById('timetableImageDisplay');
+  const icons = document.querySelectorAll('.timetable-expand-icon');
+  const texts = document.querySelectorAll('.timetable-expand-text');
+
+  if (isTimetableFullscreen && container) {
+    isTimetableFullscreen = false;
+    container.classList.add('max-w-3xl');
+    container.classList.remove('max-w-[96vw]', 'w-[96vw]', 'h-[92vh]', 'max-h-[92vh]');
+    if (imgEl) {
+      imgEl.classList.add('max-h-[450px]');
+      imgEl.classList.remove('max-h-[72vh]');
+    }
+    icons.forEach(ic => ic.setAttribute('data-lucide', 'maximize-2'));
+    texts.forEach(tx => tx.textContent = 'Besarkan Paparan');
+  }
   document.getElementById('timetableModal')?.classList.add('hidden');
 }
 
@@ -1523,5 +1611,175 @@ document.addEventListener('click', (e) => {
       dropup.classList.add('hidden');
     }
   }
+
+  // Tutup metric dropdown jika klik di luar
+  if (!e.target.closest('.metric-dropdown') && !e.target.closest('[data-metric-trigger]')) {
+    closeAllMetricDropdowns();
+  }
 });
+
+// ─── 18. METRIC CARD QUICK ACTION DROPDOWNS & CARD CLICKS (CADANGAN A) ───────
+
+// Klik terus pada kad metrik (Desktop & Mobile)
+function handleMetricCardClick(cardNum) {
+  closeAllMetricDropdowns();
+  if (cardNum === 1) {
+    // Kad 1: Papar Semua Makmal / Reset
+    currentLabStatusFilter = 'ALL';
+    currentLabFloorFilter = 'ALL';
+    renderCompactLabList();
+    showToast('Memaparkan keseluruhan makmal (10 Unit)');
+  } else if (cardNum === 2) {
+    // Kad 2: Tapis Lab Tersedia
+    quickFilterAvailableOnly();
+  } else if (cardNum === 3) {
+    // Kad 3: Lompat ke Jadual Rekod Penggunaan & info sesi aktif
+    quickScrollToUsageRecords();
+  } else if (cardNum === 4) {
+    // Kad 4: Papar info makmal diselenggara
+    quickShowMaintenanceInfo();
+  }
+}
+
+function toggleMetricDropdown(e, cardNum) {
+  if (e) e.stopPropagation();
+  const dropdown = document.getElementById(`metricDropdown-${cardNum}`);
+  const parentCard = dropdown?.closest('.metric-card-box');
+  const isCurrentlyOpen = dropdown && !dropdown.classList.contains('hidden');
+
+  closeAllMetricDropdowns();
+
+  if (!isCurrentlyOpen && dropdown) {
+    dropdown.classList.remove('hidden');
+    if (parentCard) {
+      parentCard.classList.add('has-dropdown-open');
+    }
+    if (window.lucide) window.lucide.createIcons();
+  }
+}
+
+function closeAllMetricDropdowns() {
+  document.querySelectorAll('.metric-dropdown').forEach(dd => {
+    dd.classList.add('hidden');
+    const parent = dd.closest('.metric-card-box');
+    if (parent) {
+      parent.classList.remove('has-dropdown-open');
+    }
+  });
+}
+
+// Tindakan Kad 1: Muat Semula Data
+function quickRefreshMetrics() {
+  closeAllMetricDropdowns();
+  renderMetricCards(true);
+  renderUsageTable();
+  renderProgressBars();
+  renderCompactLabList();
+  showToast('Data makmal & angka statistik berjaya dimuat semula!');
+}
+
+// Tindakan Kad 1b: Tapis Aras
+function quickFilterFloor(floorName) {
+  closeAllMetricDropdowns();
+  currentLabFloorFilter = floorName;
+  currentLabStatusFilter = 'ALL';
+  renderCompactLabList();
+  if (floorName === 'ALL') {
+    showToast('Memaparkan makmal untuk Semua Aras');
+  } else {
+    showToast(`Memaparkan makmal di ${floorName}`);
+  }
+}
+
+// Tindakan Kad 1c: Cetak Ringkasan
+function quickPrintSummary() {
+  closeAllMetricDropdowns();
+  window.print();
+}
+
+// Tindakan Kad 2: Check-In Pantas untuk Lab Pertama Tersedia
+function quickCheckInFirstAvailable() {
+  closeAllMetricDropdowns();
+  const firstAvailable = labsData.find(l => l.status === 'Tersedia');
+  if (firstAvailable) {
+    openCheckinModalForLab(firstAvailable.id);
+    showToast(`Pendaftaran pantas dibuka untuk ${firstAvailable.code}`);
+  } else {
+    showToast('Tiada makmal berstatus Tersedia buat masa ini.');
+  }
+}
+
+// Tindakan Kad 2b: Tapis Lab Kosong Sahaja
+function quickFilterAvailableOnly() {
+  closeAllMetricDropdowns();
+  currentLabStatusFilter = 'Tersedia';
+  currentLabFloorFilter = 'ALL';
+  renderCompactLabList();
+  const availCount = labsData.filter(l => l.status === 'Tersedia').length;
+  showToast(`Menapis: ${availCount} Lab Tersedia dipaparkan`);
+}
+
+// Tindakan Kad 3: Skrol Pantas ke Jadual Rekod Penggunaan
+function quickScrollToUsageRecords() {
+  closeAllMetricDropdowns();
+  const tableCard = document.getElementById('usageRecordsCard') || document.querySelector('table')?.closest('.bg-white');
+  const pinnedRow = document.querySelector('.row-pinned-active');
+
+  if (tableCard) {
+    tableCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  if (pinnedRow) {
+    pinnedRow.classList.add('bg-amber-100/70');
+    setTimeout(() => pinnedRow.classList.remove('bg-amber-100/70'), 2500);
+  } else if (tableCard) {
+    tableCard.classList.add('ring-2', 'ring-amber-500');
+    setTimeout(() => tableCard.classList.remove('ring-2', 'ring-amber-500'), 2000);
+  }
+  showToast('Menavigasi ke Rekod Paparan Penggunaan');
+}
+
+// Tindakan Kad 3b: Status Sesi Semasa
+function quickShowActiveSessionInfo() {
+  closeAllMetricDropdowns();
+  const inUseLabs = labsData.filter(l => l.status === 'Digunakan');
+  if (inUseLabs.length > 0) {
+    const details = inUseLabs.map(l => `• <b>${l.code} (${l.name})</b>: Digunakan oleh ${l.currentUser || 'Pensyarah'} (Sesi tamat ${l.endTime || '10:30 AM'})`).join('<br>');
+    showConfirmDialog({
+      title: 'Maklumat Sesi Makmal Aktif',
+      message: details,
+      type: 'alert',
+      confirmText: 'Tutup',
+      icon: 'clock'
+    });
+  } else {
+    showToast('Tiada makmal yang sedang aktif digunakan.');
+  }
+}
+
+// Tindakan Kad 4: Lapor Kerosakan Pantas
+function quickReportDamage() {
+  closeAllMetricDropdowns();
+  openTeknikalModal();
+  showToast('Borang Laporan Aduan Kerosakan dibuka.');
+}
+
+// Tindakan Kad 4b: Perincian Makmal Servis
+function quickShowMaintenanceInfo() {
+  closeAllMetricDropdowns();
+  const mntLabs = labsData.filter(l => l.status === 'Penyelenggaraan');
+  if (mntLabs.length > 0) {
+    const listStr = mntLabs.map(l => `• <b>${l.code} (${l.name})</b> - Aras: ${l.floor}<br>&nbsp;&nbsp;Catatan: Servis pendingin hawa & semakan perkakasan rangkaian.`).join('<br><br>');
+    showConfirmDialog({
+      title: 'Maklumat Makmal Dalam Penyelenggaraan',
+      message: `${listStr}<br><br><span class="text-xs text-slate-500">Anggaran siap: Tertakluk kepada semakan pegawai teknikal.</span>`,
+      type: 'alert',
+      confirmText: 'Faham',
+      icon: 'wrench'
+    });
+  } else {
+    showToast('Tiada makmal berstatus penyelenggaraan buat masa ini.');
+  }
+}
+
 

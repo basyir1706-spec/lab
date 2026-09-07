@@ -93,10 +93,10 @@ body {
 .metric-num-wrapper {
   overflow: hidden;
   position: relative;
-  height: 2rem;
+  height: 1.85rem;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .metric-number {
@@ -526,7 +526,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   LIVE BLINKING / PULSING LED INDICATOR
+   LIVE BLINKING / PULSING LED INDICATOR (GREEN & ORANGE)
    ═══════════════════════════════════════════════════════════ */
 @keyframes liveGreenBlink {
   0%, 100% {
@@ -544,3 +544,68 @@ body {
 .live-led-blink {
   animation: liveGreenBlink 1.4s ease-in-out infinite;
 }
+
+@keyframes liveOrangeBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+    box-shadow: 0 0 8px 3px rgba(249, 115, 22, 0.45);
+  }
+}
+
+.live-led-blink-orange {
+  animation: liveOrangeBlink 1.4s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UNSELECTABLE / DISABLED LAB CARD (MAINTENANCE)
+   ═══════════════════════════════════════════════════════════ */
+.lab-rect-item.lab-rect-disabled {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  cursor: not-allowed !important;
+  opacity: 0.65;
+  user-select: none;
+}
+
+.lab-rect-item.lab-rect-disabled:hover {
+  border-color: #e2e8f0 !important;
+  background-color: #f8fafc !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   METRIC CARD QUICK ACTION DROPDOWNS (CADANGAN A)
+   ═══════════════════════════════════════════════════════════ */
+.metric-card-box {
+  user-select: none;
+}
+.metric-card-box.has-dropdown-open {
+  z-index: 60 !important;
+}
+.metric-dropdown {
+  z-index: 70 !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), 0 10px 15px -5px rgba(0, 0, 0, 0.5);
+  animation: metricDropdownPop 0.16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+  pointer-events: auto !important;
+}
+
+@keyframes metricDropdownPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+

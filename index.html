@@ -233,74 +233,69 @@
 
             <!-- 4 METRIC CARDS (Order 1 pada mobile) -->
             <div class="order-1 w-full" data-purpose="4-metric-cards-wrapper">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-purpose="4-metric-cards">
-              <!-- Card 1: Keseluruhan (Tema Warna Biru) -->
-              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
-                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-blue-500/15"></div>
-                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-blue-500/10"></div>
-                <div class="flex items-center gap-3.5 relative z-10">
-                  <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/25"><i class="w-5 h-5" data-lucide="layout-grid"></i></div>
-                  <div>
-                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider block">Keseluruhan</span>
-                    <span class="text-[11px] font-medium text-slate-500">Kapasiti Makmal</span>
+              <div class="grid grid-cols-2 gap-2.5 sm:gap-3" data-purpose="4-metric-cards">
+                <!-- Card 1: Keseluruhan (Tema Oren Menyerlah) -->
+                <div onclick="handleMetricCardClick(1)" class="metric-card-box relative overflow-hidden bg-gradient-to-br from-[#ff7a00] to-[#ea580c] p-3 sm:p-3.5 rounded-2xl shadow-md shadow-orange-500/20 flex items-center justify-between transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 cursor-pointer">
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-white/90 uppercase tracking-wider block">Keseluruhan Lab</span>
+                    <div class="metric-num-wrapper">
+                      <span id="metricTotal" class="metric-number text-2xl sm:text-[26px] font-black text-white tracking-tight leading-none">10</span>
+                    </div>
+                    <span class="text-[10px] sm:text-[11px] text-white/80 font-medium block">Kapasiti Makmal</span>
+                  </div>
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-xs shrink-0 ml-2">
+                    <i class="w-5 h-5 text-white" data-lucide="layout-grid"></i>
                   </div>
                 </div>
-                <div class="text-right relative z-10">
-                  <div class="metric-num-wrapper"><span id="metricTotal" class="metric-number text-2xl font-extrabold text-slate-900">10</span></div>
-                </div>
-              </div>
-              <!-- Card 2: Tersedia (Tema Warna Hijau) -->
-              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
-                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-emerald-500/15"></div>
-                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-emerald-500/10"></div>
-                <div class="flex items-center gap-3.5 relative z-10">
-                  <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/25"><i class="w-5 h-5" data-lucide="check-circle-2"></i></div>
-                  <div>
-                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider block">Tersedia</span>
-                    <span class="text-[11px] font-medium text-slate-500">Sedia Digunakan</span>
+
+                <!-- Card 2: Tersedia (Tema Hitam Material) -->
+                <div onclick="handleMetricCardClick(2)" class="metric-card-box relative overflow-hidden bg-[#181a22] border border-white/10 p-3 sm:p-3.5 rounded-2xl shadow-md shadow-black/20 flex items-center justify-between transition-all duration-200 hover:shadow-lg hover:border-white/15 cursor-pointer">
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Lab Tersedia</span>
+                    <div class="metric-num-wrapper">
+                      <span id="metricAvailable" class="metric-number text-2xl sm:text-[26px] font-black text-white tracking-tight leading-none">8</span>
+                    </div>
+                    <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium block">Sedia Digunakan</span>
+                  </div>
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-xs shrink-0 ml-2">
+                    <i class="w-5 h-5 text-white" data-lucide="check-circle-2"></i>
                   </div>
                 </div>
-                <div class="text-right relative z-10">
-                  <div class="metric-num-wrapper"><span id="metricAvailable" class="metric-number text-2xl font-extrabold text-slate-900">8</span></div>
-                </div>
-              </div>
-              <!-- Card 3: Digunakan -->
-              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
-                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-amber-400/20"></div>
-                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-amber-400/10"></div>
-                <div class="flex items-center gap-3.5 relative z-10">
-                  <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/25"><i class="w-5 h-5 text-white stroke-[2.5]" data-lucide="clock"></i></div>
-                  <div>
-                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider block">Digunakan</span>
-                    <span class="text-[11px] font-medium text-slate-500">Sesi Berlangsung</span>
+
+                <!-- Card 3: Digunakan (Tema Hitam Material) -->
+                <div onclick="handleMetricCardClick(3)" class="metric-card-box relative overflow-hidden bg-[#181a22] border border-white/10 p-3 sm:p-3.5 rounded-2xl shadow-md shadow-black/20 flex items-center justify-between transition-all duration-200 hover:shadow-lg hover:border-white/15 cursor-pointer">
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Sedang Digunakan</span>
+                    <div class="metric-num-wrapper">
+                      <span id="metricInUse" class="metric-number text-2xl sm:text-[26px] font-black text-white tracking-tight leading-none">1</span>
+                    </div>
+                    <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium block">Sesi Amali Aktif</span>
+                  </div>
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-xs shrink-0 ml-2">
+                    <i class="w-5 h-5 text-white" data-lucide="clock"></i>
                   </div>
                 </div>
-                <div class="text-right relative z-10">
-                  <div class="metric-num-wrapper"><span id="metricInUse" class="metric-number text-2xl font-extrabold text-slate-900">1</span></div>
-                </div>
-              </div>
-              <!-- Card 4: Tidak tersedia -->
-              <div class="metric-card-box relative overflow-hidden bg-white p-5 rounded-2xl shadow-soft border border-slate-100 flex items-center justify-between transition-all hover:shadow-md">
-                <div class="metric-corner-bubble -right-5 -top-5 w-24 h-24 bg-rose-500/15"></div>
-                <div class="metric-corner-bubble -right-1 -bottom-3 w-14 h-14 bg-rose-500/10"></div>
-                <div class="flex items-center gap-3.5 relative z-10">
-                  <div class="w-11 h-11 rounded-xl bg-rose-500 text-white flex items-center justify-center shadow-md shadow-rose-500/25"><i class="w-5 h-5" data-lucide="ban"></i></div>
-                  <div>
-                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider block">Tidak Tersedia</span>
-                    <span class="text-[11px] font-medium text-slate-500">Servis / Baiki</span>
+
+                <!-- Card 4: Tidak Tersedia (Tema Hitam Material) -->
+                <div onclick="handleMetricCardClick(4)" class="metric-card-box relative overflow-hidden bg-[#181a22] border border-white/10 p-3 sm:p-3.5 rounded-2xl shadow-md shadow-black/20 flex items-center justify-between transition-all duration-200 hover:shadow-lg hover:border-white/15 cursor-pointer">
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Tidak Tersedia</span>
+                    <div class="metric-num-wrapper">
+                      <span id="metricUnavailable" class="metric-number text-2xl sm:text-[26px] font-black text-white tracking-tight leading-none">1</span>
+                    </div>
+                    <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium block">Servis / Baiki</span>
+                  </div>
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-xs shrink-0 ml-2">
+                    <i class="w-5 h-5 text-white" data-lucide="ban"></i>
                   </div>
                 </div>
-                <div class="text-right relative z-10">
-                  <div class="metric-num-wrapper"><span id="metricUnavailable" class="metric-number text-2xl font-extrabold text-slate-900">1</span></div>
-                </div>
               </div>
-            </div>
 
             </div>
             <!-- End 4 Metric Cards wrapper -->
 
             <!-- TABLE: REKOD PENGGUNAAN (Order 3 pada mobile: duduk di bawah panel tarikh & senarai makmal; Pada desktop kekal di bawah 4 kad) -->
-            <div class="order-3 w-full bg-white rounded-2xl shadow-soft p-5 lg:p-6 border border-slate-100">
+            <div id="usageRecordsCard" class="order-3 w-full bg-white rounded-2xl shadow-soft p-5 lg:p-6 border border-slate-100">
               <div class="flex items-center justify-between mb-4">
                 <div>
                   <h3 class="text-sm font-extrabold text-slate-800">Rekod Paparan Penggunaan Laboratorium</h3>
@@ -355,7 +350,7 @@
               <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">Maklumat Penggunaan Setiap Aras</h4>
               <div class="grid grid-cols-3 gap-3 pt-0.5">
                 <div>
-                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 1</span>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras Bawah</span>
                   <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
                     <div id="barArasBawah" class="progress-bar-animated bg-gradient-to-r from-orange-500 to-amber-500 h-1.5 rounded-full" style="width: 0%"></div>
                   </div>
@@ -364,7 +359,7 @@
                   </div>
                 </div>
                 <div>
-                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 2</span>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 1</span>
                   <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
                     <div id="barAras1" class="progress-bar-animated bg-gradient-to-r from-amber-400 to-yellow-400 h-1.5 rounded-full" style="width: 0%"></div>
                   </div>
@@ -373,7 +368,7 @@
                   </div>
                 </div>
                 <div>
-                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 3</span>
+                  <span class="text-xs font-semibold text-slate-700 block mb-1">Aras 2</span>
                   <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-1">
                     <div id="barAras2" class="progress-bar-animated bg-slate-300 h-1.5 rounded-full" style="width: 0%"></div>
                   </div>
@@ -803,23 +798,35 @@
        MODAL: JADUAL (SUB-MODAL LEVEL 60: ALWAYS IN FRONT OF LAB FORM MODAL)
   ═══════════════════════════════════════════════ -->
   <div id="timetableModal" onclick="if(event.target === this) closeTimetableModal()" class="fixed inset-0 z-[60] modal-level-sub flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh]">
+    <div id="timetableModalContainer" class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-5 sm:p-6 border border-slate-100 relative overflow-y-auto max-h-[90vh] transition-all duration-300">
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-mesh-gradient"></div>
+      
+      <!-- Modal Header -->
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center"><i class="w-4 h-4" data-lucide="calendar"></i></div>
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+            <i class="w-4 h-4" data-lucide="calendar"></i>
+          </div>
           <div>
             <h3 class="text-sm font-extrabold text-slate-800" id="timetableModalTitle">Jadual Makmal</h3>
             <p class="text-[11px] text-slate-500" id="timetableModalSubtitle">Jadual rasmi</p>
           </div>
         </div>
-        <button onclick="closeTimetableModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"><i class="w-4 h-4" data-lucide="x"></i></button>
+
+        <!-- Controls: Expand / Fullscreen & Only 1 Close 'X' Button -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" onclick="toggleTimetableFullscreen()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors" title="Besarkan Paparan Jadual">
+            <i class="w-4 h-4 timetable-expand-icon" data-lucide="maximize-2"></i>
+          </button>
+          <button type="button" onclick="closeTimetableModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors" title="Tutup">
+            <i class="w-4 h-4" data-lucide="x"></i>
+          </button>
+        </div>
       </div>
+
+      <!-- Timetable Image Display -->
       <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center min-h-[280px]">
-        <img id="timetableImageDisplay" src="jadual(default).png" alt="Jadual Waktu" class="w-full h-auto max-h-[450px] object-contain" />
-      </div>
-      <div class="flex items-center justify-end mt-4">
-        <button onclick="closeTimetableModal()" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-5 py-2 rounded-xl transition-colors">Tutup</button>
+        <img id="timetableImageDisplay" src="jadual(default).png" alt="Jadual Waktu" class="w-full h-auto max-h-[450px] object-contain transition-all duration-300" />
       </div>
     </div>
   </div>
