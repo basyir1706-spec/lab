@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html class="dark" lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Ahmad Mubassyir — Portfolio Teknikal & Multimedia (Full-Stack & SysAdmin)</title>
+  <meta name="description" content="Portfolio Ahmad Mubassyir - Pelajar Diploma Teknologi Maklumat di Politeknik Besut. Pembangun Web Full-Stack, Pentadbir Pelayan Linux, dan Pereka Media Digital.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+      body {
+        overscroll-behavior-y: none;
+      }
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0e1321;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #252a39;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4cd7f6;
+    }
+    /* Pulsing animations & glow effects */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .animate-glow {
+      animation: subtlePulse 4s ease-in-out infinite;
+    }
+    /* Print Styles for CV Modal */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #cvModal, #cvModal * {
+        visibility: visible !important;
+      }
+      #cvModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface": "#dee2f6",
+            "on-tertiary-fixed-variant": "#2f2ebe",
+            "on-background": "#dee2f6",
+            "on-secondary-fixed-variant": "#005236",
+            "on-primary-fixed": "#001f26",
+            "surface-container-low": "#161b2a",
+            "surface-bright": "#343948",
+            "surface-tint": "#4cd7f6",
+            "inverse-primary": "#00687a",
+            "outline-variant": "#3d494c",
+            "background": "#0e1321",
+            "primary": "#4cd7f6",
+            "on-primary-fixed-variant": "#004e5c",
+            "on-surface-variant": "#bcc9cd",
+            "surface-container": "#1a1f2e",
+            "primary-container": "#06b6d4",
+            "on-error": "#690005",
+            "surface-container-lowest": "#090e1c",
+            "tertiary-container": "#9a9dff",
+            "secondary-fixed": "#6ffbbe",
+            "surface-container-high": "#252a39",
+            "surface-dim": "#0e1321",
+            "tertiary-fixed-dim": "#c0c1ff",
+            "on-secondary-container": "#00311f",
+            "primary-fixed": "#acedff",
+            "tertiary-fixed": "#e1e0ff",
+            "on-tertiary-container": "#211cb4",
+            "surface-container-highest": "#303444",
+            "on-primary": "#003640",
+            "surface": "#0e1321",
+            "surface-variant": "#303444",
+            "on-secondary": "#003824",
+            "secondary": "#4edea3",
+            "inverse-surface": "#dee2f6",
+            "tertiary": "#c0c1ff",
+            "secondary-fixed-dim": "#4edea3",
+            "primary-fixed-dim": "#4cd7f6",
+            "outline": "#869397",
+            "error": "#ffb4ab",
+            "secondary-container": "#00a572",
+            "on-secondary-fixed": "#002113",
+            "error-container": "#93000a",
+            "on-tertiary-fixed": "#07006c",
+            "on-primary-container": "#00424f",
+            "inverse-on-surface": "#2b303f",
+            "on-error-container": "#ffdad6",
+            "on-tertiary": "#1000a9"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "margin": "3rem",
+            "margin-mobile": "1.25rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          fontFamily: {
+            "display-hero": ["Plus Jakarta Sans", "sans-serif"],
+            "code-badge": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Inter", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "code-inline": ["JetBrains Mono", "monospace"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display-hero-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"]
+          },
+          fontSize: {
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "code-badge": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "code-inline": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary/30 selection:text-primary-fixed">
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       1. FIXED MODERN TOP NAVIGATION BAR
+  ══════════════════════════════════════════════════════════════════ -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/85 backdrop-blur-xl border-b border-surface-container-high/60 shadow-lg shadow-black/20 transition-all duration-300">
+    <div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
+      
+      <!-- Brand & Name Lockup -->
+      <a href="#tentang-saya" class="flex items-center gap-space-md min-w-0 group cursor-pointer focus:outline-none">
+        <div class="relative w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center border border-primary/30 group-hover:border-primary transition-all duration-300 shadow-md">
+          <img alt="AM Tech Monogram Logo" class="h-7 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1VrjCCPNzbc2uk4kfY0JM2-Xt8VgGsynRUjwnrvvsqNJ9Bf7n4AnV33mvpuWpichi81w_e1I9sP413VQeIhhxF2nOezKVUF4AnnmYkLkRaCpPdUxp6iB3HodbmlNBH2m2ZtpgGZj-_tuc3Yqwe3GP8aQwo3ZwJg548HnPVnRZQSf6SghY5xaATrSGypNzL2vPWJrRL_0ectXTU3R63sJYaSemte51rEeF4XB3ArOGEw7Z3GkRE74FGSp40">
+        </div>
+        <div class="flex flex-col truncate">
+          <span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors truncate">Ahmad Mubassyir</span>
+          <span class="font-code-badge text-code-badge text-primary truncate flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+            IT &amp; Full-Stack Developer
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu (With Active Highlighting & Smooth Scrolling) -->
+      <nav id="desktopNav" class="hidden xl:flex items-center gap-2 p-1.5 bg-surface-container/60 rounded-xl border border-surface-container-high">
+        <a class="nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-semibold transition-all bg-primary-container text-on-primary-container" data-section="tentang-saya" href="#tentang-saya">
+          Tentang Saya
+        </a>
+        <a class="nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-medium transition-all text-on-surface-variant hover:text-on-surface" data-section="kemahiran" href="#kemahiran">
+          Kemahiran
+        </a>
+        <a class="nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-medium transition-all text-on-surface-variant hover:text-on-surface" data-section="projek-utama" href="#projek-utama">
+          Projek Utama
+        </a>
+        <a class="nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-medium transition-all text-on-surface-variant hover:text-on-surface" data-section="kokurikulum-dan-pengalaman" href="#kokurikulum-dan-pengalaman">
+          Pengalaman &amp; Kokurikulum
+        </a>
+        <a class="nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-medium transition-all text-on-surface-variant hover:text-on-surface" data-section="hubungi" href="#hubungi">
+          Hubungi
+        </a>
+      </nav>
+
+      <!-- Right Header Actions (Status pill + Resume button + Avatar + Mobile Toggle) -->
+      <div class="flex items-center gap-3">
+        <!-- Interactive Availability Status Button -->
+        <button onclick="openAvailabilityModal()" class="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high/90 hover:bg-surface-container border border-secondary/20 hover:border-secondary/50 text-secondary font-code-badge text-code-badge transition-all cursor-pointer shadow-sm" title="Klik untuk status ketersediaan">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+          </span>
+          <span class="tracking-tight">Sedia Latihan Industri</span>
+        </button>
+
+        <!-- View Interactive CV Button -->
+        <button onclick="openCvModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary font-code-badge text-code-badge font-semibold transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-base">description</span>
+          <span>Lihat CV</span>
+        </button>
+
+        <!-- Avatar Ring -->
+        <div class="relative cursor-pointer" onclick="openAvailabilityModal()" title="Profil Ahmad Mubassyir">
+          <img alt="Profile Avatar" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/40 hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbfwaaFvdU0YotnczgMyGAoRhVoQYjdNOmwpeIn5uZWJMuxmqQmuxgJ8sPZmGoWjMV6lv1vC8JcNIJwto4sLuZBR1ld7hX9gM0W3_g8mz7j01J4rsvtVbvb5YJ9K_84uJzPAqiweIJzO1nLBF8b7pVyWfgvUzdM_ctWK_2Z9vfY-R9rY9dIACmx3iU4idvoQ5Zck5Xp1vgbDBpMSWkmISblWdab8Fm2rdu0RjptyG6La2S_esVgBQ6m5sACJ5eCizN8yk">
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Buka Menu Navigasi" class="xl:hidden p-2 rounded-xl bg-surface-container text-on-surface hover:text-primary transition-colors border border-surface-container-high focus:outline-none cursor-pointer">
+          <span class="material-symbols-outlined text-2xl" id="menuIcon">menu</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       MOBILE NAVIGATION DRAWER (Slide-in with Blur Backdrop)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="mobileDrawerBackdrop" onclick="toggleMobileMenu()" class="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 xl:hidden"></div>
+  <div id="mobileDrawer" class="fixed top-20 right-0 bottom-0 w-72 z-40 bg-surface-container-low border-l border-surface-container-high p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 xl:hidden shadow-2xl">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+        <span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">Menu Navigasi</span>
+        <button onclick="toggleMobileMenu()" class="p-1 rounded-lg text-on-surface-variant hover:text-on-surface cursor-pointer">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-2">
+        <a onclick="toggleMobileMenu()" href="#tentang-saya" class="px-4 py-3 rounded-xl hover:bg-surface-container text-body-md font-medium text-on-surface flex items-center gap-3 transition-colors">
+          <span class="material-symbols-outlined text-primary text-xl">person</span>
+          Tentang Saya
+        </a>
+        <a onclick="toggleMobileMenu()" href="#kemahiran" class="px-4 py-3 rounded-xl hover:bg-surface-container text-body-md font-medium text-on-surface flex items-center gap-3 transition-colors">
+          <span class="material-symbols-outlined text-secondary text-xl">layers</span>
+          Kemahiran
+        </a>
+        <a onclick="toggleMobileMenu()" href="#projek-utama" class="px-4 py-3 rounded-xl hover:bg-surface-container text-body-md font-medium text-on-surface flex items-center gap-3 transition-colors">
+          <span class="material-symbols-outlined text-primary text-xl">rocket_launch</span>
+          Projek Utama
+        </a>
+        <a onclick="toggleMobileMenu()" href="#kokurikulum-dan-pengalaman" class="px-4 py-3 rounded-xl hover:bg-surface-container text-body-md font-medium text-on-surface flex items-center gap-3 transition-colors">
+          <span class="material-symbols-outlined text-tertiary text-xl">military_tech</span>
+          Pengalaman &amp; Kokurikulum
+        </a>
+        <a onclick="toggleMobileMenu()" href="#hubungi" class="px-4 py-3 rounded-xl hover:bg-surface-container text-body-md font-medium text-on-surface flex items-center gap-3 transition-colors">
+          <span class="material-symbols-outlined text-primary text-xl">mail</span>
+          Hubungi
+        </a>
+      </nav>
+    </div>
+
+    <!-- Mobile Drawer Bottom Info & Actions -->
+    <div class="pt-4 border-t border-surface-container-high flex flex-col gap-3">
+      <button onclick="openCvModal(); toggleMobileMenu();" class="w-full py-3 rounded-xl bg-primary text-on-primary font-code-badge text-code-badge font-bold flex items-center justify-center gap-2 shadow-md cursor-pointer">
+        <span class="material-symbols-outlined text-lg">download</span>
+        <span>Muat Turun &amp; Lihat CV</span>
+      </button>
+      <button onclick="openAvailabilityModal(); toggleMobileMenu();" class="w-full py-2.5 rounded-xl bg-surface-container text-secondary font-code-badge text-code-badge flex items-center justify-center gap-2 border border-secondary/20 cursor-pointer">
+        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+        <span>Status Ketersediaan</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="w-full pt-20 bg-background min-h-screen">
+    <div class="flex flex-col w-full text-on-surface">
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           2. HERO SECTION (#tentang-saya)
+      ══════════════════════════════════════════════════════════════════ -->
+      <section id="tentang-saya" class="relative w-full overflow-hidden pt-8 pb-16 lg:py-20">
+        <!-- Ambient Glowing Orbs -->
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-primary/15 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+        <div class="absolute top-80 -left-20 w-[420px] h-[420px] bg-tertiary-container/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+        <div class="absolute top-96 -right-20 w-[400px] h-[400px] bg-secondary-container/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-gutter w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            <!-- Left Hero Column (Text + Badges + CTAs) -->
+            <div class="lg:col-span-7 flex flex-col items-start gap-space-lg">
+              
+              <!-- Live Status Indicator Pill (Clickable Modal Trigger) -->
+              <button onclick="openAvailabilityModal()" class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-surface-container-high/90 hover:bg-surface-container text-secondary font-code-badge text-code-badge shadow-[0_2px_12px_rgba(0,0,0,0.25)] border border-secondary/30 hover:border-secondary transition-all cursor-pointer group">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+                </span>
+                <span class="tracking-wide">Tersedia untuk Latihan Industri / Peluang Kerjaya</span>
+                <span class="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+              </button>
+
+              <!-- Main Typographic Lockup -->
+              <div class="flex flex-col gap-space-xs">
+                <div class="font-label-caps text-label-caps uppercase tracking-widest text-primary font-semibold flex items-center gap-2">
+                  <span>PORTFOLIO TEKNIKAL &amp; MULTIMEDIA</span>
+                  <span class="w-8 h-[2px] bg-primary/40 rounded-full inline-block"></span>
+                </div>
+                <h1 class="font-display-hero text-display-hero-mobile md:text-display-hero text-on-surface tracking-tight leading-none mt-1">
+                  Ahmad <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-fixed to-secondary">Mubassyir</span>
+                </h1>
+                <p class="font-headline-sm text-headline-sm text-on-surface-variant font-medium mt-1">
+                  Full-Stack Web Developer, System Administrator &amp; Digital Content Specialist
+                </p>
+              </div>
+
+              <!-- Bio Paragraph -->
+              <p class="font-body-lg text-body-md md:text-body-lg text-on-surface-variant/90 max-w-2xl leading-relaxed">
+                Pelajar Diploma Teknologi Maklumat di Politeknik Besut, Terengganu dengan keghairahan mendalam membina penyelesaian web berprestasi tinggi, automasi infrastruktur Linux, visualisasi analitik data, serta produksi multimedia sinematik berimpak tinggi.
+              </p>
+
+              <!-- Core Academic & Discipline Badges -->
+              <div class="flex flex-wrap gap-2.5 pt-1">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-code-badge text-code-badge border border-surface-container-high">
+                  <span class="material-symbols-outlined text-primary text-base">school</span>
+                  <span>Politeknik Besut, Terengganu</span>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-code-badge text-code-badge border border-surface-container-high">
+                  <span class="material-symbols-outlined text-secondary text-base">military_tech</span>
+                  <span>Kadet Aktif PALAPES</span>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-code-badge text-code-badge border border-surface-container-high">
+                  <span class="material-symbols-outlined text-tertiary-container text-base">terminal</span>
+                  <span>Full-Stack &amp; Linux SysAdmin</span>
+                </div>
+              </div>
+
+              <!-- Interactive Action Buttons (CTAs) -->
+              <div class="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
+                <a class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-on-primary font-code-badge text-code-badge font-semibold transition-all hover:bg-primary-fixed hover:shadow-[0_0_24px_rgba(76,215,246,0.4)] active:scale-95" href="#hubungi">
+                  <span class="material-symbols-outlined text-lg">mail</span>
+                  <span>Hubungi Saya</span>
+                </a>
+                <a class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface-container-high text-on-surface font-code-badge text-code-badge transition-all hover:bg-surface-bright active:scale-95 border border-surface-container-highest" href="#projek-utama">
+                  <span class="material-symbols-outlined text-lg">rocket_launch</span>
+                  <span>Lihat Projek</span>
+                </a>
+                <button onclick="openCvModal()" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-surface-container text-on-surface-variant hover:text-primary font-code-badge text-code-badge transition-all border border-surface-container-high hover:border-primary/40 active:scale-95 cursor-pointer">
+                  <span class="material-symbols-outlined text-lg">download</span>
+                  <span>Muat Turun &amp; Pratonton CV</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Right Hero Column (Interactive Tech Card Deck with 3-Mode Switcher) -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-end relative">
+              <div class="relative w-full max-w-md rounded-2xl bg-surface-container-low p-4 shadow-2xl shadow-black/70 border border-surface-container-high">
+                
+                <!-- Card Header with Simulated OS Window Buttons & Mode Tabs -->
+                <div class="flex items-center justify-between px-3 py-2 bg-surface-container rounded-xl mb-3 border border-surface-container-high">
+                  <div class="flex items-center gap-1.5">
+                    <button onclick="showToast('Tetingkap dikunci', 'info')" class="w-3 h-3 rounded-full bg-error/80 hover:opacity-100 transition-opacity cursor-pointer" title="Tutup"></button>
+                    <button onclick="resetHeroCard()" class="w-3 h-3 rounded-full bg-secondary-container/80 hover:opacity-100 transition-opacity cursor-pointer" title="Muat Semula"></button>
+                    <button onclick="openCvModal()" class="w-3 h-3 rounded-full bg-primary/80 hover:opacity-100 transition-opacity cursor-pointer" title="Maklumat Penuh"></button>
+                    <span class="font-code-inline text-code-inline text-on-surface-variant/80 ml-2">basyir.dev</span>
+                  </div>
+
+                  <!-- 3 Switchable View Tabs inside Card -->
+                  <div class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded-lg border border-surface-container-high font-code-badge text-[11px]">
+                    <button id="heroTabPhotoBtn" onclick="switchHeroTab('photo')" class="px-2 py-1 rounded bg-primary/20 text-primary font-semibold transition-all cursor-pointer">
+                      Profil
+                    </button>
+                    <button id="heroTabTerminalBtn" onclick="switchHeroTab('terminal')" class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-all cursor-pointer">
+                      CLI Live
+                    </button>
+                    <button id="heroTabMatrixBtn" onclick="switchHeroTab('matrix')" class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-all cursor-pointer">
+                      Stack
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Pane 1: Main Portrait Frame View -->
+                <div id="heroPanePhoto" class="relative rounded-xl overflow-hidden aspect-square bg-surface-container-lowest border border-surface-container-high transition-all duration-300">
+                  <img alt="Ahmad Mubassyir - Full-Stack Developer &amp; System Administrator" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBymvldsbum6zYLs1dd3X6LqkGp-UwVUlA82Pl2A3H4ApOPXrJT3IRqFpAplzVzuehyk1oVkCRBA_4GB40OvZK7AclBgJjiO-rZnv1-0qOUQHh6GH_OkBoBqlTvpaASQLBRjWMl43RUotxPZA6cEsLpGY-KjiLCSpko8JZlMzU_2ootARW664X7lZcdKjgUtjPjSQiU_BcVRlKP3RynPxQTPHhr6Bj2LhXHzeUmudB7608m5T1q-LlGF9sT3Pj109FskLc">
+                  
+                  <!-- Subtle Cyber Scrim Gradient -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
+                  
+                  <!-- Monogram Tech Watermark Corner -->
+                  <div class="absolute top-3 right-3 p-2 rounded-lg bg-surface-container-lowest/80 backdrop-blur-md border border-surface-container-high/60">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path d="M4 18V6l8 7 8-7v12"></path>
+                    </svg>
+                  </div>
+
+                  <!-- Live Stat Strip over Image base -->
+                  <div class="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-surface-container/90 backdrop-blur-md border border-surface-container-high flex items-center justify-between">
+                    <div>
+                      <div class="font-code-badge text-code-badge text-on-surface-variant">Status Pengajian</div>
+                      <div class="font-headline-sm text-headline-sm text-on-surface leading-none mt-0.5">Semester Akhir (DTK)</div>
+                    </div>
+                    <div class="text-right">
+                      <div class="font-code-badge text-code-badge text-secondary font-semibold">Tersedia Segera</div>
+                      <div class="font-code-inline text-code-inline text-primary">Besut, Terengganu</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pane 2: Live SysAdmin Mini CLI Terminal View (Hidden by default) -->
+                <div id="heroPaneTerminal" class="hidden rounded-xl p-4 aspect-square bg-surface-container-lowest border border-surface-container-high font-code-inline text-xs flex flex-col justify-between overflow-y-auto">
+                  <div class="flex flex-col gap-2">
+                    <div class="text-on-surface-variant flex items-center justify-between border-b border-surface-container-high pb-2">
+                      <span class="text-secondary font-bold">● bash - sysadmin@basyir-srv</span>
+                      <span class="text-[10px] text-on-surface-variant/70">UPTIME: 142d 08:22</span>
+                    </div>
+                    <div class="text-on-surface-variant/90 space-y-1 pt-1">
+                      <p><span class="text-primary">$</span> uname -srmo</p>
+                      <p class="text-secondary pl-2">Linux 6.8.0-45-generic x86_64 GNU/Linux</p>
+                      <p><span class="text-primary">$</span> systemctl status sistrak-lab</p>
+                      <p class="text-secondary pl-2">● Active: running (pid 2049) [10 Labs Online]</p>
+                      <p><span class="text-primary">$</span> cat /etc/skills.json | grep core</p>
+                      <p class="text-primary pl-2">["PHP 8+", "Laravel", "Vue.js", "Ubuntu", "Python"]</p>
+                    </div>
+                  </div>
+
+                  <!-- Quick Interactive Command Buttons -->
+                  <div class="pt-3 border-t border-surface-container-high flex flex-wrap gap-1.5">
+                    <button onclick="runHeroMiniCommand('whoami')" class="px-2 py-1 rounded bg-surface-container hover:bg-primary/20 text-primary text-[11px] font-code-badge cursor-pointer">whoami</button>
+                    <button onclick="runHeroMiniCommand('skills')" class="px-2 py-1 rounded bg-surface-container hover:bg-secondary/20 text-secondary text-[11px] font-code-badge cursor-pointer">skills</button>
+                    <button onclick="runHeroMiniCommand('ping')" class="px-2 py-1 rounded bg-surface-container hover:bg-tertiary/20 text-tertiary text-[11px] font-code-badge cursor-pointer">ping</button>
+                    <button onclick="runHeroMiniCommand('clear')" class="px-2 py-1 rounded bg-surface-container hover:bg-error/20 text-error text-[11px] font-code-badge cursor-pointer">clear</button>
+                  </div>
+                </div>
+
+                <!-- Pane 3: Tech Matrix Grid View (Hidden by default) -->
+                <div id="heroPaneMatrix" class="hidden rounded-xl p-4 aspect-square bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between overflow-y-auto">
+                  <div>
+                    <div class="text-code-badge font-code-badge text-primary uppercase tracking-wider pb-2 border-b border-surface-container-high mb-3">
+                      Arkitektur &amp; Kecekapan Sistem
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                      <div class="p-2 rounded-lg bg-surface-container">
+                        <div class="text-secondary font-bold">Backend</div>
+                        <div class="text-on-surface-variant text-[11px]">PHP 8, Laravel, MySQL</div>
+                      </div>
+                      <div class="p-2 rounded-lg bg-surface-container">
+                        <div class="text-primary font-bold">Frontend</div>
+                        <div class="text-on-surface-variant text-[11px]">Vue.js, Tailwind, JS</div>
+                      </div>
+                      <div class="p-2 rounded-lg bg-surface-container">
+                        <div class="text-tertiary font-bold">SysAdmin</div>
+                        <div class="text-on-surface-variant text-[11px]">Ubuntu, Apache, DNS</div>
+                      </div>
+                      <div class="p-2 rounded-lg bg-surface-container">
+                        <div class="text-primary-fixed font-bold">Multimedia</div>
+                        <div class="text-on-surface-variant text-[11px]">Adobe CC, Figma, 4K</div>
+                      </div>
+                    </div>
+                  </div>
+                  <button onclick="openCvModal()" class="w-full py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 text-xs font-code-badge font-semibold text-center cursor-pointer">
+                    Lihat Matriks Lengkap dalam CV →
+                  </button>
+                </div>
+
+                <!-- Floating Interactive Tech Chips Dock -->
+                <div class="grid grid-cols-2 gap-2 mt-3 font-code-badge text-code-badge">
+                  <button onclick="showSkillInfo('Laravel + Vue.js', 'Pengalaman membina Single Page Application (SPA), RESTful API, dan sistem temujanji berpusat.')" class="flex items-center gap-2 p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left border border-surface-container-high cursor-pointer">
+                    <span class="material-symbols-outlined text-primary text-base">code</span>
+                    <span class="text-on-surface font-medium truncate">Laravel + Vue.js</span>
+                  </button>
+                  <button onclick="showSkillInfo('Ubuntu Linux Server', 'Konfigurasi VPS, firewall UFW, Apache/Nginx vhost, perkhidmatan DNS, DHCP, serta skrip automasi Cron.')" class="flex items-center gap-2 p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left border border-surface-container-high cursor-pointer">
+                    <span class="material-symbols-outlined text-secondary text-base">dns</span>
+                    <span class="text-on-surface font-medium truncate">Ubuntu Linux Server</span>
+                  </button>
+                  <button onclick="showSkillInfo('AI Prompt Architect', 'Pemanfaatan model Claude, Gemini, GPT untuk reka bentuk kod pantas, modular refactoring dan optimasi SQL.')" class="flex items-center gap-2 p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left border border-surface-container-high cursor-pointer">
+                    <span class="material-symbols-outlined text-tertiary text-base">psychology</span>
+                    <span class="text-on-surface font-medium truncate">AI Prompt Architect</span>
+                  </button>
+                  <button onclick="showSkillInfo('Adobe CC & Figma', 'Reka bentuk prototaip interaktif berfideliti tinggi, manipulasi visual Photoshop, dan suntingan video sinematik.')" class="flex items-center gap-2 p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-left border border-surface-container-high cursor-pointer">
+                    <span class="material-symbols-outlined text-primary-container text-base">brush</span>
+                    <span class="text-on-surface font-medium truncate">Adobe CC &amp; Figma</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           3. KEMAHIRAN TEKNIKAL SECTION (#kemahiran)
+      ══════════════════════════════════════════════════════════════════ -->
+      <section class="w-full bg-surface-container-lowest/60 py-20 border-y border-surface-container-high/40" id="kemahiran">
+        <div class="max-w-7xl mx-auto px-gutter flex flex-col gap-10">
+          
+          <!-- Section Header & Subtitle -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div class="flex flex-col gap-space-xs">
+              <div class="font-label-caps text-label-caps text-primary uppercase tracking-wider flex items-center gap-2">
+                <span class="material-symbols-outlined text-base">layers</span>
+                <span>ARKITEKTUR STACK &amp; KEMAHIRAN</span>
+              </div>
+              <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+                Kuasai Kod, Sistem, &amp; Kreativiti Digital
+              </h2>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+              Sinergi kepakaran pengaturcaraan, pentadbiran pelayan selamat, dan kemahiran reka bentuk media menghasilkan penyelesaian perisian holistik dan siap pasaran.
+            </p>
+          </div>
+
+          <!-- Dynamic Skill Controls: Real-Time Search Bar & Filter Chips -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container border border-surface-container-high">
+            <!-- Filter Tabs -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
+              <button onclick="filterSkills('all')" class="skill-filter-btn active px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-primary text-on-primary cursor-pointer" data-cat="all">
+                Semua (38)
+              </button>
+              <button onclick="filterSkills('web')" class="skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer" data-cat="web">
+                Web &amp; Full-Stack
+              </button>
+              <button onclick="filterSkills('sysadmin')" class="skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer" data-cat="sysadmin">
+                SysAdmin &amp; Cloud
+              </button>
+              <button onclick="filterSkills('mobile')" class="skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer" data-cat="mobile">
+                Mobile Dev
+              </button>
+              <button onclick="filterSkills('media')" class="skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer" data-cat="media">
+                Media &amp; Reka Bentuk
+              </button>
+              <button onclick="filterSkills('ai')" class="skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer" data-cat="ai">
+                AI &amp; Automasi
+              </button>
+            </div>
+
+            <!-- Real-Time Search Input Box -->
+            <div class="relative min-w-[260px]">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg">search</span>
+              <input id="skillSearchInput" oninput="searchSkills(this.value)" placeholder="Cari kemahiran (cth: Laravel, Linux, SQL...)" class="w-full pl-9 pr-8 py-2 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/50 text-body-sm focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all" />
+              <button id="skillSearchClear" onclick="clearSkillSearch()" class="hidden absolute right-2.5 top-2.5 text-on-surface-variant hover:text-on-surface cursor-pointer">
+                <span class="material-symbols-outlined text-sm">close</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Skills Category Grid (5 Categorized Tech Blocks) -->
+          <div id="skillsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Category 1: Full-Stack Web Dev (Spans 2 cols on lg) -->
+            <div class="skill-card lg:col-span-2 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high group" data-category="web">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                      <span class="material-symbols-outlined text-2xl">web</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pembangunan Web (Full-Stack)</h3>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">Frontend modular, backend mantap &amp; pengurusan data relasional</p>
+                    </div>
+                  </div>
+                  <span class="font-code-badge text-code-badge px-2.5 py-1 rounded bg-primary-container/20 text-primary font-medium hidden sm:inline-block">Core Focus</span>
+                </div>
+                
+                <div class="flex flex-wrap gap-2.5 pt-4">
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('HTML5 & CSS3', 'Pematuhan standard semantik W3C, reka bentuk responsif Mobile-First, Flexbox, Grid, dan kebolehcapaian ARIA.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> HTML5 &amp; CSS3
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('Modern JavaScript', 'ES6+, Async/Await, Fetch API, DOM manipulation berprestasi tinggi tanpa ketergantungan perpustakaan berat.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Modern JavaScript
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('PHP 8+', 'OOP PHP, PDO database abstraction, autentikasi sesi selamat, enkripsi data, dan API endpoints.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> PHP 8+
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Laravel Framework', 'Eloquent ORM, routing, middleware kawalan peranan akses (Admin/User), migrasi pangkalan data, dan Blade engine.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Laravel Framework
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Vue.js SPA', 'Komponen modular reaktif, state management Pinia, vue-router, dan integrasi UI responsif.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Vue.js SPA
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('MySQL & Relational DB', 'Skema pangkalan data ternormal (3NF), indeks carian pantas, stored procedures, dan integrity foreign keys.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> MySQL &amp; Relational DB
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('Tailwind CSS & Bootstrap', 'Reka bentuk utiliti terpantas, sistem palet warna bertema Dark/Light, dan komponen UI siap bina.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Tailwind CSS &amp; Bootstrap
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge flex items-center gap-1.5 border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Streamlit (Python Web)', 'Pembinaan dashboard analitik data interaktif pantas dengan visualisasi graf terus daripada skrip Python.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Streamlit (Python Web)
+                  </span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-on-surface-variant transition-colors" onclick="showSkillInfo('WordPress & CMS', 'Pembangunan laman web berasaskan Elementor, penyesuaian tema PHP kustom, dan optimasi SEO asas.')">
+                    <span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span> WordPress (Elementor)
+                  </span>
+                </div>
+              </div>
+
+              <div class="pt-6 mt-6 bg-surface-container-lowest/50 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 p-4 px-6 sm:px-8 rounded-b-2xl flex items-center justify-between text-body-sm border-t border-surface-container-high">
+                <span class="font-code-inline text-code-inline text-on-surface-variant">Logik backend teruji &amp; integrasi RESTful API teratur</span>
+                <span class="font-code-badge text-code-badge text-secondary font-bold">Penguasaan: 95%</span>
+              </div>
+            </div>
+
+            <!-- Category 2: Pentadbiran Sistem & Rangkaian (SysAdmin) -->
+            <div class="skill-card rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high" data-category="sysadmin">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+                    <span class="material-symbols-outlined text-2xl">dns</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pentadbiran Sistem</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">SysAdmin, Virtualisasi &amp; Rangkaian</p>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2 pt-2">
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Linux (Ubuntu Server)', 'Pentadbiran pelayan melalui terminal SSH, bash automation, konfigurasi Apache/Nginx, dan firewall iptables/UFW.')">Linux (Ubuntu Server)</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Windows Server', 'Pengurusan peranan pelayan, pengurusan polisi kumpulan (GPO), dan log pemantauan keselamatan Windows.')">Windows Server</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Active Directory', 'Pengurusan identiti pengguna berpusat, unit organisasi (OU), dan hak pengesahan domain.')">Active Directory</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('DNS & DHCP', 'Penetapan zon carian hadapan/balik, pengagihan IP statik/dinamik, dan gateway subnetting.')">DNS &amp; DHCP</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('VMware & VirtualBox', 'Konfigurasi mesin maya, virtual switch VLAN, dan simulasi persekitaran pelayan berasingan.')">VMware &amp; VirtualBox</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Apache & Tomcat', 'Konfigurasi virtual host pelayan web dan penyebaran servlet Java.')">Apache &amp; Tomcat</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('XAMPP Stack', 'Persekitaran pembangunan tempatan pantas bagi ujian integrasi PHP-MySQL.')">XAMPP Stack</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('FileZilla (Secure FTP)', 'Pemindahan fail jarak jauh bersulitkan FTPS/SFTP dengan kawalan izin fail 755/644.')">FileZilla (Secure FTP)</span>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center justify-between pt-4 bg-surface-container-lowest/50 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 p-4 px-6 sm:px-8 rounded-b-2xl border-t border-surface-container-high">
+                <span class="font-code-inline text-code-inline text-on-surface-variant">CLI Mastery &amp; Virtual Nodes</span>
+                <span class="font-code-badge text-code-badge text-primary font-bold">Penguasaan: 92%</span>
+              </div>
+            </div>
+
+            <!-- Category 3: Mobile Development -->
+            <div class="skill-card rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high" data-category="mobile">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container border border-primary-container/20">
+                    <span class="material-symbols-outlined text-2xl">smartphone</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pembangunan Mudah Alih</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Native Android App Engineering</p>
+                  </div>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant/90">
+                  Pembangunan aplikasi Android moden menggunakan persekitaran pembangunan bersepadu Android Studio berteraskan prinsip OOP dan seni bina aktiviti intuitif.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('Java (Android)', 'Logik aktiviti, intent lifecycle, RecyclerView adapter, dan pengendalian asynchronous threading.')">Java (Android)</span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('Kotlin Essentials', 'Pengaturcaraan moden Android berteraskan null-safety dan sintaks ringkas.')">Kotlin Essentials</span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('Android Studio IDE', 'Penggunaan Gradle build system, logcat debugging, dan pengujian peranti AVD.')">Android Studio IDE</span>
+                  <span class="skill-tag px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-primary transition-colors" onclick="showSkillInfo('SQLite Local DB', 'Penyimpanan data setempat luar talian dengan Room/SQLite open helper.')">SQLite Local DB</span>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center justify-between pt-4 bg-surface-container-lowest/50 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 p-4 px-6 sm:px-8 rounded-b-2xl border-t border-surface-container-high">
+                <span class="font-code-inline text-code-inline text-on-surface-variant">UI Layout XML &amp; Lifecycle</span>
+                <span class="font-code-badge text-code-badge text-secondary font-bold">Penguasaan: 85%</span>
+              </div>
+            </div>
+
+            <!-- Category 4: Media & Reka Bentuk Digital -->
+            <div class="skill-card rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high" data-category="media">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary border border-tertiary/20">
+                    <span class="material-symbols-outlined text-2xl">palette</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Media &amp; Reka Bentuk</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Kandungan Visual &amp; UI/UX Kreatif</p>
+                  </div>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant/90">
+                  Menghasilkan bahan pemasaran digital bermutu tinggi, animasi video, identiti jenama, serta prototaip antaramuka sistem yang estetik dan mesra pengguna.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Adobe Photoshop', 'Manipulasi imej resolusi tinggi, reka bentuk poster komersial, dan komposisi grafik.')">Adobe Photoshop</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Premiere Pro', 'Suntingan video resolusi 4K, color grading sinematik, dan transisi dinamik.')">Premiere Pro</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Adobe Animate', 'Penciptaan animasi vektor 2D, pergerakan bingkai demi bingkai, dan interaktiviti.')">Adobe Animate</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Adobe Audition', 'Pembersihan audio hingar, reka bentuk kesan bunyi (SFX), dan mastering suara latar.')">Adobe Audition</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Affinity Photo V2', 'Alternatif suntingan imej profesional berasaskan raster vektor pantas.')">Affinity Photo V2</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Figma Prototyping', 'Reka bentuk wireframe, sistem komponen design token, dan interaksi prototaip klikan.')">Figma Prototyping</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-tertiary transition-colors" onclick="showSkillInfo('Draw.io UML', 'Lakaran rajah kes penggunaan (Use Case), Activity Diagram, dan skema pangkalan data ERD.')">Draw.io UML</span>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center justify-between pt-4 bg-surface-container-lowest/50 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 p-4 px-6 sm:px-8 rounded-b-2xl border-t border-surface-container-high">
+                <span class="font-code-inline text-code-inline text-on-surface-variant">Produksi Sinematik &amp; Vektor</span>
+                <span class="font-code-badge text-code-badge text-primary font-bold">Penguasaan: 90%</span>
+              </div>
+            </div>
+
+            <!-- Category 5: Kecerdasan Buatan (AI) & Pengaturcaraan Terkehadapan -->
+            <div class="skill-card rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high" data-category="ai">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+                    <span class="material-symbols-outlined text-2xl">neurology</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">AI &amp; Pengaturcaraan</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Python OOP &amp; Prompt Engineering</p>
+                  </div>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant/90">
+                  Pemanfaatan model bahasa besar (LLM), kejuruteraan prompt peringkat tinggi untuk automasi kod, serta pengaturcaraan berorientasikan objek (OOP) berasaskan Python.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Python (OOP & Algoritma)', 'Struktur data kelas, pewarisan (inheritance), enkapsulasi modul, pengujian logik unit.')">Python (OOP &amp; Algoritma)</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Google AI Studio', 'Eksperimen prompt multimodal Gemini, penalaan suhu (temperature) dan sistem API.')">Google AI Studio</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('OpenAI Codex & API', 'Integrasi ejen penyelesaian tugasan dan automasi pembikinan kod berstruktur.')">OpenAI Codex &amp; API</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('LLM Workflow Automation', 'Penggabungan skrip automasi pemprosesan teks dan ekstraksi data JSON menggunakan model AI.')">LLM Workflow Automation</span>
+                  <span class="skill-tag px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high cursor-pointer hover:border-secondary transition-colors" onclick="showSkillInfo('Data Analysis & Modeling', 'Pandas DataFrame asas, pembersihan data hilang, dan transformasi rekod tabular.')">Data Analysis &amp; Modeling</span>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center justify-between pt-4 bg-surface-container-lowest/50 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 p-4 px-6 sm:px-8 rounded-b-2xl border-t border-surface-container-high">
+                <span class="font-code-inline text-code-inline text-on-surface-variant">AI-Augmented Development</span>
+                <span class="font-code-badge text-code-badge text-secondary font-bold">Penguasaan: 88%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           4. SENARAI PROJEK UTAMA (#projek-utama)
+      ══════════════════════════════════════════════════════════════════ -->
+      <section class="w-full max-w-7xl mx-auto px-gutter py-24 flex flex-col gap-10" id="projek-utama">
+        
+        <!-- Section Header with Project Counter -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div class="flex flex-col gap-space-xs">
+            <div class="font-label-caps text-label-caps text-primary uppercase tracking-wider flex items-center gap-2">
+              <span class="material-symbols-outlined text-base">terminal</span>
+              <span>PORTFOLIO KARYA &amp; INOVASI</span>
+            </div>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+              Projek Pilihan Berimpak Nyata
+            </h2>
+          </div>
+          <div class="font-code-inline text-code-inline text-on-surface-variant flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-xl border border-surface-container-high">
+            <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            <span>6 Projek Komprehensif Dilaksanakan</span>
+          </div>
+        </div>
+
+        <!-- Project Filter Buttons -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-surface-container-high/60 scrollbar-none">
+          <button onclick="filterProjects('all')" class="project-filter-btn active px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-primary text-on-primary cursor-pointer" data-type="all">
+            Semua Projek (6)
+          </button>
+          <button onclick="filterProjects('web')" class="project-filter-btn px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer" data-type="web">
+            Web &amp; Full-Stack
+          </button>
+          <button onclick="filterProjects('devops')" class="project-filter-btn px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer" data-type="devops">
+            DevOps &amp; Cloud
+          </button>
+          <button onclick="filterProjects('data')" class="project-filter-btn px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer" data-type="data">
+            Data Analytics
+          </button>
+          <button onclick="filterProjects('media')" class="project-filter-btn px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer" data-type="media">
+            Multimedia &amp; Jenama
+          </button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- ⭐ FLAGSHIP PROJECT 0: SisTrak Lab (v3.0) - Spans 12 cols (Hero Featured Card) -->
+          <div class="project-card lg:col-span-12 rounded-2xl bg-gradient-to-r from-surface-container via-surface-container to-surface-container-low p-6 sm:p-8 flex flex-col lg:flex-row gap-8 justify-between shadow-2xl transition-all hover:border-primary/50 border border-primary/30 group" data-project-type="web">
+            <div class="flex flex-col justify-between gap-6 lg:w-7/12">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/30 font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                    PROJEK UNGGULAN (FLAGSHIP)
+                  </span>
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-surface-container-high text-secondary font-semibold">
+                    SisTrak Lab v3.0
+                  </span>
+                  <span class="font-code-inline text-code-inline text-on-surface-variant">Sistem Makmal Pintar</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                    SisTrak Lab — Pengurusan &amp; Penjejakan Ketersediaan Makmal Pintar
+                  </h3>
+                  <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Sistem pengurusan ketersediaan 10 makmal rasmi institusi (CSDL 1, CSDL 2, CNL, ILL 1, ILL 2, ADL 1–4, PL 1) yang dilengkapi muat naik jadual waktu beresolusi tinggi, modul CRUD pentadbir, kawalan tempoh masa laras pintar (+30m auto &amp; stepper), serta papan pemuka log sesi aktif secara masa nyata.
+                  </p>
+                </div>
+
+                <!-- Feature checklist pills -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-body-sm font-code-inline text-on-surface-variant pt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+                    <span>10 Makmal Rasmi (Aras Bawah &amp; 1)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+                    <span>Muat Naik &amp; Pratonton Jadual Imej</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+                    <span>Material Design 3 (Sifar Emoji Kaku)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+                    <span>Papan Kunci Minimalis &amp; Audio Taktil</span>
+                  </div>
+                </div>
+
+                <!-- Tech Stack Chips -->
+                <div class="flex flex-wrap gap-2 pt-2">
+                  <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high">Vanilla JS (Modern ES6+)</span>
+                  <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high">CSS Custom Properties</span>
+                  <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high">Web Audio API</span>
+                  <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-code-badge text-code-badge border border-surface-container-high">Local Storage Persistent</span>
+                </div>
+              </div>
+
+              <!-- Action Links -->
+              <div class="pt-4 flex flex-wrap items-center gap-3">
+                <a href="index.html" target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-on-primary font-code-badge text-code-badge font-bold hover:bg-primary-fixed hover:shadow-[0_0_20px_rgba(76,215,246,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-lg">open_in_new</span>
+                  <span>Buka Prototaip Langsung (SisTrak Lab)</span>
+                </a>
+                <button onclick="openProjectModal('sistrak')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface font-code-badge text-code-badge hover:bg-surface-bright transition-all border border-surface-container-highest cursor-pointer">
+                  <span class="material-symbols-outlined text-base">info</span>
+                  <span>Lihat Dokumentasi &amp; Seni Bina</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Interactive Preview Mockup Box for SisTrak Lab -->
+            <div class="lg:w-5/12 rounded-xl bg-surface-container-lowest p-4 border border-surface-container-high flex flex-col justify-between">
+              <div class="flex items-center justify-between pb-3 border-b border-surface-container-high text-code-badge font-code-badge text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+                  <span class="text-on-surface font-semibold">SisTrak Lab Engine</span>
+                </div>
+                <span class="text-primary font-bold">10/10 Lab Aktif</span>
+              </div>
+
+              <div class="py-4 space-y-3 font-code-inline text-xs">
+                <div class="p-2.5 rounded-lg bg-surface-container border border-surface-container-high flex items-center justify-between">
+                  <span class="text-on-surface font-medium">CSDL 1 • Aras Bawah</span>
+                  <span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[11px]">Tersedia</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-surface-container border border-surface-container-high flex items-center justify-between">
+                  <span class="text-on-surface font-medium">ADL 2 • Aras 1</span>
+                  <span class="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-[11px]">Digunakan (09:15 - 11:15)</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-surface-container border border-surface-container-high flex items-center justify-between">
+                  <span class="text-on-surface font-medium">ILL 1 • Aras Bawah</span>
+                  <span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[11px]">Tersedia</span>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-surface-container-high flex items-center justify-between text-code-badge font-code-badge">
+                <span class="text-on-surface-variant">Fail Tempatan: design-prototype/index.html</span>
+                <span class="text-secondary">v3.0 Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 1: Sistem Pengurusan Klinik (i-Klinik) - Spans 7 cols -->
+          <div class="project-card lg:col-span-7 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all hover:bg-surface-container-high border border-surface-container-high group" data-project-type="web">
+            <div class="flex flex-col gap-6">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-primary/10 text-primary font-semibold border border-primary/20">Lead Full-Stack Developer</span>
+                <span class="font-code-inline text-code-inline text-on-surface-variant">Sistem Perubatan Web</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                  Sistem Pengurusan Klinik (i-Klinik)
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Pembangunan muka depan intuitif dan logik backend PHP berstruktur untuk sistem pengurusan rekod pesakit, pendaftaran janji temu doktor, serta pengurusan inventori preskripsi ubat klinik secara berpusat. Mengurangkan masa menunggu pesakit secara drastik.
+                </p>
+              </div>
+
+              <!-- Interactive Mini Terminal Simulation Box -->
+              <div class="rounded-xl bg-surface-container-lowest p-4 font-code-inline text-code-inline text-on-surface-variant flex flex-col gap-2 overflow-x-auto border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2 text-primary font-semibold">
+                    <span class="material-symbols-outlined text-sm">terminal</span>
+                    <span>i-klinik_core::dispatch_prescription()</span>
+                  </div>
+                  <button id="runIClinicSimBtn" onclick="runIClinicSimulation()" class="px-2 py-0.5 rounded bg-primary/10 hover:bg-primary/20 text-primary text-[11px] font-code-badge flex items-center gap-1 cursor-pointer">
+                    <span class="material-symbols-outlined text-xs">play_arrow</span>
+                    Simulasi Logik
+                  </button>
+                </div>
+                <div id="iClinicSimOutput" class="space-y-1 text-xs">
+                  <div class="text-on-surface-variant/80 pl-2">→ [MYSQL] Query executed in 0.0024s. Patient ID: #PK-4921</div>
+                  <div class="text-secondary pl-2">✓ Status: Prescription batch locked &amp; queue ticket generated.</div>
+                </div>
+              </div>
+
+              <!-- Stack Chips -->
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">PHP 8</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">MySQL</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Bootstrap 5</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">JavaScript</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Apache Web Server</span>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-4 flex items-center justify-between border-t border-surface-container-high">
+              <span class="font-code-badge text-code-badge text-secondary flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-secondary"></span> Selesai &amp; Teruji
+              </span>
+              <button onclick="openProjectModal('iklinik')" class="inline-flex items-center gap-1.5 text-primary hover:text-primary-fixed font-code-inline text-code-inline transition-colors cursor-pointer">
+                <span>Kaji Selidik Kod &amp; Demo</span>
+                <span class="material-symbols-outlined text-base">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 2: Sistem Pengurusan Sekolah (SMU Hamidiah) - Spans 5 cols -->
+          <div class="project-card lg:col-span-5 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all hover:bg-surface-container-high border border-surface-container-high group" data-project-type="devops">
+            <div class="flex flex-col gap-6">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-secondary/10 text-secondary font-semibold border border-secondary/20">DevOps &amp; Deployment</span>
+                <span class="font-code-inline text-code-inline text-on-surface-variant">Cloud &amp; FTP</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">
+                  Sistem SMU Hamidiah
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Konfigurasi persekitaran web dan pengehosan sistem pengurusan maklumat sekolah menggunakan pelayan awan melalui protokol pemindahan fail FTP FileZilla yang disulitkan, stabil, dan pantas.
+                </p>
+              </div>
+              <!-- Stack Chips -->
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Cloud Hosting</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">FileZilla FTP</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Linux Server</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Database Migration</span>
+              </div>
+            </div>
+            <div class="mt-8 pt-4 flex items-center justify-between border-t border-surface-container-high">
+              <span class="font-code-badge text-code-badge text-secondary flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-secondary"></span> Siap Dihoskan
+              </span>
+              <button onclick="openProjectModal('smu')" class="inline-flex items-center gap-1.5 text-secondary hover:text-secondary-fixed font-code-inline text-code-inline transition-colors cursor-pointer">
+                <span>Log Deployment</span>
+                <span class="material-symbols-outlined text-base">north_east</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 3: Dashboard Analisis Data Parlimen - Spans 4 cols -->
+          <div class="project-card lg:col-span-4 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all hover:bg-surface-container-high border border-surface-container-high group" data-project-type="data">
+            <div class="flex flex-col gap-5">
+              <div class="flex items-center justify-between">
+                <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-tertiary/10 text-tertiary font-semibold border border-tertiary/20">Data Visualization</span>
+                <span class="material-symbols-outlined text-tertiary">monitoring</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors font-semibold">
+                  Dashboard Analisis Parlimen
+                </h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-2">
+                  Papan pemuka penceritaan data interaktif menggunakan Looker Studio berasaskan data rasmi OpenDOSM. Memetakan demografi pengundi, aliran perbelanjaan, dan indikator sosio-ekonomi per parlimen.
+                </p>
+              </div>
+              <!-- Interactive Data Sparkline Chart with Toggle -->
+              <div class="p-3 rounded-xl bg-surface-container-lowest flex flex-col gap-2 border border-surface-container-high">
+                <div class="flex items-center justify-between text-code-badge font-code-badge text-on-surface-variant">
+                  <span id="chartLabel">Indeks Data OpenDOSM</span>
+                  <button onclick="toggleChartMetric()" class="text-secondary hover:underline cursor-pointer">+18.4% Ketepatan</button>
+                </div>
+                <svg id="sparklineSvg" class="w-full h-12 text-primary transition-all" fill="none" preserveAspectRatio="none" viewBox="0 0 200 40">
+                  <path id="sparklineLine" d="M0 35 Q 25 10, 50 25 T 100 15 T 150 20 T 200 5" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+                  <path id="sparklineArea" d="M0 35 Q 25 10, 50 25 T 100 15 T 150 20 T 200 5 L 200 40 L 0 40 Z" fill="currentColor" fill-opacity="0.08"></path>
+                </svg>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Looker Studio</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">OpenDOSM API</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Data Storytelling</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high">
+              <span class="font-code-badge text-code-badge text-primary">Interaktif</span>
+              <button onclick="openProjectModal('parlimen')" class="text-primary hover:underline font-code-inline text-code-inline cursor-pointer">Kajian Data →</button>
+            </div>
+          </div>
+
+          <!-- Project 4: Sistem Tempahan Hotel (Python OOP) - Spans 4 cols -->
+          <div class="project-card lg:col-span-4 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all hover:bg-surface-container-high border border-surface-container-high group" data-project-type="web">
+            <div class="flex flex-col gap-5">
+              <div class="flex items-center justify-between">
+                <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-primary/10 text-primary font-semibold border border-primary/20">Software Architecture</span>
+                <span class="material-symbols-outlined text-primary">code_blocks</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors font-semibold">
+                  Sistem Tempahan Hotel OOP
+                </h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-2">
+                  Aplikasi berasaskan pengaturcaraan berorientasikan objek (Python OOP) untuk pengiraan dinamik kadar bilik mengikut musim, sistem kupon promosi bertingkat, dan pengiraan cukai pelancongan automatik.
+                </p>
+              </div>
+              <!-- Interactive Live Python OOP Calculator Widget -->
+              <div class="p-3 rounded-xl bg-surface-container-lowest font-code-inline text-code-inline text-on-surface-variant flex flex-col gap-2 border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <span class="text-secondary font-medium">class RoomBooking(Taxable):</span>
+                  <button onclick="calculateHotelDemo()" class="px-2 py-0.5 rounded bg-secondary/15 text-secondary text-[11px] font-code-badge hover:bg-secondary/30 cursor-pointer">Kira Kadar</button>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5 text-[11px]">
+                  <select id="hotelRoomType" onchange="calculateHotelDemo()" class="bg-surface-container text-on-surface px-1.5 py-1 rounded border border-surface-container-high focus:outline-none">
+                    <option value="deluxe">Bilik Deluxe (RM180)</option>
+                    <option value="suite">Bilik Suite (RM320)</option>
+                  </select>
+                  <select id="hotelSeason" onchange="calculateHotelDemo()" class="bg-surface-container text-on-surface px-1.5 py-1 rounded border border-surface-container-high focus:outline-none">
+                    <option value="1">Musim Biasa (1.0x)</option>
+                    <option value="1.5">Musim Cuti (1.5x)</option>
+                  </select>
+                </div>
+                <div id="hotelCalcResult" class="text-primary text-xs font-bold pt-1 border-t border-surface-container-high">
+                  Jumlah: RM 190.80 (Cukai 6% Termasuk)
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Python 3.x</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">OOP Principles</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Data Structures</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high">
+              <span class="font-code-badge text-code-badge text-secondary">Algoritma Mantap</span>
+              <button onclick="openProjectModal('hotel')" class="text-primary hover:underline font-code-inline text-code-inline cursor-pointer">Lihat Struktur OOP →</button>
+            </div>
+          </div>
+
+          <!-- Project 5: Dodol Warisan Bonda (Multimedia) - Spans 4 cols -->
+          <div class="project-card lg:col-span-4 rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between shadow-xl transition-all hover:bg-surface-container-high border border-surface-container-high group" data-project-type="media">
+            <div class="flex flex-col gap-5">
+              <div class="flex items-center justify-between">
+                <span class="font-code-badge text-code-badge px-3 py-1 rounded bg-secondary/10 text-secondary font-semibold border border-secondary/20">Brand &amp; Media Design</span>
+                <span class="material-symbols-outlined text-secondary">movie</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-secondary transition-colors font-semibold">
+                  Dodol Warisan Bonda
+                </h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-2">
+                  Penghasilan reka bentuk pembungkusan premium, papan cerita video (storyboard), iklan multimedia, dan pelan bahan pemasaran digital lengkap bagi menaik taraf produk tradisional ke taraf moden.
+                </p>
+              </div>
+              <!-- Creative Spec Strip -->
+              <div class="p-3 rounded-xl bg-surface-container-lowest flex items-center justify-around text-center border border-surface-container-high">
+                <div>
+                  <div class="font-headline-sm text-headline-sm text-primary font-bold">4K</div>
+                  <div class="font-code-badge text-code-badge text-on-surface-variant">Sinematik</div>
+                </div>
+                <div class="w-px h-8 bg-surface-container-highest"></div>
+                <div>
+                  <div class="font-headline-sm text-headline-sm text-secondary font-bold">300 DPI</div>
+                  <div class="font-code-badge text-code-badge text-on-surface-variant">Packaging</div>
+                </div>
+                <div class="w-px h-8 bg-surface-container-highest"></div>
+                <div>
+                  <div class="font-headline-sm text-headline-sm text-tertiary font-bold">Story</div>
+                  <div class="font-code-badge text-code-badge text-on-surface-variant">Boarding</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Photoshop</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Premiere Pro</span>
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-badge text-code-badge">Visual Identity</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high">
+              <span class="font-code-badge text-code-badge text-tertiary">Kempen Lengkap</span>
+              <button onclick="openProjectModal('dodol')" class="text-secondary hover:underline font-code-inline text-code-inline cursor-pointer">Galeri Visual →</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           5. PENGALAMAN, KEPIMPINAN & KOKURIKULUM (#kokurikulum-dan-pengalaman)
+      ══════════════════════════════════════════════════════════════════ -->
+      <section class="w-full bg-surface-container-low/80 py-20 border-y border-surface-container-high/40" id="kokurikulum-dan-pengalaman">
+        <div class="max-w-7xl mx-auto px-gutter flex flex-col gap-10">
+          
+          <!-- Section Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div class="flex flex-col gap-space-xs">
+              <div class="font-label-caps text-label-caps text-secondary uppercase tracking-wider flex items-center gap-2">
+                <span class="material-symbols-outlined text-base">military_tech</span>
+                <span>DAYA KEPIMPINAN &amp; AKTIVITI</span>
+              </div>
+              <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+                Disiplin, Komunikasi &amp; Semangat Kerja Pasukan
+              </h2>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+              Pembangunan sahsiah holistik melalui latihan ketenteraan simpanan, kejohanan strategi eSports, dan pertandingan penghasilan video peringkat kebangsaan.
+            </p>
+          </div>
+
+          <!-- View Mode Toggle: Grid Cards vs Interactive Chronological Timeline -->
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="inline-flex items-center p-1 rounded-xl bg-surface-container border border-surface-container-high">
+              <button id="viewGridBtn" onclick="switchExperienceView('grid')" class="px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-semibold transition-all bg-primary text-on-primary cursor-pointer">
+                Paparan Kad Grid
+              </button>
+              <button id="viewTimelineBtn" onclick="switchExperienceView('timeline')" class="px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all text-on-surface-variant hover:text-on-surface cursor-pointer">
+                Garis Masa Kronologi
+              </button>
+            </div>
+            <div class="font-code-badge text-code-badge text-on-surface-variant">
+              Klik mana-mana kad untuk butiran peranan &amp; pencapaian
+            </div>
+          </div>
+
+          <!-- View 1: Experience Cards Grid (4 Distinct Cards) -->
+          <div id="experienceGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Card 1: PALAPES -->
+            <div onclick="openExperienceModal('palapes')" class="rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high group cursor-pointer">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+                    <span class="material-symbols-outlined text-2xl">shield</span>
+                  </div>
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded-full bg-secondary-container/20 text-secondary font-medium">
+                    Ketahanan &amp; Disiplin
+                  </span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-secondary transition-colors">
+                    Pasukan Latihan Pegawai Simpanan (PALAPES)
+                  </h3>
+                  <p class="font-code-inline text-code-inline text-primary">Kadet Aktif • Politeknik Besut</p>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Menjalani latihan intensif yang membentuk integriti fizikal dan mental, ketepatan pengurusan masa, kepimpinan berorientasikan misi, dan kecekalan tinggi membuat keputusan di bawah tekanan.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high text-on-surface-variant/80 font-code-badge text-code-badge">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+                  <span>Melahirkan profesional IT berdisiplin tinggi</span>
+                </div>
+                <span class="text-secondary group-hover:translate-x-1 transition-transform">Butiran →</span>
+              </div>
+            </div>
+
+            <!-- Card 2: eSports & Kejohanan Kampus -->
+            <div onclick="openExperienceModal('esports')" class="rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high group cursor-pointer">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                    <span class="material-symbols-outlined text-2xl">sports_esports</span>
+                  </div>
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded-full bg-primary-container/20 text-primary font-medium">
+                    Strategi &amp; Refleks Pantas
+                  </span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">
+                    eSports &amp; Kejohanan Taktikal Kampus
+                  </h3>
+                  <p class="font-code-inline text-code-inline text-secondary">Wakil &amp; Peserta Kejohanan</p>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Peserta aktif kejohanan eSports institusi (Mobile Legends: Bang Bang &amp; PUBG Mobile) di Politeknik Besut. Mengasah kebolehan analisa taktikal mikro dan makro, koordinasi suara masa nyata, serta ketenangan mental.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high text-on-surface-variant/80 font-code-badge text-code-badge">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base">check_circle</span>
+                  <span>Komunikasi sinergistik &amp; strategi adaptif</span>
+                </div>
+                <span class="text-primary group-hover:translate-x-1 transition-transform">Butiran →</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Pertandingan Kreatif TVET Star -->
+            <div onclick="openExperienceModal('tvet')" class="rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high group cursor-pointer">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary border border-tertiary/20">
+                    <span class="material-symbols-outlined text-2xl">videocam</span>
+                  </div>
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded-full bg-tertiary-container/20 text-tertiary font-medium">
+                    Kreativiti &amp; Multimedia
+                  </span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-tertiary transition-colors">
+                    Pertandingan Kreatif TVET Star
+                  </h3>
+                  <p class="font-code-inline text-code-inline text-tertiary">Vlog Kreatif Hari Kebangsaan</p>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Penyertaan dalam pertandingan TVET Star Vlog Kreatif Merdeka menerusi olahan penggambaran sinematik, suntingan audio digital mendalam, serta penceritaan visual yang menyuntik nilai patriotik dan teknologi.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high text-on-surface-variant/80 font-code-badge text-code-badge">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-tertiary text-base">check_circle</span>
+                  <span>Suntingan Premiere Pro &amp; Reka Bentuk Audio</span>
+                </div>
+                <span class="text-tertiary group-hover:translate-x-1 transition-transform">Butiran →</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Kerjasama Berkumpulan & Projek Akademik -->
+            <div onclick="openExperienceModal('academic')" class="rounded-2xl bg-surface-container p-6 sm:p-8 flex flex-col justify-between transition-all hover:bg-surface-container-high border border-surface-container-high group cursor-pointer">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container border border-primary-container/20">
+                    <span class="material-symbols-outlined text-2xl">groups</span>
+                  </div>
+                  <span class="font-code-badge text-code-badge px-3 py-1 rounded-full bg-primary/20 text-primary-fixed font-medium">
+                    Pengurusan &amp; Kolaborasi
+                  </span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">
+                    Kepimpinan Projek Akademik IT
+                  </h3>
+                  <p class="font-code-inline text-code-inline text-primary">Ketua Kumpulan &amp; Penyelaras Sistem</p>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Pengalaman menerajui pelbagai tugasan akademik berpasukan: daripada fasa analisa keperluan sistem, pembikinan prototaip UI/UX, penulisan kod, hinggalah penyediaan dokumentasi teknikal menyeluruh.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 flex items-center justify-between border-t border-surface-container-high text-on-surface-variant/80 font-code-badge text-code-badge">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base">check_circle</span>
+                  <span>Dokumentasi rapi &amp; pengurusan masa</span>
+                </div>
+                <span class="text-primary group-hover:translate-x-1 transition-transform">Butiran →</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- View 2: Interactive Timeline View (Hidden by default) -->
+          <div id="experienceTimeline" class="hidden relative border-l-2 border-primary/40 ml-4 md:ml-32 space-y-10 py-4">
+            
+            <div class="relative pl-6 sm:pl-8 group">
+              <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-background"></div>
+              <span class="md:absolute md:-left-32 md:text-right font-code-badge text-code-badge text-primary font-bold">2024 - Kini</span>
+              <div class="p-5 rounded-2xl bg-surface-container border border-surface-container-high">
+                <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Semester Akhir &amp; Latihan Industri</h4>
+                <p class="text-body-sm text-on-surface-variant mt-1">Politeknik Besut — Membangunkan SisTrak Lab v3.0 dan bersiap sedia untuk penempatan industri.</p>
+              </div>
+            </div>
+
+            <div class="relative pl-6 sm:pl-8 group">
+              <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-secondary ring-4 ring-background"></div>
+              <span class="md:absolute md:-left-32 md:text-right font-code-badge text-code-badge text-secondary font-bold">2023 - 2024</span>
+              <div class="p-5 rounded-2xl bg-surface-container border border-surface-container-high">
+                <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Latihan Intensif Kadet PALAPES</h4>
+                <p class="text-body-sm text-on-surface-variant mt-1">Membentuk ketahanan mental fizikal, integriti ketenteraan, dan kawalan situasi tekanan.</p>
+              </div>
+            </div>
+
+            <div class="relative pl-6 sm:pl-8 group">
+              <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-tertiary ring-4 ring-background"></div>
+              <span class="md:absolute md:-left-32 md:text-right font-code-badge text-code-badge text-tertiary font-bold">2023</span>
+              <div class="p-5 rounded-2xl bg-surface-container border border-surface-container-high">
+                <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pertandingan TVET Star Vlog &amp; eSports Kampus</h4>
+                <p class="text-body-sm text-on-surface-variant mt-1">Menghasilkan video kreatif sinematik Merdeka dan mengetuai pasukan eSports institusi.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           6. HUBUNGAN & RANGKAIAN (Interactive Contact Section #hubungi)
+      ══════════════════════════════════════════════════════════════════ -->
+      <section class="w-full max-w-7xl mx-auto px-gutter py-24" id="hubungi">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Left Contact Info Column -->
+          <div class="lg:col-span-5 flex flex-col gap-8">
+            <div class="flex flex-col gap-space-xs">
+              <div class="font-label-caps text-label-caps text-primary uppercase tracking-wider flex items-center gap-2">
+                <span class="material-symbols-outlined text-base">contact_mail</span>
+                <span>KOLABORASI &amp; KERJAYA</span>
+              </div>
+              <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+                Mari Berhubung &amp; Bekerjasama
+              </h2>
+              <p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">
+                Terbuka untuk tawaran latihan industri (internship), jawatan pembangun web junior, projek pentadbiran sistem, mahupun kolaborasi multimedia kreatif.
+              </p>
+            </div>
+
+            <!-- Direct Contact Info Cards -->
+            <div class="flex flex-col gap-3">
+              
+              <!-- Email Box with Copy Feature & Instant Notification -->
+              <div class="rounded-xl bg-surface-container p-4 flex items-center justify-between border border-surface-container-high hover:border-primary/40 transition-all">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
+                    <span class="material-symbols-outlined text-xl">alternate_email</span>
+                  </div>
+                  <div class="truncate">
+                    <div class="font-code-badge text-code-badge text-on-surface-variant">Alamat Emel Rasmi</div>
+                    <a class="font-code-inline text-code-inline text-on-surface hover:text-primary font-medium truncate block" href="mailto:basyir1706@gmail.com">
+                      basyir1706@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary font-code-badge text-code-badge transition-all shrink-0 flex items-center gap-1 border border-surface-container-highest cursor-pointer" id="copyEmailBtn" type="button">
+                  <span class="material-symbols-outlined text-xs">content_copy</span>
+                  <span id="copyBtnText">Salin</span>
+                </button>
+              </div>
+
+              <!-- Academic Affiliation -->
+              <div class="rounded-xl bg-surface-container p-4 flex items-center gap-3 border border-surface-container-high">
+                <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 border border-secondary/20">
+                  <span class="material-symbols-outlined text-xl">location_on</span>
+                </div>
+                <div>
+                  <div class="font-code-badge text-code-badge text-on-surface-variant">Lokasi &amp; Institusi</div>
+                  <div class="font-body-md text-body-md text-on-surface font-medium">Politeknik Besut, Terengganu, Malaysia</div>
+                </div>
+              </div>
+
+              <!-- Academic Program -->
+              <div class="rounded-xl bg-surface-container p-4 flex items-center gap-3 border border-surface-container-high">
+                <div class="w-10 h-10 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0 border border-tertiary/20">
+                  <span class="material-symbols-outlined text-xl">school</span>
+                </div>
+                <div>
+                  <div class="font-code-badge text-code-badge text-on-surface-variant">Program Pengajian</div>
+                  <div class="font-body-md text-body-md text-on-surface font-medium">Diploma Teknologi Maklumat (Teknologi Digital)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social / Professional Connectivity Links -->
+            <div class="flex flex-col gap-3">
+              <span class="font-code-badge text-code-badge text-on-surface-variant uppercase tracking-wider">Rangkaian &amp; Profil Profesional</span>
+              <div class="grid grid-cols-2 gap-3">
+                <a class="flex items-center gap-2 p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high hover:border-primary/40 transition-all group" href="mailto:basyir1706@gmail.com">
+                  <span class="material-symbols-outlined text-primary text-xl">send</span>
+                  <span class="font-code-badge text-code-badge text-on-surface group-hover:text-primary">Emel Segera</span>
+                </a>
+                <a target="_blank" class="flex items-center gap-2 p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high hover:border-secondary/40 transition-all group" href="https://github.com/basyir1706-spec">
+                  <span class="material-symbols-outlined text-secondary text-xl">code</span>
+                  <span class="font-code-badge text-code-badge text-on-surface group-hover:text-secondary">GitHub Profil</span>
+                </a>
+                <button onclick="showSocialInfo('LinkedIn', 'Profil LinkedIn Ahmad Mubassyir sedia dihubungkan untuk peluang profesional dan rangkaian industri.')" class="flex items-center gap-2 p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high hover:border-tertiary/40 transition-all group text-left cursor-pointer">
+                  <span class="material-symbols-outlined text-tertiary text-xl">work</span>
+                  <span class="font-code-badge text-code-badge text-on-surface group-hover:text-tertiary">LinkedIn</span>
+                </button>
+                <button onclick="showSocialInfo('Behance', 'Galeri portfolio visual, manipulasi grafik Photoshop, dan susun atur sinematik.')" class="flex items-center gap-2 p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high hover:border-primary-container/40 transition-all group text-left cursor-pointer">
+                  <span class="material-symbols-outlined text-primary-container text-xl">draw</span>
+                  <span class="font-code-badge text-code-badge text-on-surface group-hover:text-primary-container">Behance Portfolio</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Interactive Contact Form -->
+          <div class="lg:col-span-7 rounded-2xl bg-surface-container p-8 sm:p-10 shadow-2xl border border-surface-container-high">
+            <form class="flex flex-col gap-6" id="contactForm" onsubmit="event.preventDefault(); submitContactForm();">
+              
+              <div class="flex flex-col gap-1">
+                <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Hantar Mesej Terus</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Sila isi butiran di bawah untuk sebarang tawaran kerjaya, latihan industri, atau pertanyaan projek.</p>
+              </div>
+
+              <!-- Quick Subject Chips Selection -->
+              <div class="flex flex-col gap-1.5">
+                <label class="font-code-badge text-code-badge text-on-surface-variant uppercase">PILIHAN SUBJEK PANTAS</label>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" onclick="setFormSubject('Tawaran Latihan Industri - Full-Stack Developer')" class="px-2.5 py-1 rounded-lg bg-surface-container-lowest hover:bg-primary/20 text-on-surface hover:text-primary text-xs font-code-badge border border-surface-container-high transition-colors cursor-pointer">
+                    + Latihan Industri
+                  </button>
+                  <button type="button" onclick="setFormSubject('Projek Web / Pembangunan Sistem')" class="px-2.5 py-1 rounded-lg bg-surface-container-lowest hover:bg-secondary/20 text-on-surface hover:text-secondary text-xs font-code-badge border border-surface-container-high transition-colors cursor-pointer">
+                    + Projek Web
+                  </button>
+                  <button type="button" onclick="setFormSubject('Tugasan Pentadbiran Pelayan (Linux SysAdmin)')" class="px-2.5 py-1 rounded-lg bg-surface-container-lowest hover:bg-tertiary/20 text-on-surface hover:text-tertiary text-xs font-code-badge border border-surface-container-high transition-colors cursor-pointer">
+                    + SysAdmin Linux
+                  </button>
+                  <button type="button" onclick="setFormSubject('Pertanyaan Umum / Kerjasama Multimedia')" class="px-2.5 py-1 rounded-lg bg-surface-container-lowest hover:bg-primary-container/20 text-on-surface hover:text-primary-container text-xs font-code-badge border border-surface-container-high transition-colors cursor-pointer">
+                    + Kerjasama Multimedia
+                  </button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="flex flex-col gap-2">
+                  <label class="font-code-badge text-code-badge text-on-surface-variant" for="contact-name">NAMA PENUH *</label>
+                  <input class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all" id="contact-name" placeholder="cth. Wan Syahirah" required="" type="text">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="font-code-badge text-code-badge text-on-surface-variant" for="contact-email">ALAMAT EMEL *</label>
+                  <input class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all" id="contact-email" placeholder="cth. syahirah@organisasi.my" required="" type="email">
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="font-code-badge text-code-badge text-on-surface-variant" for="contact-subject">SUBJEK MESEJ *</label>
+                <input class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all" id="contact-subject" placeholder="cth. Tawaran Latihan Industri - Software Developer" required="" type="text">
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <label class="font-code-badge text-code-badge text-on-surface-variant" for="contact-message">MESEJ ANDA *</label>
+                  <span id="charCount" class="font-code-badge text-[11px] text-on-surface-variant/70">0 / 600 aksara</span>
+                </div>
+                <textarea oninput="updateCharCount(this)" class="w-full px-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all resize-none" id="contact-message" placeholder="Nyatakan butiran penempatan, skop projek, atau peluang kerjasama..." required="" rows="5"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                <button class="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-on-primary font-code-badge text-code-badge font-bold flex items-center justify-center gap-2 transition-all hover:bg-primary-fixed hover:shadow-[0_0_24px_rgba(76,215,246,0.4)] active:scale-95 cursor-pointer" type="submit">
+                  <span class="material-symbols-outlined text-lg">send</span>
+                  <span>Hantar Mesej Sekarang</span>
+                </button>
+                <button type="button" onclick="resetContactForm()" class="px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface font-code-badge text-xs cursor-pointer">
+                  Padam Semula
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════════════ -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container-high shadow-lg py-space-xl">
+    <div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-space-lg">
+      <div class="flex flex-col items-center md:items-start gap-space-xs">
+        <div class="flex items-center gap-space-sm">
+          <span class="font-headline-sm text-headline-sm text-on-surface">Ahmad Mubassyir</span>
+          <span class="font-code-badge text-code-badge text-on-surface-variant">| Politeknik Besut</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">
+          Diploma Teknologi Maklumat (Teknologi Digital) • Pengkhususan Full-Stack &amp; Pentadbiran Sistem
+        </p>
+      </div>
+
+      <div class="flex items-center gap-space-lg">
+        <a class="font-code-inline text-code-inline text-on-surface-variant hover:text-primary transition-colors" target="_blank" href="https://github.com/basyir1706-spec">GitHub</a>
+        <button onclick="openCvModal()" class="font-code-inline text-code-inline text-on-surface-variant hover:text-secondary transition-colors cursor-pointer">Resume</button>
+        <a class="font-code-inline text-code-inline text-on-surface-variant hover:text-primary transition-colors" href="mailto:basyir1706@gmail.com">Emel Rasmi</a>
+      </div>
+
+      <div class="font-code-badge text-code-badge text-on-surface-variant text-center md:text-right">
+        © 2026 Ahmad Mubassyir Bin Ahmad Mukri. Hak Cipta Terpelihara.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FLOATING INTERACTIVE TERMINAL BAR & CLI MODAL (BasyirOS CLI)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+    
+    <!-- Floating Terminal Bar Button -->
+    <button id="floatingTerminalBtn" onclick="toggleTerminalModal()" class="px-4 py-2.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-primary border border-primary/40 shadow-2xl flex items-center gap-2.5 font-code-badge text-xs font-semibold backdrop-blur-lg hover:shadow-[0_0_20px_rgba(76,215,246,0.3)] transition-all cursor-pointer">
+      <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+      <span class="material-symbols-outlined text-sm">terminal</span>
+      <span>BasyirOS CLI v3.2</span>
+    </button>
+
+    <!-- Floating Scroll-To-Top Circular Progress Button -->
+    <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-10 h-10 rounded-full bg-surface-container text-on-surface hover:text-primary border border-surface-container-high flex items-center justify-center shadow-lg transition-all opacity-0 pointer-events-none cursor-pointer" title="Kembali ke atas">
+      <span class="material-symbols-outlined text-lg">arrow_upward</span>
+    </button>
+  </div>
+
+  <!-- Interactive Terminal Window Overlay Modal -->
+  <div id="terminalModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="w-full max-w-2xl rounded-2xl bg-surface-container-lowest border border-primary/40 shadow-2xl overflow-hidden flex flex-col font-code-inline text-xs">
+      
+      <!-- Terminal Window Bar -->
+      <div class="px-4 py-3 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTerminalModal()" class="w-3 h-3 rounded-full bg-error hover:opacity-80 cursor-pointer"></button>
+          <button onclick="clearTerminal()" class="w-3 h-3 rounded-full bg-secondary-container hover:opacity-80 cursor-pointer"></button>
+          <button class="w-3 h-3 rounded-full bg-primary hover:opacity-80 cursor-pointer"></button>
+          <span class="text-on-surface-variant font-code-badge ml-2">basyir@polibesut-terminal: ~</span>
+        </div>
+        <span class="text-[11px] text-primary">Web CLI Session</span>
+      </div>
+
+      <!-- Quick Command Bar -->
+      <div class="px-4 py-2 bg-surface-container-low border-b border-surface-container-high flex items-center gap-2 overflow-x-auto text-[11px]">
+        <span class="text-on-surface-variant">Arahan Pantas:</span>
+        <button onclick="runCliCommand('help')" class="px-2 py-0.5 rounded bg-surface-container hover:bg-primary/20 text-primary cursor-pointer">help</button>
+        <button onclick="runCliCommand('about')" class="px-2 py-0.5 rounded bg-surface-container hover:bg-primary/20 text-primary cursor-pointer">about</button>
+        <button onclick="runCliCommand('skills')" class="px-2 py-0.5 rounded bg-surface-container hover:bg-secondary/20 text-secondary cursor-pointer">skills</button>
+        <button onclick="runCliCommand('projects')" class="px-2 py-0.5 rounded bg-surface-container hover:bg-secondary/20 text-secondary cursor-pointer">projects</button>
+        <button onclick="runCliCommand('sistrak')" class="px-2 py-0.5 rounded bg-surface-container hover:bg-tertiary/20 text-tertiary cursor-pointer">sistrak</button>
+        <button onclick="runCliCommand('sudo hire')" class="px-2 py-0.5 rounded bg-primary/20 hover:bg-primary/40 text-primary font-bold cursor-pointer">sudo hire</button>
+        <button onclick="clearTerminal()" class="px-2 py-0.5 rounded bg-surface-container hover:bg-error/20 text-error cursor-pointer">clear</button>
+      </div>
+
+      <!-- Terminal Output Scrollable Area -->
+      <div id="cliOutput" class="p-4 h-80 overflow-y-auto space-y-2 bg-black/40 text-on-surface">
+        <div class="text-primary font-bold">Selamat Datang ke Terminal BasyirOS v3.2 (Interactive Portfolio CLI)</div>
+        <div class="text-on-surface-variant">Taip <span class="text-secondary font-bold">help</span> untuk senarai arahan atau klik cip di atas.</div>
+      </div>
+
+      <!-- Terminal Input Line -->
+      <form onsubmit="event.preventDefault(); handleCliInput();" class="p-3 bg-surface-container border-t border-surface-container-high flex items-center gap-2">
+        <span class="text-secondary font-bold">basyir@polibesut:~$</span>
+        <input id="cliInput" autocomplete="off" class="flex-1 bg-transparent text-primary focus:outline-none font-code-inline text-xs" placeholder="taip arahan di sini..." />
+        <button type="submit" class="px-3 py-1 rounded bg-primary text-on-primary font-code-badge text-xs cursor-pointer">Run</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       INTERACTIVE CV / RESUME MODAL
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="cvModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-4xl max-h-[90vh] rounded-2xl bg-surface-container-lowest border border-surface-container-high shadow-2xl flex flex-col overflow-hidden">
+      
+      <!-- CV Modal Top Controls Bar -->
+      <div class="px-6 py-4 bg-surface-container flex items-center justify-between border-b border-surface-container-high no-print">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">description</span>
+          <span class="font-headline-sm text-headline-sm text-on-surface font-bold">Curriculum Vitae — Ahmad Mubassyir</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-code-badge text-xs font-semibold flex items-center gap-1.5 hover:bg-primary-fixed transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-sm">print</span>
+            <span>Cetak / PDF</span>
+          </button>
+          <button onclick="copyCvSummary()" class="px-3.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface font-code-badge text-xs hover:bg-surface-bright transition-colors cursor-pointer">
+            Salin Ringkasan
+          </button>
+          <button onclick="closeCvModal()" class="p-1 rounded-lg text-on-surface-variant hover:text-on-surface cursor-pointer">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CV Body Content -->
+      <div id="cvContent" class="p-8 overflow-y-auto space-y-8 bg-background text-on-surface">
+        
+        <!-- Header / Identity -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-surface-container-high">
+          <div>
+            <h1 class="text-3xl font-bold text-on-surface">AHMAD MUBASSYIR BIN AHMAD MUKRI</h1>
+            <p class="text-primary font-code-badge mt-1 text-sm font-semibold">Full-Stack Web Developer | Linux System Administrator | Multimedia Specialist</p>
+            <p class="text-on-surface-variant text-xs mt-1">Besut, Terengganu, Malaysia • basyir1706@gmail.com • https://github.com/basyir1706-spec</p>
+          </div>
+          <div class="px-4 py-2 rounded-xl bg-secondary/10 text-secondary border border-secondary/30 font-code-badge text-xs text-right">
+            <div>Status: Sedia Latihan Industri</div>
+            <div class="font-bold text-on-surface">Semester Akhir 2026</div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Eksekutif -->
+        <div>
+          <h2 class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider mb-2">Ringkasan Eksekutif</h2>
+          <p class="text-body-sm text-on-surface-variant leading-relaxed">
+            Calon Diploma Teknologi Maklumat berdedikasi tinggi dengan kebolehan teknikal menyeluruh merangkumi pembangunan aplikasi web modular (PHP/Laravel/Vue.js), pentadbiran sistem pelayan selamat (Ubuntu Linux, Apache, DNS, Active Directory), automasi aliran kerja berkuasa AI, serta reka bentuk multimedia komersial. Memiliki nilai kepimpinan dan daya ketahanan tinggi yang digembleng melalui latihan intensif Kadet PALAPES.
+          </p>
+        </div>
+
+        <!-- Pendidikan -->
+        <div>
+          <h2 class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider mb-3">Pendidikan</h2>
+          <div class="p-4 rounded-xl bg-surface-container border border-surface-container-high space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-on-surface">Diploma Teknologi Maklumat (Teknologi Digital)</span>
+              <span class="text-secondary font-code-badge text-xs">2023 – 2026</span>
+            </div>
+            <p class="text-primary text-xs">Politeknik Besut, Terengganu</p>
+            <p class="text-on-surface-variant text-xs">Kursus Utama: Web Development, Operating System &amp; Linux Administration, Object-Oriented Programming (Java/Python), Database System (SQL), Computer Networking.</p>
+          </div>
+        </div>
+
+        <!-- Projek Unggulan & Pengalaman -->
+        <div>
+          <h2 class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider mb-3">Projek &amp; Inovasi Utama</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-surface-container border border-surface-container-high">
+              <div class="font-bold text-primary">SisTrak Lab v3.0 (Makmal Pintar)</div>
+              <p class="text-xs text-on-surface-variant mt-1">Platform pengurusan &amp; jadual waktu bagi 10 makmal institusi, modul CRUD, audio taktil, dan log sesi masa nyata.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-container border border-surface-container-high">
+              <div class="font-bold text-secondary">i-Klinik (Sistem Pengurusan Klinik)</div>
+              <p class="text-xs text-on-surface-variant mt-1">Sistem web pesakit, janji temu doktor, dan pengeluaran preskripsi automatik berasaskan PHP 8 &amp; MySQL.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-container border border-surface-container-high">
+              <div class="font-bold text-tertiary">Sistem SMU Hamidiah (Cloud Hosting)</div>
+              <p class="text-xs text-on-surface-variant mt-1">Konfigurasi persekitaran web, migrasi pangkalan data, dan pengehosan awan via SFTP FileZilla.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-container border border-surface-container-high">
+              <div class="font-bold text-primary-fixed">Dashboard Analisis Parlimen OpenDOSM</div>
+              <p class="text-xs text-on-surface-variant mt-1">Papan pemuka penceritaan data demografi, perbelanjaan, dan analitik sosio-ekonomi Looker Studio.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kemahiran Teknikal -->
+        <div>
+          <h2 class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider mb-3">Kemahiran Teknikal</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 rounded-lg bg-surface-container">
+              <div class="font-bold text-secondary">Pembangunan Web</div>
+              <p class="text-on-surface-variant mt-1">PHP 8, Laravel, Vue.js, JavaScript (ES6+), HTML5/CSS3, Tailwind, MySQL</p>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-container">
+              <div class="font-bold text-primary">Pentadbiran Pelayan</div>
+              <p class="text-on-surface-variant mt-1">Ubuntu Server, Windows Server, DNS, DHCP, UFW, VMware, Apache</p>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-container">
+              <div class="font-bold text-tertiary">Multimedia &amp; AI</div>
+              <p class="text-on-surface-variant mt-1">Adobe Photoshop, Premiere Pro, Audition, Figma, Python OOP, LLM Prompting</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       MODAL: AVAILABILITY & INTERNSHIP DETAILS
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="availabilityModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-2xl bg-surface-container-low border border-secondary/40 shadow-2xl p-6 sm:p-8 flex flex-col gap-6">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-secondary animate-ping"></span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Status Ketersediaan Industri</h3>
+        </div>
+        <button onclick="closeAvailabilityModal()" class="p-1 text-on-surface-variant hover:text-on-surface cursor-pointer">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-body-sm">
+        <div class="p-3 rounded-xl bg-surface-container border border-surface-container-high flex justify-between items-center">
+          <span class="text-on-surface-variant">Status Semasa:</span>
+          <span class="font-bold text-secondary">Tersedia Segera / Sedia Temuduga</span>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-container border border-surface-container-high flex justify-between items-center">
+          <span class="text-on-surface-variant">Peranan Sasaran:</span>
+          <span class="font-bold text-primary">Web Developer / SysAdmin / IT Support</span>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-container border border-surface-container-high flex justify-between items-center">
+          <span class="text-on-surface-variant">Lokasi Pilihan:</span>
+          <span class="font-bold text-on-surface">Besut, Terengganu / Pantai Timur / Remote</span>
+        </div>
+        <div class="p-3 rounded-xl bg-surface-container border border-surface-container-high flex justify-between items-center">
+          <span class="text-on-surface-variant">Tempoh Latihan:</span>
+          <span class="font-bold text-on-surface">Sesi 2026 (Semester Akhir DTK)</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 pt-2">
+        <a href="#hubungi" onclick="closeAvailabilityModal()" class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold text-center hover:bg-primary-fixed transition-all">
+          Hubungi &amp; Hantar Tawaran
+        </a>
+        <button onclick="openCvModal(); closeAvailabilityModal();" class="px-4 py-3 rounded-xl bg-surface-container text-on-surface font-code-badge text-xs hover:bg-surface-high border border-surface-container-high cursor-pointer">
+          Semak Resume
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       UNIVERSAL PROJECT DETAIL MODAL
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="projectModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-3xl max-h-[85vh] rounded-2xl bg-surface-container-lowest border border-surface-container-high shadow-2xl flex flex-col overflow-hidden">
+      
+      <div class="px-6 py-4 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-primary text-2xl" id="modalProjectIcon">terminal</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold" id="modalProjectTitle">Tajuk Projek</h3>
+        </div>
+        <button onclick="closeProjectModal()" class="p-1 rounded-lg text-on-surface-variant hover:text-on-surface cursor-pointer">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6">
+        <div class="flex items-center gap-2 flex-wrap" id="modalProjectBadges">
+          <!-- Populated by JS -->
+        </div>
+
+        <div>
+          <h4 class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider mb-2">Gambaran Keseluruhan</h4>
+          <p class="text-body-md text-on-surface-variant leading-relaxed" id="modalProjectDesc">Penerangan projek...</p>
+        </div>
+
+        <div>
+          <h4 class="font-label-caps text-xs text-secondary uppercase font-bold tracking-wider mb-2">Seni Bina Kod &amp; Logik</h4>
+          <div class="rounded-xl bg-black/60 p-4 font-code-inline text-xs text-on-surface border border-surface-container-high overflow-x-auto" id="modalProjectCode">
+            <!-- Code snippet populated by JS -->
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-label-caps text-xs text-tertiary uppercase font-bold tracking-wider mb-2">Ciri-Ciri Utama &amp; Impak</h4>
+          <ul class="space-y-2 text-body-sm text-on-surface-variant" id="modalProjectFeatures">
+            <!-- Features populated by JS -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="px-6 py-4 bg-surface-container border-t border-surface-container-high flex items-center justify-between">
+        <span class="font-code-badge text-code-badge text-on-surface-variant">Sedia untuk Demonstrasi</span>
+        <div class="flex items-center gap-3" id="modalProjectActions">
+          <!-- Action buttons populated by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       TOAST NOTIFICATION COMPONENT
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="toastNotification" class="fixed top-24 right-6 z-50 transform translate-y-[-20px] opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface border border-primary/40 shadow-2xl font-code-badge text-xs">
+    <span class="material-symbols-outlined text-primary text-lg" id="toastIcon">info</span>
+    <span id="toastMessage">Mesej notifikasi</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       JAVASCRIPT: FULL DYNAMIC INTERACTIVITY ENGINE
+  ══════════════════════════════════════════════════════════════════ -->
+  <script>
+    // 1. Toast Notification Helper
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      const iconEl = document.getElementById('toastIcon');
+      if (!toast) return;
+
+      msgEl.innerText = message;
+      if (type === 'success') {
+        iconEl.innerText = 'check_circle';
+        iconEl.className = 'material-symbols-outlined text-secondary text-lg';
+        toast.className = 'fixed top-24 right-6 z-50 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface border border-secondary shadow-2xl font-code-badge text-xs flex items-center gap-3 transition-all duration-300';
+      } else if (type === 'error') {
+        iconEl.innerText = 'error';
+        iconEl.className = 'material-symbols-outlined text-error text-lg';
+        toast.className = 'fixed top-24 right-6 z-50 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface border border-error shadow-2xl font-code-badge text-xs flex items-center gap-3 transition-all duration-300';
+      } else {
+        iconEl.innerText = 'info';
+        iconEl.className = 'material-symbols-outlined text-primary text-lg';
+        toast.className = 'fixed top-24 right-6 z-50 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface border border-primary/40 shadow-2xl font-code-badge text-xs flex items-center gap-3 transition-all duration-300';
+      }
+
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      toast.style.pointerEvents = 'auto';
+
+      setTimeout(() => {
+        toast.style.transform = 'translateY(-20px)';
+        toast.style.opacity = '0';
+        toast.style.pointerEvents = 'none';
+      }, 3000);
+    }
+
+    // 2. Mobile Drawer Toggle
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      const backdrop = document.getElementById('mobileDrawerBackdrop');
+      const menuIcon = document.getElementById('menuIcon');
+
+      if (!drawer || !backdrop) return;
+
+      const isOpen = !drawer.classList.contains('translate-x-full');
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden', 'opacity-0');
+        backdrop.classList.remove('opacity-100');
+        menuIcon.innerText = 'menu';
+      } else {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+        setTimeout(() => backdrop.classList.add('opacity-100'), 10);
+        menuIcon.innerText = 'close';
+      }
+    }
+
+    // 3. Hero Card Tab Switcher (Photo / Terminal CLI / Matrix)
+    function switchHeroTab(tab) {
+      const photoPane = document.getElementById('heroPanePhoto');
+      const termPane = document.getElementById('heroPaneTerminal');
+      const matrixPane = document.getElementById('heroPaneMatrix');
+
+      const photoBtn = document.getElementById('heroTabPhotoBtn');
+      const termBtn = document.getElementById('heroTabTerminalBtn');
+      const matrixBtn = document.getElementById('heroTabMatrixBtn');
+
+      [photoPane, termPane, matrixPane].forEach(p => p.classList.add('hidden'));
+      [photoBtn, termBtn, matrixBtn].forEach(b => {
+        b.className = 'px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-all cursor-pointer';
+      });
+
+      if (tab === 'photo') {
+        photoPane.classList.remove('hidden');
+        photoBtn.className = 'px-2 py-1 rounded bg-primary/20 text-primary font-semibold transition-all cursor-pointer';
+      } else if (tab === 'terminal') {
+        termPane.classList.remove('hidden');
+        termBtn.className = 'px-2 py-1 rounded bg-secondary/20 text-secondary font-semibold transition-all cursor-pointer';
+      } else if (tab === 'matrix') {
+        matrixPane.classList.remove('hidden');
+        matrixBtn.className = 'px-2 py-1 rounded bg-tertiary/20 text-tertiary font-semibold transition-all cursor-pointer';
+      }
+    }
+
+    function resetHeroCard() {
+      switchHeroTab('photo');
+      showToast('Kad profil dimuat semula', 'info');
+    }
+
+    function runHeroMiniCommand(cmd) {
+      if (cmd === 'clear') {
+        showToast('Konsol mini dikosongkan', 'info');
+        return;
+      }
+      if (cmd === 'whoami') {
+        showToast('ahmad_mubassyir (uid=1000, palapes_cadet)', 'success');
+      } else if (cmd === 'skills') {
+        showToast('PHP 8, Laravel, Vue.js, Ubuntu Linux, Python', 'info');
+      } else if (cmd === 'ping') {
+        showToast('64 bytes from polibesut.edu.my: icmp_seq=1 ttl=58 time=12.4 ms', 'success');
+      }
+    }
+
+    function showSkillInfo(name, desc) {
+      showToast(`${name}: ${desc}`, 'info');
+    }
+
+    function showSocialInfo(name, desc) {
+      showToast(`${name}: ${desc}`, 'info');
+    }
+
+    // 4. Skills Category Filter & Live Search
+    function filterSkills(category) {
+      const buttons = document.querySelectorAll('.skill-filter-btn');
+      buttons.forEach(btn => {
+        if (btn.dataset.cat === category) {
+          btn.className = 'skill-filter-btn active px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-primary text-on-primary cursor-pointer';
+        } else {
+          btn.className = 'skill-filter-btn px-3 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all bg-surface-container-lowest text-on-surface-variant hover:text-on-surface cursor-pointer';
+        }
+      });
+
+      const cards = document.querySelectorAll('.skill-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchSkills(query) {
+      const q = query.trim().toLowerCase();
+      const clearBtn = document.getElementById('skillSearchClear');
+      if (clearBtn) {
+        clearBtn.style.display = q.length > 0 ? 'block' : 'none';
+      }
+
+      const cards = document.querySelectorAll('.skill-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function clearSkillSearch() {
+      const input = document.getElementById('skillSearchInput');
+      if (input) {
+        input.value = '';
+        searchSkills('');
+      }
+    }
+
+    // 5. Projects Filter
+    function filterProjects(type) {
+      const buttons = document.querySelectorAll('.project-filter-btn');
+      buttons.forEach(btn => {
+        if (btn.dataset.type === type) {
+          btn.className = 'project-filter-btn active px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-primary text-on-primary cursor-pointer';
+        } else {
+          btn.className = 'project-filter-btn px-4 py-2 rounded-xl text-code-badge font-code-badge font-medium transition-all bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer';
+        }
+      });
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        if (type === 'all' || card.dataset.projectType === type) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 6. Interactive Python OOP Hotel Demo
+    function calculateHotelDemo() {
+      const type = document.getElementById('hotelRoomType').value;
+      const season = parseFloat(document.getElementById('hotelSeason').value);
+      const res = document.getElementById('hotelCalcResult');
+
+      const baseRate = type === 'deluxe' ? 180 : 320;
+      const seasonTotal = baseRate * season;
+      const tax = seasonTotal * 0.06;
+      const grandTotal = (seasonTotal + tax).toFixed(2);
+
+      res.innerText = `Jumlah: RM ${grandTotal} (Kadar: RM${seasonTotal} + Cukai 6% RM${tax.toFixed(2)})`;
+    }
+
+    // 7. Interactive i-Klinik Simulation
+    function runIClinicSimulation() {
+      const out = document.getElementById('iClinicSimOutput');
+      const btn = document.getElementById('runIClinicSimBtn');
+      if (!out || !btn) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-xs animate-spin">refresh</span> Memproses...';
+      out.innerHTML = '<div class="text-primary animate-pulse">Memulakan transaksi pangkalan data MySQL...</div>';
+
+      setTimeout(() => {
+        const id = Math.floor(1000 + Math.random() * 9000);
+        out.innerHTML = `
+          <div class="text-on-surface-variant/80 pl-2">→ [MYSQL] SELECT * FROM patients WHERE id = #PK-${id} [0.0018s]</div>
+          <div class="text-on-surface-variant/80 pl-2">→ [DISPATCH] Prescription batch locked for Doctor Room 3.</div>
+          <div class="text-secondary pl-2 font-semibold">✓ Status: Tiket Giliran #${id} dijana &amp; SMS notifikasi sedia dihantar.</div>
+        `;
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-xs">play_arrow</span> Simulasi Semula';
+        showToast('Simulasi preskripsi i-Klinik berjaya!', 'success');
+      }, 900);
+    }
+
+    // 8. Sparkline Data Toggle
+    let sparklineState = 0;
+    function toggleChartMetric() {
+      const label = document.getElementById('chartLabel');
+      const line = document.getElementById('sparklineLine');
+      const area = document.getElementById('sparklineArea');
+      if (!label || !line) return;
+
+      sparklineState = (sparklineState + 1) % 3;
+      if (sparklineState === 0) {
+        label.innerText = 'Indeks Data OpenDOSM';
+        line.setAttribute('d', 'M0 35 Q 25 10, 50 25 T 100 15 T 150 20 T 200 5');
+        area.setAttribute('d', 'M0 35 Q 25 10, 50 25 T 100 15 T 150 20 T 200 5 L 200 40 L 0 40 Z');
+        showToast('Metrik: Indeks Ketepatan Data (+18.4%)', 'info');
+      } else if (sparklineState === 1) {
+        label.innerText = 'Demografi Pengundi Belia';
+        line.setAttribute('d', 'M0 20 Q 50 35, 100 10 T 200 2');
+        area.setAttribute('d', 'M0 20 Q 50 35, 100 10 T 200 2 L 200 40 L 0 40 Z');
+        showToast('Metrik: Peningkatan Pengundi Belia 18-25', 'info');
+      } else {
+        label.innerText = 'Aliran Sosio-Ekonomi Wilayah';
+        line.setAttribute('d', 'M0 38 Q 40 28, 80 18 T 160 8 T 200 4');
+        area.setAttribute('d', 'M0 38 Q 40 28, 80 18 T 160 8 T 200 4 L 200 40 L 0 40 Z');
+        showToast('Metrik: Aliran Sosio-Ekonomi Mantap', 'info');
+      }
+    }
+
+    // 9. Experience View Toggle (Grid vs Timeline)
+    function switchExperienceView(mode) {
+      const grid = document.getElementById('experienceGrid');
+      const timeline = document.getElementById('experienceTimeline');
+      const gridBtn = document.getElementById('viewGridBtn');
+      const timeBtn = document.getElementById('viewTimelineBtn');
+
+      if (mode === 'grid') {
+        grid.classList.remove('hidden');
+        timeline.classList.add('hidden');
+        gridBtn.className = 'px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-semibold transition-all bg-primary text-on-primary cursor-pointer';
+        timeBtn.className = 'px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all text-on-surface-variant hover:text-on-surface cursor-pointer';
+      } else {
+        grid.classList.add('hidden');
+        timeline.classList.remove('hidden');
+        timeBtn.className = 'px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-semibold transition-all bg-primary text-on-primary cursor-pointer';
+        gridBtn.className = 'px-3.5 py-1.5 rounded-lg text-code-badge font-code-badge font-medium transition-all text-on-surface-variant hover:text-on-surface cursor-pointer';
+      }
+    }
+
+    // 10. Copy Email Action with Toast Feedback
+    const copyBtn = document.getElementById('copyEmailBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('basyir1706@gmail.com').then(() => {
+          const btnText = document.getElementById('copyBtnText');
+          if (btnText) btnText.innerText = 'Tersalin!';
+          copyBtn.classList.add('bg-secondary', 'text-on-secondary');
+          showToast('Alamat emel basyir1706@gmail.com berjaya disalin!', 'success');
+          setTimeout(() => {
+            if (btnText) btnText.innerText = 'Salin';
+            copyBtn.classList.remove('bg-secondary', 'text-on-secondary');
+          }, 2500);
+        }).catch(() => {
+          showToast('Sila salin manual: basyir1706@gmail.com', 'info');
+        });
+      });
+    }
+
+    // 11. Contact Form Helpers
+    function setFormSubject(subj) {
+      const input = document.getElementById('contact-subject');
+      if (input) {
+        input.value = subj;
+        input.focus();
+        showToast(`Subjek ditetapkan: ${subj}`, 'info');
+      }
+    }
+
+    function updateCharCount(textarea) {
+      const counter = document.getElementById('charCount');
+      if (counter) {
+        counter.innerText = `${textarea.value.length} / 600 aksara`;
+      }
+    }
+
+    function resetContactForm() {
+      document.getElementById('contactForm').reset();
+      updateCharCount({ value: '' });
+      showToast('Borang telah dibersihkan', 'info');
+    }
+
+    function submitContactForm() {
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value;
+
+      showToast('Membuka emel klien anda...', 'success');
+
+      const bodyText = `Daripada: ${name} (${email})\n\n${message}`;
+      const mailtoUrl = `mailto:basyir1706@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      
+      setTimeout(() => {
+        window.location.href = mailtoUrl;
+      }, 300);
+    }
+
+    // 12. Modal Handlers (Availability, CV, Projects, Experience)
+    function openAvailabilityModal() {
+      const m = document.getElementById('availabilityModal');
+      if (m) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+    }
+    function closeAvailabilityModal() {
+      const m = document.getElementById('availabilityModal');
+      if (m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+    }
+
+    function openCvModal() {
+      const m = document.getElementById('cvModal');
+      if (m) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+    }
+    function closeCvModal() {
+      const m = document.getElementById('cvModal');
+      if (m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+    }
+    function copyCvSummary() {
+      const text = `AHMAD MUBASSYIR BIN AHMAD MUKRI\nDiploma Teknologi Maklumat (Teknologi Digital), Politeknik Besut\nFull-Stack Web Developer (PHP 8, Laravel, Vue.js, MySQL) & Linux SysAdmin (Ubuntu, Apache, DNS)\nEmel: basyir1706@gmail.com | GitHub: https://github.com/basyir1706-spec`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Ringkasan CV disalin ke papan keratan!', 'success');
+      });
+    }
+
+    // Detailed Project Modal Data
+    const projectDatabase = {
+      sistrak: {
+        title: 'SisTrak Lab v3.0 — Sistem Pengurusan Makmal Pintar',
+        icon: 'biotech',
+        badges: ['Flagship Project', 'Vanilla ES6+', 'Local Storage Persistent', 'Material Design 3', 'Web Audio API'],
+        desc: 'Sistem pengurusan ketersediaan 10 makmal rasmi yang dibina secara berasingan bagi memenuhi keperluan Jabatan Teknologi Maklumat Politeknik Besut. Menyediakan modul CRUD lengkap pentadbir, keupayaan muat naik fail jadual waktu tersuai setiap makmal, pelaras masa check-in pintar (+30m auto & stepper), dan penunjuk status LED hidup.',
+        code: `// SisTrak Lab Session Logic\nfunction extendSession(sessionId, minutes) {\n  const session = activeSessions.find(s => s.id === sessionId);\n  if (session) {\n    session.durationMinutes += minutes;\n    session.endTime = calculateNewEndTime(session.startTime, session.durationMinutes);\n    playTactileClickSound();\n    renderDashboard();\n  }\n}`,
+        features: [
+          'Pengagihan 10 Makmal rasmi: Aras Bawah (CSDL 1, CSDL 2, CNL, ILL 1, ILL 2) & Aras 1 (ADL 1-4, PL 1).',
+          'Sistem Muat Naik & Pratonton Imej Jadual Waktu khusus setiap makmal (PNG, JPG, WEBP).',
+          'Papan Kunci Minimalis Cerah (Pure White & Ice-Slate) berserta maklum balas audio taktil Web Audio API.',
+          'Pilihan Tempoh Pantas Segmented Chips (1 Jam, 2 Jam Lalai, 3 Jam, 4 Jam, Lanjut Masa).'
+        ],
+        actions: `
+          <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold hover:bg-primary-fixed">
+            Buka Prototaip Langsung
+          </a>
+        `
+      },
+      iklinik: {
+        title: 'Sistem Pengurusan Klinik (i-Klinik)',
+        icon: 'local_hospital',
+        badges: ['Lead Developer', 'PHP 8+', 'MySQL Relational', 'Bootstrap 5'],
+        desc: 'Platform perubatan web bersepadu yang dibangunkan untuk menguruskan rekod kesihatan elektronik (EHR), janji temu doktor, serta pengeluaran preskripsi automatik.',
+        code: `// i-Klinik Prescription Dispatch\npublic function dispatchPrescription(int $patientId, array $medList): bool {\n  $db->beginTransaction();\n  $stmt = $db->prepare("INSERT INTO prescriptions (patient_id, status) VALUES (?, 'LOCKED')");\n  $stmt->execute([$patientId]);\n  $ticketId = $this->generateQueueTicket($patientId);\n  $db->commit();\n  return true;\n}`,
+        features: [
+          'Penyimpanan rekod pesakit selamat mengikut standard kerahsiaan.',
+          'Sistem pengesahan peranan bertingkat (Doktor, Pembantu Perubatan, Pentadbir).',
+          'Penjanaan tiket giliran automatik dan notifikasi masa menunggu.'
+        ],
+        actions: `
+          <a href="#hubungi" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold">
+            Hubungi untuk Demo Penuh
+          </a>
+        `
+      },
+      smu: {
+        title: 'Sistem Pengurusan Sekolah (SMU Hamidiah)',
+        icon: 'cloud_upload',
+        badges: ['DevOps', 'Cloud Deployment', 'FileZilla SFTP', 'Database Migration'],
+        desc: 'Proses konfigurasi infrastruktur web lengkap untuk sekolah agama menengah, merangkumi migrasi data SQL dari persekitaran tempatan ke pelayan awan berprestasi tinggi.',
+        code: `// Deployment Command Script\n$ scp -P 2222 production_backup.sql.gz user@hamidiah.edu.my:/var/backups/\n$ ssh user@hamidiah.edu.my "gzip -d < /var/backups/production_backup.sql.gz | mysql -u root -p db_smu"\n$ systemctl reload apache2 && echo "Deployment Complete"`,
+        features: [
+          'Konfigurasi pelayan LAMP (Linux, Apache, MySQL, PHP) yang dioptimumkan.',
+          'Penetapan kebenaran fail bersulit dan sambungan SFTP selamat.',
+          'Skrip sandaran (backup) pangkalan data automatik harian.'
+        ],
+        actions: `
+          <a href="#hubungi" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary font-code-badge text-xs font-bold">
+            Hubungi tentang DevOps
+          </a>
+        `
+      },
+      parlimen: {
+        title: 'Dashboard Analisis Data Parlimen OpenDOSM',
+        icon: 'analytics',
+        badges: ['Looker Studio', 'OpenDOSM API', 'Data Storytelling'],
+        desc: 'Visualisasi analitik visual penceritaan data interaktif yang memproses dataset rasmi Jabatan Perangkaan Malaysia (DOSM) bagi menyediakan cerapan terperinci indikator sosio-ekonomi penduduk setiap parlimen.',
+        code: `// Looker Studio Calculated Metric Formulation\nDemographic_Poverty_Rate = SUM(B40_Households) / SUM(Total_Households) * 100\nYouth_Voter_Ratio = COUNT(Voters_Under_30) / COUNT(Total_Voters)`,
+        features: [
+          'Peta koroplet interaktif menunjukkan pembahagian perbelanjaan isi rumah.',
+          'Penapis pantas dinamik mengikut negeri dan daerah parlimen.',
+          'Kadar tindak balas visualisasi data masa nyata.'
+        ],
+        actions: `
+          <a href="#hubungi" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold">
+            Kaji Selidik Dataset
+          </a>
+        `
+      },
+      hotel: {
+        title: 'Sistem Tempahan Hotel OOP (Python)',
+        icon: 'hotel',
+        badges: ['Python 3.x', 'OOP Architecture', 'Tax Calculation'],
+        desc: 'Aplikasi pengurusan bilik hotel yang dibina sepenuhnya menggunakan prinsip pengaturcaraan berorientasikan objek (Inheritance, Polymorphism, Encapsulation) untuk pengiraan kadar bermusim dan cukai pelancongan.',
+        code: `class RoomBooking(TaxableItem):\n    def __init__(self, room_type: str, base_rate: float):\n        super().__init__()\n        self.room_type = room_type\n        self.base_rate = base_rate\n\n    def calculate_total(self, season_factor: float) -> float:\n        subtotal = self.base_rate * season_factor\n        return subtotal + self.apply_tax(subtotal, rate=0.06)`,
+        features: [
+          'Seni bina kelas modular dan mudah diskalakan.',
+          'Sistem kupon diskaun dinamik dan pengiraan caj tambahan automatik.',
+          'Unit testing teratur bagi memastikan pengiraan kewangan bebas ralat.'
+        ],
+        actions: `
+          <a href="#hubungi" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold">
+            Lihat Repository Kod
+          </a>
+        `
+      },
+      dodol: {
+        title: 'Kempen Penjenamaan: Dodol Warisan Bonda',
+        icon: 'palette',
+        badges: ['Adobe Photoshop', 'Premiere Pro', 'Visual Identity', '4K Video'],
+        desc: 'Projek kreatif komprehensif bagi menaik taraf jenama makanan warisan tradisi tempatan melalui pembungkusan moden, storyboard video promosi 4K, dan aset visual media sosial.',
+        code: `// Media Production Specs\nResolution: 3840 x 2160 (4K UHD) @ 24fps\nColor Space: Rec.709 Sinematik\nPackaging: 300 DPI CMYK Offset Ready Print\nAudio Design: 48kHz 24-bit Stereo Master`,
+        features: [
+          'Reka bentuk kotak pembungkusan berserta mock-up 3D realistik.',
+          'Iklan video komersial sinematik dengan color grading profesional.',
+          'Buku panduan jenama (Brand Identity Guidelines) untuk konsistensi visual.'
+        ],
+        actions: `
+          <a href="#hubungi" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary font-code-badge text-xs font-bold">
+            Galeri Media Lengkap
+          </a>
+        `
+      }
+    };
+
+    function openProjectModal(key) {
+      const data = projectDatabase[key];
+      if (!data) return;
+
+      document.getElementById('modalProjectTitle').innerText = data.title;
+      document.getElementById('modalProjectIcon').innerText = data.icon;
+      document.getElementById('modalProjectDesc').innerText = data.desc;
+      document.getElementById('modalProjectCode').innerHTML = `<pre class="overflow-x-auto"><code>${data.code}</code></pre>`;
+
+      const badgesContainer = document.getElementById('modalProjectBadges');
+      badgesContainer.innerHTML = data.badges.map(b => `<span class="px-2.5 py-1 rounded bg-surface-container text-primary font-code-badge text-xs border border-surface-container-high">${b}</span>`).join('');
+
+      const featuresContainer = document.getElementById('modalProjectFeatures');
+      featuresContainer.innerHTML = data.features.map(f => `<li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span><span>${f}</span></li>`).join('');
+
+      document.getElementById('modalProjectActions').innerHTML = data.actions;
+
+      const m = document.getElementById('projectModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeProjectModal() {
+      const m = document.getElementById('projectModal');
+      if (m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+    }
+
+    // Detailed Experience Modal Helper
+    function openExperienceModal(type) {
+      if (type === 'palapes') {
+        openProjectModalDynamic({
+          title: 'Kadet PALAPES (Politeknik Besut)',
+          icon: 'military_tech',
+          badges: ['Disiplin', 'Ketahanan', 'Kepimpinan'],
+          desc: 'Penglibatan aktif dalam Pasukan Latihan Pegawai Simpanan melatih ketahanan mental, kepimpinan dalam situasi sukar, serta ketepatan pengurusan masa.',
+          code: '// Nilai Diterapkan:\n- Ketepatan Masa (Zero Tolerance for Delay)\n- Kepimpinan Berasaskan Misi\n- Ketenangan Menghadapi Tekanan',
+          features: [
+            'Latihan kawad, navigasi darat, dan taktikal lapangan.',
+            'Pengurusan kontinjen dan penyelarasan aktiviti berpasukan.',
+            'Penerapan disiplin tinggi dalam kerjaya IT profesional.'
+          ],
+          actions: '<button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary font-code-badge text-xs font-bold cursor-pointer">Tutup</button>'
+        });
+      } else if (type === 'esports') {
+        openProjectModalDynamic({
+          title: 'eSports & Taktikal Kampus',
+          icon: 'sports_esports',
+          badges: ['Refleks Pantas', 'Komunikasi Suara', 'Strategi'],
+          desc: 'Mewakili institusi dalam kejohanan eSports Mobile Legends dan PUBG Mobile, mengasah daya komunikasi pantas dan analisa strategi.',
+          code: '// Sinergi Pasukan:\n- Analisa Meta & Pemilihan Watak\n- Shot Calling Masa Nyata\n- Semakan Replay Pasca Perlawanan',
+          features: [
+            'Penyelarasan suara masa nyata di bawah tekanan perlawanan sengit.',
+            'Analisa taktik pihak lawan dan penyesuaian strategi mikro/makro.',
+            'Semangat kesukanan dan kerja berpasukan berterusan.'
+          ],
+          actions: '<button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold cursor-pointer">Tutup</button>'
+        });
+      } else if (type === 'tvet') {
+        openProjectModalDynamic({
+          title: 'Pertandingan Kreatif TVET Star Merdeka',
+          icon: 'videocam',
+          badges: ['Premiere Pro', 'Audition', 'Sinematik'],
+          desc: 'Penyertaan dalam pertandingan vlog kreatif peringkat TVET mempamerkan keupayaan suntingan video sinematik dan penceritaan naratif berkualiti.',
+          code: '// Aliran Kerja Suntingan:\n- Penggambaran B-Roll 4K Sinematik\n- Pemulihan Audio Hingar (Noise Reduction)\n- Color Grading LUTS & Transisi Dinamik',
+          features: [
+            'Penghasilan papan cerita (storyboard) terperinci sebelum penggambaran.',
+            'Penyelarasan trek audio muzik latar dan suara latar (voiceover).',
+            'Penyampaian mesej patriotisme berteraskan teknologi pendidikan.'
+          ],
+          actions: '<button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-tertiary text-on-tertiary font-code-badge text-xs font-bold cursor-pointer">Tutup</button>'
+        });
+      } else {
+        openProjectModalDynamic({
+          title: 'Kepimpinan Projek Akademik IT',
+          icon: 'groups',
+          badges: ['Ketua Pasukan', 'Dokumentasi', 'Analisa Sistem'],
+          desc: 'Menerajui pelbagai kumpulan projek akademik dalam pembangunan sistem, penyediaan dokumentasi SDLC, dan pembentangan teknikal.',
+          code: '// Metodologi Pengurusan:\n- Pembahagian Modul Berdasarkan Kepakaran Ahli\n- Sprint Harian & Semakan Kod Bersama\n- Dokumentasi SRS & SDD Standard IEEE',
+          features: [
+            'Penyelarasan jadual pembangunan projek mengikut fasa SDLC.',
+            'Penyelesaian konflik teknikal dan pengurusan risiko pembangunan.',
+            'Pembentangan demo sistem secara profesional di hadapan pensyarah penilai.'
+          ],
+          actions: '<button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-code-badge text-xs font-bold cursor-pointer">Tutup</button>'
+        });
+      }
+    }
+
+    function openProjectModalDynamic(data) {
+      document.getElementById('modalProjectTitle').innerText = data.title;
+      document.getElementById('modalProjectIcon').innerText = data.icon;
+      document.getElementById('modalProjectDesc').innerText = data.desc;
+      document.getElementById('modalProjectCode').innerHTML = `<pre class="overflow-x-auto"><code>${data.code}</code></pre>`;
+
+      const badgesContainer = document.getElementById('modalProjectBadges');
+      badgesContainer.innerHTML = data.badges.map(b => `<span class="px-2.5 py-1 rounded bg-surface-container text-primary font-code-badge text-xs border border-surface-container-high">${b}</span>`).join('');
+
+      const featuresContainer = document.getElementById('modalProjectFeatures');
+      featuresContainer.innerHTML = data.features.map(f => `<li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span><span>${f}</span></li>`).join('');
+
+      document.getElementById('modalProjectActions').innerHTML = data.actions;
+
+      const m = document.getElementById('projectModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    // 13. Interactive Terminal CLI (BasyirOS CLI)
+    function toggleTerminalModal() {
+      const m = document.getElementById('terminalModal');
+      const input = document.getElementById('cliInput');
+      if (!m) return;
+
+      if (m.classList.contains('hidden')) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+        if (input) input.focus();
+      } else {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+    }
+
+    function clearTerminal() {
+      const out = document.getElementById('cliOutput');
+      if (out) {
+        out.innerHTML = '<div class="text-on-surface-variant">Terminal dikosongkan. Taip <span class="text-secondary font-bold">help</span> untuk bantuan.</div>';
+      }
+    }
+
+    function handleCliInput() {
+      const input = document.getElementById('cliInput');
+      if (!input || !input.value.trim()) return;
+
+      const cmd = input.value.trim();
+      input.value = '';
+      runCliCommand(cmd);
+    }
+
+    function runCliCommand(cmd) {
+      const out = document.getElementById('cliOutput');
+      if (!out) return;
+
+      const append = (html) => {
+        out.innerHTML += `<div class="pt-1"><span class="text-secondary font-bold">basyir@polibesut:~$</span> <span class="text-primary">${cmd}</span></div>${html}`;
+        out.scrollTop = out.scrollHeight;
+      };
+
+      const c = cmd.toLowerCase().trim();
+
+      if (c === 'help') {
+        append(`
+          <div class="text-on-surface-variant space-y-0.5 text-xs pl-2">
+            <p><span class="text-secondary font-bold">about</span> - Maklumat latar belakang Ahmad Mubassyir</p>
+            <p><span class="text-secondary font-bold">skills</span> - Senarai kemahiran pengaturcaraan &amp; sistem</p>
+            <p><span class="text-secondary font-bold">projects</span> - Senarai 6 projek portfolio</p>
+            <p><span class="text-secondary font-bold">sistrak</span> - Butiran prototaip sistem makmal SisTrak Lab</p>
+            <p><span class="text-secondary font-bold">cv</span> - Buka dokumen Resume / CV interaktif</p>
+            <p><span class="text-secondary font-bold">contact</span> - Maklumat emel &amp; media sosial</p>
+            <p><span class="text-secondary font-bold">sudo hire</span> - Ejen automasi temuduga / tawaran kerja</p>
+            <p><span class="text-secondary font-bold">clear</span> - Kosongkan skrin terminal</p>
+          </div>
+        `);
+      } else if (c === 'about') {
+        append(`
+          <div class="text-on-surface-variant text-xs pl-2 space-y-1">
+            <p class="text-on-surface font-semibold">Nama: Ahmad Mubassyir Bin Ahmad Mukri</p>
+            <p>Pendidikan: Diploma Teknologi Maklumat, Politeknik Besut (Semester Akhir)</p>
+            <p>Peranan: Full-Stack Web Developer, Linux SysAdmin &amp; Multimedia Specialist</p>
+            <p class="text-secondary">Kadet Aktif Pasukan Latihan Pegawai Simpanan (PALAPES)</p>
+          </div>
+        `);
+      } else if (c === 'skills') {
+        append(`
+          <div class="text-on-surface-variant text-xs pl-2 space-y-1">
+            <p><span class="text-primary font-bold">Web:</span> PHP 8+, Laravel Framework, Vue.js SPA, Modern JavaScript (ES6+), MySQL, Tailwind CSS</p>
+            <p><span class="text-secondary font-bold">SysAdmin:</span> Ubuntu Linux Server, Apache, Windows Server, Active Directory, DNS &amp; DHCP, VMware, SSH</p>
+            <p><span class="text-tertiary font-bold">Media &amp; AI:</span> Adobe Photoshop, Premiere Pro 4K, Audition, Figma, Python OOP, Gemini Prompting</p>
+          </div>
+        `);
+      } else if (c === 'projects') {
+        append(`
+          <div class="text-on-surface-variant text-xs pl-2 space-y-1">
+            <p><span class="text-primary font-bold">1. SisTrak Lab v3.0</span> - Sistem Pengurusan &amp; Penjejakan Makmal Pintar (Flagship)</p>
+            <p><span class="text-primary font-bold">2. i-Klinik</span> - Sistem Pengurusan Rekod &amp; Preskripsi Klinik (PHP 8/MySQL)</p>
+            <p><span class="text-primary font-bold">3. SMU Hamidiah</span> - Cloud Hosting &amp; Server Deployment</p>
+            <p><span class="text-primary font-bold">4. Dashboard Parlimen</span> - Penceritaan Data Looker Studio (OpenDOSM)</p>
+            <p><span class="text-primary font-bold">5. Hotel Booking OOP</span> - Algoritma Tempahan Python Berorientasikan Objek</p>
+            <p><span class="text-primary font-bold">6. Dodol Warisan Bonda</span> - Penjenamaan Visual &amp; Iklan 4K</p>
+          </div>
+        `);
+      } else if (c === 'sistrak') {
+        append(`
+          <div class="text-on-surface-variant text-xs pl-2 space-y-1">
+            <p class="text-primary font-bold">SisTrak Lab v3.0 (Tersedia dalam direktori design-prototype/index.html)</p>
+            <p>Pengurusan 10 makmal rasmi, muat naik fail jadual waktu per lab, sistem pelaras masa pantas, dan audio taktil.</p>
+            <p><a href="index.html" target="_blank" class="text-secondary underline font-bold">Klik sini untuk melancarkan SisTrak Lab langsung →</a></p>
+          </div>
+        `);
+      } else if (c === 'cv' || c === 'resume') {
+        append(`<div class="text-secondary text-xs pl-2">Membuka modal Resume / CV sekarang...</div>`);
+        setTimeout(() => {
+          toggleTerminalModal();
+          openCvModal();
+        }, 400);
+      } else if (c === 'contact') {
+        append(`
+          <div class="text-on-surface-variant text-xs pl-2 space-y-1">
+            <p>Emel: <a href="mailto:basyir1706@gmail.com" class="text-primary underline">basyir1706@gmail.com</a></p>
+            <p>GitHub: <a href="https://github.com/basyir1706-spec" target="_blank" class="text-secondary underline">https://github.com/basyir1706-spec</a></p>
+            <p>Lokasi: Politeknik Besut, Terengganu, Malaysia</p>
+          </div>
+        `);
+      } else if (c === 'sudo hire' || c === 'hire') {
+        append(`
+          <div class="p-2.5 rounded-lg bg-secondary/15 border border-secondary/30 text-secondary text-xs space-y-1">
+            <div class="font-bold text-sm">Akses Diberikan: Pengambilan Bekerja Berjaya! 🎉</div>
+            <p>Ahmad Mubassyir bersedia untuk menyumbang kemahiran teknikal Full-Stack &amp; SysAdmin ke dalam organisasi anda.</p>
+            <div class="pt-1">
+              <a href="#hubungi" onclick="toggleTerminalModal()" class="px-3 py-1 rounded bg-secondary text-on-secondary font-bold inline-block cursor-pointer">
+                Hantar Tawaran Segera
+              </a>
+            </div>
+          </div>
+        `);
+      } else if (c === 'clear') {
+        clearTerminal();
+      } else {
+        append(`<div class="text-error text-xs pl-2">Arahan '${cmd}' tidak ditemui. Taip <span class="text-primary underline cursor-pointer" onclick="runCliCommand('help')">help</span> untuk panduan.</div>`);
+      }
+    }
+
+    // 14. Scroll Spy for Desktop Navigation & Scroll-to-Top Button
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 120;
+      const sections = ['tentang-saya', 'kemahiran', 'projek-utama', 'kokurikulum-dan-pengalaman', 'hubungi'];
+      const navItems = document.querySelectorAll('.nav-item');
+
+      sections.forEach(secId => {
+        const secEl = document.getElementById(secId);
+        if (secEl) {
+          const top = secEl.offsetTop;
+          const height = secEl.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            navItems.forEach(item => {
+              if (item.dataset.section === secId) {
+                item.className = 'nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-semibold transition-all bg-primary-container text-on-primary-container';
+              } else {
+                item.className = 'nav-item px-3.5 py-1.5 rounded-lg text-body-sm font-medium transition-all text-on-surface-variant hover:text-on-surface';
+              }
+            });
+          }
+        }
+      });
+
+      // Scroll to Top Button Visibility
+      const topBtn = document.getElementById('scrollToTopBtn');
+      if (topBtn) {
+        if (window.scrollY > 300) {
+          topBtn.style.opacity = '1';
+          topBtn.style.pointerEvents = 'auto';
+        } else {
+          topBtn.style.opacity = '0';
+          topBtn.style.pointerEvents = 'none';
+        }
+      }
+    });
+
+    // Initial setup on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Calculate initial hotel demo
+      calculateHotelDemo();
+    });
+  </script>
+
+</body>
+</html>
